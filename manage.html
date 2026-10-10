@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#061426">
+  <title>Vision 4K · Manage Playlists</title>
+  <style>
+    :root{
+      --bg:#020712;--panel:rgba(7,24,44,.88);--line:rgba(94,177,255,.22);
+      --text:#f7fbff;--muted:#8faecb;--blue:#1697ff;--red:#e42a35;
+      --shadow:0 26px 80px rgba(0,0,0,.45);--radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{background:
+      radial-gradient(circle at 50% -10%,rgba(34,151,255,.24),transparent 38%),
+      radial-gradient(circle at 90% 20%,rgba(37,89,180,.14),transparent 30%),
+      linear-gradient(180deg,#061426 0%,#020712 72%);min-height:100vh}
+    .wrap{width:min(960px,calc(100% - 30px));margin:0 auto;padding:34px 0 54px}
+    .brand{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+    .mark{width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,#ff3347,#b70012);
+      display:grid;place-items:center;box-shadow:0 12px 35px rgba(229,21,48,.28)}
+    .mark:after{content:"";display:block;margin-left:4px;border-left:16px solid #fff;
+      border-top:10px solid transparent;border-bottom:10px solid transparent}
+    .brand h1{font-size:28px;margin:0;letter-spacing:-.7px}
+    .brand p{margin:2px 0 0;color:var(--muted);font-size:12px;letter-spacing:2px}
+    .card{background:linear-gradient(180deg,rgba(10,34,61,.92),rgba(4,17,33,.94));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .pad{padding:28px}
+    h2{margin:0 0 8px;font-size:27px;letter-spacing:-.5px}
+    .lead{margin:0;color:var(--muted);line-height:1.6}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+    label{display:block;font-size:12px;font-weight:700;letter-spacing:.7px;color:#c9ddf0;margin:0 0 8px}
+    input{width:100%;border:1px solid rgba(110,183,248,.25);background:#07192c;color:#fff;
+      border-radius:14px;padding:14px 15px;font-size:15px;outline:none;transition:.18s}
+    input:focus{border-color:#36b7ff;box-shadow:0 0 0 3px rgba(54,183,255,.12)}
+    button{border:0;border-radius:14px;padding:13px 18px;font-weight:800;letter-spacing:.3px;
+      color:#fff;background:#123c66;cursor:pointer;transition:.18s;font-size:13px}
+    button:hover{transform:translateY(-1px);filter:brightness(1.08)}
+    button:disabled{opacity:.48;cursor:not-allowed;transform:none}
+    .primary{background:linear-gradient(135deg,#168cff,#1eb7ff)}
+    .danger{background:linear-gradient(135deg,#d92538,#ac1225)}
+    .ghost{background:#0b2948;border:1px solid rgba(103,183,255,.2)}
+    .connect{width:100%;margin-top:17px;padding:15px}
+    .status{margin-top:16px;border-radius:14px;padding:12px 14px;font-size:13px;display:none}
+    .status.show{display:block}
+    .status.ok{background:rgba(28,193,128,.12);border:1px solid rgba(28,193,128,.28);color:#91f3ca}
+    .status.err{background:rgba(227,42,58,.12);border:1px solid rgba(227,42,58,.28);color:#ffadb7}
+    .status.wait{background:rgba(31,151,255,.11);border:1px solid rgba(31,151,255,.25);color:#a9dbff}
+    .manager{display:none;margin-top:20px}.manager.show{display:block}
+    .manager-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .manager-head h3{margin:0;font-size:18px}
+    .count{font-size:12px;color:#b9d4eb;background:#09233e;border:1px solid var(--line);
+      padding:7px 10px;border-radius:999px}
+    .playlist-list{display:grid;gap:12px}
+    .playlist{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px;
+      border-radius:17px;background:linear-gradient(135deg,rgba(16,55,91,.88),rgba(7,27,49,.94));
+      border:1px solid rgba(93,170,235,.19)}
+    .playlist-title{font-size:15px;font-weight:800;margin-bottom:5px;word-break:break-word}
+    .playlist-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .actions button{padding:9px 12px;font-size:11px}
+    .toolbar{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+    .toolbar .primary{margin-left:auto}
+    .empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed rgba(120,183,235,.22);
+      border-radius:16px}
+    .footer{text-align:center;color:#607f9c;font-size:11px;line-height:1.6;margin-top:22px}
+    .modal{position:fixed;inset:0;background:rgba(0,4,10,.78);display:none;align-items:center;
+      justify-content:center;padding:18px;z-index:20;backdrop-filter:blur(8px)}
+    .modal.show{display:flex}
+    .modal-box{width:min(560px,100%);max-height:92vh;overflow:auto;background:linear-gradient(180deg,#0b2746,#061629);
+      border:1px solid rgba(98,184,255,.28);border-radius:22px;box-shadow:0 30px 100px rgba(0,0,0,.65);padding:24px}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .modal-head h3{margin:0;font-size:21px}
+    .x{width:38px;height:38px;padding:0;border-radius:12px;font-size:18px}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#06182a;padding:5px;border-radius:14px;margin-bottom:16px}
+    .tab{background:transparent;color:#9ab8d2}.tab.active{background:#154f82;color:#fff}
+    .field{margin-top:13px}.hidden{display:none!important}
+    .modal-actions{display:flex;gap:10px;margin-top:20px}.modal-actions button{flex:1}
+    .security{margin-top:16px;color:#7898b4;font-size:11px;line-height:1.5}
+    @media(max-width:680px){
+      .wrap{width:min(100% - 20px,960px);padding-top:20px}.pad{padding:20px}.grid{grid-template-columns:1fr}
+      .playlist{align-items:flex-start;flex-direction:column}.actions{width:100%;justify-content:flex-start}
+      .brand h1{font-size:24px}h2{font-size:23px}.toolbar .primary{margin-left:0}
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand">
+    <div class="mark" aria-hidden="true"></div>
+    <div><h1>Vision 4K</h1><p>MANAGE PLAYLISTS</p></div>
+  </div>
+
+  <section class="card"><div class="pad">
+    <h2>Connect your device</h2>
+    <p class="lead">Enter the MAC Address and Device Key shown in Vision 4K. You can manage up to 5 playlists per device.</p>
+
+    <div class="grid">
+      <div>
+        <label for="mac">MAC ADDRESS</label>
+        <input id="mac" autocomplete="off" autocapitalize="characters" spellcheck="false"
+          placeholder="00:1A:79:AA:BB:CC" maxlength="17"
+          oninput="formatMacInput(this)">
+      </div>
+      <div>
+        <label for="key">DEVICE KEY</label>
+        <input id="key" type="password" autocomplete="off" autocapitalize="characters" spellcheck="false"
+          placeholder="AP4K-XXXXXXXX" maxlength="64">
+      </div>
+    </div>
+
+    <button id="connect" class="primary connect">CONNECT DEVICE</button>
+    <div id="status" class="status"></div>
+
+    <div id="manager" class="manager">
+      <div class="manager-head">
+        <h3>Your Playlists</h3>
+        <div id="count" class="count">0/5</div>
+      </div>
+
+      <div id="playlistList" class="playlist-list"></div>
+
+      <div class="toolbar">
+        <button id="disconnect" class="ghost">DISCONNECT</button>
+        <button id="refresh" class="ghost">REFRESH</button>
+        <button id="add" class="primary">+ ADD PLAYLIST</button>
+      </div>
+
+      <div class="security">
+        For privacy, saved playlist URLs, usernames and passwords are never displayed on this page.
+        After making changes, press <b>UPDATE</b> in Vision 4K.
+      </div>
+    </div>
+  </div></section>
+
+  <div class="footer">
+    Vision 4K is a media player only. No channels, playlists or subscriptions are provided.
+    Use only content you are authorized to access.
+  </div>
+</main>
+
+<div id="addModal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head"><h3>Add Playlist</h3><button class="x ghost" data-close="addModal">×</button></div>
+    <div class="tabs">
+      <button id="tabM3u" class="tab active">M3U</button>
+      <button id="tabXtream" class="tab">XTREAM CODES</button>
+    </div>
+    <div class="field"><label for="playlistName">PLAYLIST NAME</label><input id="playlistName" placeholder="My Playlist" maxlength="100"></div>
+    <div id="m3uFields">
+      <div class="field"><label for="m3uUrl">M3U URL</label><input id="m3uUrl" placeholder="http://example.com/get.php?..." autocomplete="off"></div>
+    </div>
+    <div id="xtreamFields" class="hidden">
+      <div class="field"><label for="serverUrl">SERVER URL</label><input id="serverUrl" placeholder="http://example.com:8080" autocomplete="off"></div>
+      <div class="field"><label for="xcUser">USERNAME</label><input id="xcUser" placeholder="Username" autocomplete="off"></div>
+      <div class="field"><label for="xcPass">PASSWORD</label><input id="xcPass" type="password" placeholder="Password" autocomplete="off"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="ghost" data-close="addModal">CANCEL</button>
+      <button id="savePlaylist" class="primary">ADD PLAYLIST</button>
+    </div>
+  </div>
+</div>
+
+<div id="renameModal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head"><h3>Rename Playlist</h3><button class="x ghost" data-close="renameModal">×</button></div>
+    <div class="field"><label for="renameName">PLAYLIST NAME</label><input id="renameName" maxlength="100"></div>
+    <div class="modal-actions">
+      <button class="ghost" data-close="renameModal">CANCEL</button>
+      <button id="saveRename" class="primary">SAVE NAME</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function formatMacInput(el) {
+  const clean = String(el.value || "")
+    .toUpperCase()
+    .replace(/[^0-9A-F]/g, "")
+    .slice(0, 12);
+
+  el.value = (clean.match(/.{1,2}/g) || []).join(":");
+}
+
+(() => {
+  "use strict";
+  const API_URL = "https://albplayr.openibc.fit/app/api/client_playlist_api.php";
+
+  let auth = null;
+  let playlistType = "m3u";
+  let renameId = 0;
+  const $ = (id) => document.getElementById(id);
+
+  function setStatus(message, kind = "wait") {
+    const el = $("status");
+    el.textContent = message;
+    el.className = "status show " + kind;
+  }
+
+  function clearStatus() {
+    $("status").className = "status";
+    $("status").textContent = "";
+  }
+
+  async function api(action, extra = {}) {
+    if (!auth) throw new Error("Connect your device first.");
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      cache: "no-store",
+      body: JSON.stringify({
+        action,
+        mac_address: auth.mac,
+        device_key: auth.key,
+        ...extra
+      })
+    });
+
+    let data;
+    try { data = await response.json(); }
+    catch (_) { throw new Error("Invalid server response."); }
+
+    if (!response.ok || !data.status) {
+      throw new Error(data.message || "Request failed.");
+    }
+    return data;
+  }
+
+  function renderPlaylists(data) {
+    const list = $("playlistList");
+    const playlists = Array.isArray(data.playlists) ? data.playlists : [];
+    const max = Number(data.max_playlists || 5);
+
+    $("count").textContent = `${playlists.length}/${max}`;
+    $("add").disabled = playlists.length >= max;
+
+    if (!playlists.length) {
+      list.innerHTML = `<div class="empty">No playlists added yet.</div>`;
+      return;
+    }
+
+    list.innerHTML = "";
+
+    for (const item of playlists) {
+      const row = document.createElement("div");
+      row.className = "playlist";
+
+      const info = document.createElement("div");
+      const title = document.createElement("div");
+      title.className = "playlist-title";
+      title.textContent = item.name || "Playlist";
+
+      const type = document.createElement("div");
+      type.className = "playlist-type";
+      type.textContent = item.type === "xtream" ? "XTREAM CODES" : "M3U";
+      info.append(title, type);
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const rename = document.createElement("button");
+      rename.className = "ghost";
+      rename.textContent = "RENAME";
+      rename.addEventListener("click", () => openRename(item));
+
+      const del = document.createElement("button");
+      del.className = "danger";
+      del.textContent = "DELETE";
+      del.addEventListener("click", () => deletePlaylist(item));
+
+      actions.append(rename, del);
+      row.append(info, actions);
+      list.append(row);
+    }
+  }
+
+  async function connectDevice() {
+    const mac = $("mac").value.trim().toUpperCase();
+    const key = $("key").value.trim().toUpperCase();
+
+    if (!mac || !key) {
+      setStatus("Enter MAC Address and Device Key.", "err");
+      return;
+    }
+
+    auth = {mac, key};
+    $("connect").disabled = true;
+    setStatus("Connecting to Vision 4K...", "wait");
+
+    try {
+      const data = await api("verify_device");
+      $("manager").classList.add("show");
+      renderPlaylists(data);
+      setStatus("Device connected successfully.", "ok");
+      sessionStorage.setItem("vision4k_mac", mac);
+      sessionStorage.setItem("vision4k_key", key);
+    } catch (err) {
+      auth = null;
+      $("manager").classList.remove("show");
+      setStatus(err.message || "Could not connect device.", "err");
+    } finally {
+      $("connect").disabled = false;
+    }
+  }
+
+  async function refreshPlaylists() {
+    setStatus("Refreshing playlists...", "wait");
+    try {
+      const data = await api("list_playlists");
+      renderPlaylists(data);
+      setStatus("Playlists refreshed.", "ok");
+    } catch (err) {
+      setStatus(err.message, "err");
+    }
+  }
+
+  function disconnectDevice() {
+    auth = null;
+    sessionStorage.removeItem("vision4k_mac");
+    sessionStorage.removeItem("vision4k_key");
+    $("key").value = "";
+    $("manager").classList.remove("show");
+    clearStatus();
+  }
+
+  function setType(type) {
+    playlistType = type;
+    $("tabM3u").classList.toggle("active", type === "m3u");
+    $("tabXtream").classList.toggle("active", type === "xtream");
+    $("m3uFields").classList.toggle("hidden", type !== "m3u");
+    $("xtreamFields").classList.toggle("hidden", type !== "xtream");
+  }
+
+  function openAdd() {
+    $("playlistName").value = "";
+    $("m3uUrl").value = "";
+    $("serverUrl").value = "";
+    $("xcUser").value = "";
+    $("xcPass").value = "";
+    setType("m3u");
+    $("addModal").classList.add("show");
+    setTimeout(() => $("playlistName").focus(), 80);
+  }
+
+  async function savePlaylist() {
+    const button = $("savePlaylist");
+    const playlist_name = $("playlistName").value.trim() || "Playlist";
+    const payload = {playlist_name, playlist_type: playlistType};
+
+    if (playlistType === "m3u") {
+      const m3u_url = $("m3uUrl").value.trim();
+      if (!m3u_url) { alert("Enter M3U URL."); return; }
+      payload.m3u_url = m3u_url;
+    } else {
+      const server_url = $("serverUrl").value.trim();
+      const username = $("xcUser").value.trim();
+      const password = $("xcPass").value;
+      if (!server_url || !username || !password) {
+        alert("Enter Server URL, Username and Password.");
+        return;
+      }
+      payload.server_url = server_url;
+      payload.username = username;
+      payload.password = password;
+    }
+
+    button.disabled = true;
+    try {
+      const data = await api("add_playlist", payload);
+      closeModal("addModal");
+      renderPlaylists(data);
+      setStatus(data.message || "Playlist added.", "ok");
+    } catch (err) {
+      setStatus(err.message, "err");
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  function openRename(item) {
+    renameId = Number(item.id || 0);
+    $("renameName").value = item.name || "Playlist";
+    $("renameModal").classList.add("show");
+    setTimeout(() => { $("renameName").focus(); $("renameName").select(); }, 80);
+  }
+
+  async function saveRename() {
+    const name = $("renameName").value.trim();
+    if (!renameId || !name) return;
+
+    $("saveRename").disabled = true;
+    try {
+      const data = await api("rename_playlist", {
+        playlist_id: renameId,
+        playlist_name: name
+      });
+      closeModal("renameModal");
+      renderPlaylists(data);
+      setStatus(data.message || "Playlist renamed.", "ok");
+    } catch (err) {
+      setStatus(err.message, "err");
+    } finally {
+      $("saveRename").disabled = false;
+    }
+  }
+
+  async function deletePlaylist(item) {
+    if (!confirm(`Delete "${item.name || "Playlist"}"?`)) return;
+    setStatus("Deleting playlist...", "wait");
+
+    try {
+      const data = await api("delete_playlist", {playlist_id: Number(item.id)});
+      renderPlaylists(data);
+      setStatus(data.message || "Playlist deleted.", "ok");
+    } catch (err) {
+      setStatus(err.message, "err");
+    }
+  }
+
+  function closeModal(id) { $(id).classList.remove("show"); }
+
+  $("connect").addEventListener("click", connectDevice);
+  $("refresh").addEventListener("click", refreshPlaylists);
+  $("disconnect").addEventListener("click", disconnectDevice);
+  $("add").addEventListener("click", openAdd);
+  $("tabM3u").addEventListener("click", () => setType("m3u"));
+  $("tabXtream").addEventListener("click", () => setType("xtream"));
+  $("savePlaylist").addEventListener("click", savePlaylist);
+  $("saveRename").addEventListener("click", saveRename);
+
+  document.querySelectorAll("[data-close]").forEach((btn) => {
+    btn.addEventListener("click", () => closeModal(btn.dataset.close));
+  });
+
+  document.querySelectorAll(".modal").forEach((modal) => {
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal(modal.id);
+    });
+  });
+
+  $("mac").addEventListener("keydown", (e) => { if (e.key === "Enter") $("key").focus(); });
+  $("key").addEventListener("keydown", (e) => { if (e.key === "Enter") connectDevice(); });
+
+  const savedMac = sessionStorage.getItem("vision4k_mac");
+  const savedKey = sessionStorage.getItem("vision4k_key");
+  if (savedMac && savedKey) {
+    $("mac").value = savedMac;
+    $("key").value = savedKey;
+  }
+})();
+</script>
+</body>
+</html>
