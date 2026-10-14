@@ -6,114 +6,280 @@
   <meta name="theme-color" content="#061426">
   <title>Vision 4K · Manage Playlists</title>
   <style>
-    :root{
-      --bg:#020712;--panel:rgba(7,24,44,.88);--line:rgba(94,177,255,.22);
-      --text:#f7fbff;--muted:#8faecb;--blue:#1697ff;--red:#e42a35;
-      --shadow:0 26px 80px rgba(0,0,0,.45);--radius:22px;
+    :root {
+      color-scheme: dark;
+      --bg: #040b16;
+      --panel: rgba(9, 23, 43, .94);
+      --line: rgba(120, 172, 225, .18);
+      --text: #f7faff;
+      --muted: #90a5be;
+      --blue: #258fff;
+      --red: #eb2b45;
+      --shadow: 0 28px 90px rgba(0, 0, 0, .48);
+      --radius: 24px;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    body{background:
-      radial-gradient(circle at 50% -10%,rgba(34,151,255,.24),transparent 38%),
-      radial-gradient(circle at 90% 20%,rgba(37,89,180,.14),transparent 30%),
-      linear-gradient(180deg,#061426 0%,#020712 72%);min-height:100vh}
-    .wrap{width:min(960px,calc(100% - 30px));margin:0 auto;padding:34px 0 54px}
-    .brand{display:flex;align-items:center;gap:14px;margin-bottom:28px}
-    .mark{width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,#ff3347,#b70012);
-      display:grid;place-items:center;box-shadow:0 12px 35px rgba(229,21,48,.28)}
-    .mark:after{content:"";display:block;margin-left:4px;border-left:16px solid #fff;
-      border-top:10px solid transparent;border-bottom:10px solid transparent}
-    .brand h1{font-size:28px;margin:0;letter-spacing:-.7px}
-    .brand p{margin:2px 0 0;color:var(--muted);font-size:12px;letter-spacing:2px}
-    .card{background:linear-gradient(180deg,rgba(10,34,61,.92),rgba(4,17,33,.94));
-      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-    .pad{padding:28px}
-    h2{margin:0 0 8px;font-size:27px;letter-spacing:-.5px}
-    .lead{margin:0;color:var(--muted);line-height:1.6}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
-    label{display:block;font-size:12px;font-weight:700;letter-spacing:.7px;color:#c9ddf0;margin:0 0 8px}
-    input{width:100%;border:1px solid rgba(110,183,248,.25);background:#07192c;color:#fff;
-      border-radius:14px;padding:14px 15px;font-size:15px;outline:none;transition:.18s}
-    input:focus{border-color:#36b7ff;box-shadow:0 0 0 3px rgba(54,183,255,.12)}
-    button{border:0;border-radius:14px;padding:13px 18px;font-weight:800;letter-spacing:.3px;
-      color:#fff;background:#123c66;cursor:pointer;transition:.18s;font-size:13px}
-    button:hover{transform:translateY(-1px);filter:brightness(1.08)}
-    button:disabled{opacity:.48;cursor:not-allowed;transform:none}
-    .primary{background:linear-gradient(135deg,#168cff,#1eb7ff)}
-    .danger{background:linear-gradient(135deg,#d92538,#ac1225)}
-    .ghost{background:#0b2948;border:1px solid rgba(103,183,255,.2)}
-    .connect{width:100%;margin-top:17px;padding:15px}
-    .status{margin-top:16px;border-radius:14px;padding:12px 14px;font-size:13px;display:none}
-    .status.show{display:block}
-    .status.ok{background:rgba(28,193,128,.12);border:1px solid rgba(28,193,128,.28);color:#91f3ca}
-    .status.err{background:rgba(227,42,58,.12);border:1px solid rgba(227,42,58,.28);color:#ffadb7}
-    .status.wait{background:rgba(31,151,255,.11);border:1px solid rgba(31,151,255,.25);color:#a9dbff}
-    .manager{display:none;margin-top:20px}.manager.show{display:block}
-    .manager-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-    .manager-head h3{margin:0;font-size:18px}
-    .count{font-size:12px;color:#b9d4eb;background:#09233e;border:1px solid var(--line);
-      padding:7px 10px;border-radius:999px}
-    .playlist-list{display:grid;gap:12px}
-    .playlist{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px;
-      border-radius:17px;background:linear-gradient(135deg,rgba(16,55,91,.88),rgba(7,27,49,.94));
-      border:1px solid rgba(93,170,235,.19)}
-    .playlist-title{font-size:15px;font-weight:800;margin-bottom:5px;word-break:break-word}
-    .playlist-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-    .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .actions button{padding:9px 12px;font-size:11px}
-    .toolbar{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-    .toolbar .primary{margin-left:auto}
-    .empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed rgba(120,183,235,.22);
-      border-radius:16px}
-    .footer{text-align:center;color:#607f9c;font-size:11px;line-height:1.6;margin-top:22px}
-    .modal{position:fixed;inset:0;background:rgba(0,4,10,.78);display:none;align-items:center;
-      justify-content:center;padding:18px;z-index:20;backdrop-filter:blur(8px)}
-    .modal.show{display:flex}
-    .modal-box{width:min(560px,100%);max-height:92vh;overflow:auto;background:linear-gradient(180deg,#0b2746,#061629);
-      border:1px solid rgba(98,184,255,.28);border-radius:22px;box-shadow:0 30px 100px rgba(0,0,0,.65);padding:24px}
-    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-    .modal-head h3{margin:0;font-size:21px}
-    .x{width:38px;height:38px;padding:0;border-radius:12px;font-size:18px}
-    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#06182a;padding:5px;border-radius:14px;margin-bottom:16px}
-    .tab{background:transparent;color:#9ab8d2}.tab.active{background:#154f82;color:#fff}
-    .field{margin-top:13px}.hidden{display:none!important}
-    .modal-actions{display:flex;gap:10px;margin-top:20px}.modal-actions button{flex:1}
-    .security{margin-top:16px;color:#7898b4;font-size:11px;line-height:1.5}
-    @media(max-width:680px){
-      .wrap{width:min(100% - 20px,960px);padding-top:20px}.pad{padding:20px}.grid{grid-template-columns:1fr}
-      .playlist{align-items:flex-start;flex-direction:column}.actions{width:100%;justify-content:flex-start}
-      .brand h1{font-size:24px}h2{font-size:23px}.toolbar .primary{margin-left:0}
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--bg); }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse 75% 55% at 50% -21%, rgba(29, 120, 239, .34), transparent 78%),
+        radial-gradient(ellipse 45% 50% at 99% 70%, rgba(7, 79, 174, .15), transparent 75%),
+        radial-gradient(ellipse 42% 55% at 0% 85%, rgba(25, 77, 146, .13), transparent 74%),
+        linear-gradient(155deg, #09192d 0%, #050e1c 40%, #030812 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(105, 169, 238, .17) .7px, transparent .8px);
+      background-size: 25px 25px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.52), transparent 85%);
+      opacity: .30;
+    }
+    .wrap {
+      position: relative;
+      isolation: isolate;
+      width: min(780px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 38px 0 34px;
+    }
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 50px;
+    }
+    .brand-identity { display: flex; align-items: center; gap: 13px; }
+    .mark {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ff4054 0%, #e11b3a 50%, #9a1235 100%);
+      box-shadow: 0 12px 34px rgba(224, 25, 54, .25), inset 0 1px 0 rgba(255, 255, 255, .21);
+    }
+    .mark::after {
+      content: "";
+      display: block;
+      margin-left: 4px;
+      border-left: 16px solid white;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+    }
+    .brand h1 { font-size: 24px; line-height: 1.08; font-weight: 800; letter-spacing: -.8px; margin: 0; }
+    .brand p { margin: 5px 0 0; color: #8cadd1; font-size: 10px; letter-spacing: 2.5px; font-weight: 750; }
+    .brand-right { display: flex; align-items: center; gap: 8px; color: #8faac7; font-size: 11px; font-weight: 700; letter-spacing: 1.35px; text-transform: uppercase; }
+    .brand-right::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #58ceae; box-shadow: 0 0 12px rgba(88, 206, 174, .65); }
+    .card {
+      position: relative;
+      border: 1px solid rgba(112, 161, 218, .25);
+      border-radius: 26px;
+      background:
+        radial-gradient(ellipse 75% 60% at 96% 0%, rgba(40, 116, 206, .09), transparent 75%),
+        linear-gradient(145deg, rgba(14, 31, 54, .98), rgba(7, 19, 37, .98));
+      box-shadow: 0 24px 90px rgba(0, 0, 0, .52), inset 0 1px 0 rgba(255, 255, 255, .045);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(97, 173, 255, .88), transparent);
+      pointer-events: none;
+    }
+    .pad { padding: 44px 45px 34px; }
+    .eyebrow { color: #73b5ff; font-size: 11px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; margin: 0 0 15px; }
+    h2 { font-size: clamp(28px, 4vw, 36px); letter-spacing: -1.35px; line-height: 1.15; font-weight: 800; margin: 0 0 13px; }
+    .lead { margin: 0; max-width: 610px; color: #a2b4c9; font-size: 14px; line-height: 1.75; }
+    .divider { height: 1px; background: linear-gradient(90deg, var(--line), rgba(120, 172, 225, .02)); margin: 29px 0 25px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { display: block; color: #d4e3f6; font-weight: 800; font-size: 11px; letter-spacing: 1.15px; margin: 0 0 10px; }
+    input {
+      width: 100%; min-width: 0; outline: none;
+      border-radius: 12px;
+      border: 1px solid rgba(122, 164, 212, .28);
+      background: rgba(3, 14, 29, .66);
+      color: #f6faff;
+      padding: 15px 16px;
+      font-size: 14px;
+      font-family: inherit;
+      letter-spacing: .25px;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+    input::placeholder { color: #637e9a; }
+    input:focus { border-color: #4ea9ff; box-shadow: 0 0 0 3px rgba(43, 142, 255, .13); background: #07182b; }
+    .input-shell { position: relative; }
+    .input-shell input { padding-left: 47px; height: 53px; }
+    .input-icon { position: absolute; width: 19px; height: 19px; left: 17px; top: 17px; color: #6897c2; pointer-events: none; transition: color .2s; }
+    .input-shell:focus-within .input-icon { color: #64b7ff; }
+    button {
+      border: 0; border-radius: 12px; min-height: 41px; padding: 12px 17px;
+      color: #fff; background: #153c66; cursor: pointer; font-weight: 800;
+      font-size: 12px; letter-spacing: .45px; transition: transform .18s, box-shadow .18s, filter .18s;
+      font-family: inherit;
+    }
+    button:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    button:active { transform: translateY(0); }
+    button:focus-visible { outline: 2px solid #86d1ff; outline-offset: 3px; }
+    button:disabled { cursor: not-allowed; opacity: .46; transform: none; }
+    .primary { background: linear-gradient(100deg, #1876e9 0%, #1697fa 54%, #19b7ef 100%); box-shadow: 0 10px 27px rgba(14, 119, 234, .17); }
+    .primary:hover { box-shadow: 0 12px 32px rgba(14, 119, 234, .27); }
+    .danger { background: linear-gradient(135deg, #d92538, #ac1225); }
+    .ghost { border: 1px solid rgba(111, 165, 220, .26); background: rgba(18, 49, 82, .9); }
+    .connect { width: 100%; min-height: 53px; padding: 15px; margin-top: 20px; font-size: 13px; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .connect-arrow { font-size: 19px; line-height: 1; font-weight: 400; }
+    .help {
+      margin-top: 21px; text-align: center; color: #8ea9c4; font-size: 12px;
+    }
+    .help summary { cursor: pointer; display: inline-flex; align-items: center; gap: 7px; font-weight: 650; color: #95bce7; list-style: none; }
+    .help summary::-webkit-details-marker { display: none; }
+    .help summary::before { content: "?"; display: inline-grid; place-items: center; width: 17px; height: 17px; border: 1px solid rgba(134, 190, 244, .58); border-radius: 50%; font-size: 10px; font-weight: 800; }
+    .help[open] { text-align: left; border-radius: 11px; padding: 13px 15px; background: rgba(44, 103, 172, .09); }
+    .help p { color: #a1b9d1; line-height: 1.7; margin: 10px 0 0; }
+    .privacy-note { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 28px; padding-top: 21px; border-top: 1px solid rgba(113, 162, 212, .13); font-size: 11px; color: #809bb7; }
+    .privacy-note svg { width: 14px; height: 14px; color: #78acdf; flex-shrink: 0; }
+    .status { margin-top: 16px; border-radius: 12px; padding: 13px 15px; display: none; font-size: 13px; line-height: 1.55; }
+    .status.show { display: block; }
+    .status.ok { color: #91f3ca; border: 1px solid rgba(28, 193, 128, .28); background: rgba(28, 193, 128, .10); }
+    .status.err { color: #ffadb7; border: 1px solid rgba(227, 42, 58, .28); background: rgba(227, 42, 58, .10); }
+    .status.wait { color: #a9dbff; border: 1px solid rgba(31, 151, 255, .25); background: rgba(31, 151, 255, .09); }
+    .manager { display: none; margin-top: 27px; border-top: 1px solid rgba(120, 172, 225, .16); padding-top: 26px; }
+    .manager.show { display: block; }
+    .manager-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .manager-head h3 { margin: 0; font-size: 18px; letter-spacing: -.3px; }
+    .count { font-size: 12px; color: #b9d4eb; background: #09233e; border: 1px solid var(--line); padding: 7px 10px; border-radius: 999px; }
+    .playlist-list { display: grid; gap: 12px; }
+    .playlist { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 17px; border-radius: 14px; background: linear-gradient(135deg, rgba(16, 55, 91, .58), rgba(7, 27, 49, .72)); border: 1px solid rgba(93, 170, 235, .17); }
+    .playlist-title { font-size: 15px; font-weight: 800; margin-bottom: 5px; word-break: break-word; }
+    .playlist-type { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .actions button { padding: 9px 12px; font-size: 11px; }
+    .toolbar { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .toolbar .primary { margin-left: auto; }
+    .empty { padding: 24px; text-align: center; color: var(--muted); border: 1px dashed rgba(120, 183, 235, .22); border-radius: 14px; }
+    .security { margin-top: 16px; color: #809db8; font-size: 11px; line-height: 1.65; }
+    .footer { text-align: center; color: #6e88a4; font-size: 11px; line-height: 1.8; margin: 24px auto 0; max-width: 600px; }
+    .footer strong { font-weight: 750; color: #9db4ca; }
+    .modal { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; padding: 18px; z-index: 20; background: rgba(0, 4, 10, .80); backdrop-filter: blur(8px); }
+    .modal.show { display: flex; }
+    .modal-box { width: min(560px, 100%); max-height: 92vh; overflow: auto; padding: 27px; border-radius: 22px; border: 1px solid rgba(98, 184, 255, .26); background: linear-gradient(180deg, #102943, #071729); box-shadow: 0 30px 100px rgba(0,0,0,.65); }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 10px; }
+    .modal-head h3 { margin: 0; font-size: 21px; }
+    .x { width: 38px; height: 38px; padding: 0; border-radius: 12px; font-size: 18px; }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; border-radius: 14px; padding: 5px; background: #06182a; }
+    .tab { background: transparent; color: #9ab8d2; }
+    .tab.active { color: #fff; background: #154f82; }
+    .field { margin-top: 13px; }
+    .hidden { display: none !important; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+    .modal-actions button { flex: 1; }
+    @media (min-width: 860px) { .card { transform: translateZ(0); } }
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 28px, 780px); padding-top: 21px; }
+      .brand { margin-bottom: 35px; }
+      .brand h1 { font-size: 22px; }
+      .brand-right { display: none; }
+      .card { border-radius: 21px; }
+      .pad { padding: 28px 22px 24px; }
+      .grid { grid-template-columns: 1fr; gap: 20px; }
+      .divider { margin: 24px 0 23px; }
+      .playlist { align-items: flex-start; flex-direction: column; }
+      .actions { width: 100%; justify-content: flex-start; }
+      .toolbar .primary { margin-left: 0; }
+      .modal-box { padding: 21px; }
+      .privacy-note { align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      input, button, .input-icon { transition: none; }
+    }
+
+
+/* — New background layer — visual only, not part of authentication or playback. */
+.vision-stage{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none;isolation:isolate}
+.vision-stage *{pointer-events:none}
+.wrap{z-index:1}
+@media(max-width:680px){.vision-stage{opacity:.72}}
+
+
+body{background:radial-gradient(ellipse 75% 65% at 79% 30%,rgba(49,99,183,.29),transparent 77%),linear-gradient(137deg,#051124 0%,#061222 45%,#01050c 100%)}
+body::before{background-image:linear-gradient(90deg,rgba(115,169,250,.06) 1px,transparent 1px);background-size:90px 90px;opacity:.28}
+.vision-stage::before{content:"";position:absolute;inset:-12%;background:radial-gradient(ellipse at 80% 35%,rgba(28,110,220,.25),transparent 42%),radial-gradient(ellipse at 12% 73%,rgba(173,24,67,.17),transparent 37%);filter:blur(13px)}
+.cinema-wall{position:absolute;top:13%;left:64%;width:690px;height:575px;border-radius:28px;padding:20px;border:1px solid rgba(97,165,236,.22);background:linear-gradient(145deg,rgba(18,43,72,.67),rgba(4,12,26,.75));box-shadow:0 20px 130px #000e,0 0 110px rgba(38,105,205,.18);transform:perspective(1050px) rotateY(-22deg) rotateZ(3deg);opacity:.66;filter:blur(1.8px)}
+.cinema-wall::before{content:"VISION 4K  ·  HOME      LIVE TV      MOVIES      SERIES";display:block;color:#d2eaff;font-weight:800;font-size:14px;letter-spacing:1.5px;border-bottom:1px solid #749bd333;padding:6px 4px 22px}
+.cinema-hero{height:150px;border-radius:14px;margin:20px 0;background:radial-gradient(ellipse at 68% 15%,rgba(36,151,224,.7),transparent 50%),linear-gradient(120deg,#101827,#30487e 58%,#100e1e);position:relative;overflow:hidden}
+.cinema-hero::before{content:"EXPLORE MORE";position:absolute;bottom:23px;left:27px;font-size:23px;font-weight:900;letter-spacing:3px;color:#f6f5ff;text-shadow:0 4px 18px #000}
+.cinema-hero::after{content:"";position:absolute;width:220px;height:220px;border:1px solid #c3eaff88;border-radius:50%;top:-70px;right:55px;box-shadow:0 0 0 28px #ffffff08,0 0 0 65px #ffffff0c}
+.cinema-label{font-size:13px;font-weight:850;color:#adcae9;letter-spacing:3px;margin:14px 0}
+.cinema-posters{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.cinema-posters span{height:180px;border-radius:10px;border:1px solid #adcffc33;box-shadow:inset 0 -60px 50px #0009}
+.cinema-posters span:nth-child(1){background:radial-gradient(circle at 40% 30%,#f44f43,#332f65 44%,#080c1d)}
+.cinema-posters span:nth-child(2){background:linear-gradient(140deg,#10252d 8%,#0d9bba 50%,#04101c 91%)}
+.cinema-posters span:nth-child(3){background:radial-gradient(ellipse at 20% 10%,#ffd489,#88407a 46%,#141332)}
+.cinema-posters span:nth-child(4){background:linear-gradient(170deg,#2e5886,#193b51 39%,#160918 72%,#c74445)}
+.cinema-shadow{position:absolute;top:23%;right:74%;width:370px;height:410px;border-radius:40px;opacity:.16;transform:rotate(-17deg);background:repeating-linear-gradient(90deg,#51acfb2b 0 3px,transparent 3px 30px),radial-gradient(circle,#1f87db,transparent 70%);filter:blur(14px)}
+.card{background:linear-gradient(155deg,rgba(11,29,54,.97),rgba(5,14,27,.98));box-shadow:0 30px 110px #000c,0 0 80px #0957b024}
+@media(max-width:1100px){.cinema-wall{left:67%;opacity:.40}.cinema-shadow{display:none}}
+@media(max-width:680px){.cinema-wall{top:45%;left:18%;opacity:.14;transform:rotate(-12deg) scale(.95)}.vision-stage::before{opacity:.85}}
+
   </style>
 </head>
 <body>
+<div class="vision-stage" aria-hidden="true"><div class="cinema-shadow"></div><div class="cinema-wall"><div class="cinema-hero"></div><div class="cinema-label">TRENDING NOW</div><div class="cinema-posters"><span></span><span></span><span></span><span></span></div></div></div>
 <main class="wrap">
-  <div class="brand">
-    <div class="mark" aria-hidden="true"></div>
-    <div><h1>Vision 4K</h1><p>MANAGE PLAYLISTS</p></div>
-  </div>
+  <header class="brand">
+    <div class="brand-identity">
+      <div class="mark" aria-hidden="true"></div>
+      <div><h1>Vision 4K</h1><p>PLAYLIST MANAGER</p></div>
+    </div>
+    <div class="brand-right">Official device portal</div>
+  </header>
 
   <section class="card"><div class="pad">
-    <h2>Connect your device</h2>
-    <p class="lead">Enter the MAC Address and Device Key shown in Vision 4K. You can manage up to 5 playlists per device.</p>
+    <div class="eyebrow">DEVICE CONNECTION</div>
+    <h2>Pair your device<span style="color:#43a8ff">.</span></h2>
+    <p class="lead">Enter the MAC Address and Device Key displayed in your Vision 4K app to access and manage your playlists.</p>
+    <div class="divider" aria-hidden="true"></div>
 
     <div class="grid">
       <div>
         <label for="mac">MAC ADDRESS</label>
-        <input id="mac" autocomplete="off" autocapitalize="characters" spellcheck="false"
-          placeholder="00:1A:79:AA:BB:CC" maxlength="17"
-          oninput="formatMacInput(this)">
+        <div class="input-shell">
+          <svg class="input-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17.5V21"/></svg>
+          <input id="mac" autocomplete="off" autocapitalize="characters" spellcheck="false"
+            placeholder="00:1A:79:AA:BB:CC" maxlength="17"
+            oninput="formatMacInput(this)">
+        </div>
       </div>
       <div>
         <label for="key">DEVICE KEY</label>
-        <input id="key" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false"
-          placeholder="AP4K-XXXXXXXX" maxlength="64">
+        <div class="input-shell">
+          <svg class="input-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4.5"/><path d="m11.2 11.8 8.2-8.2 2 2-2.2 2.2M16 7l2 2"/></svg>
+          <input id="key" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false"
+            placeholder="AP4K-XXXXXXXX" maxlength="64">
+        </div>
       </div>
     </div>
 
-    <button id="connect" class="primary connect">CONNECT DEVICE</button>
-    <div id="status" class="status"></div>
+    <button id="connect" class="primary connect">PAIR DEVICE <span class="connect-arrow" aria-hidden="true">→</span></button>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <details class="help">
+      <summary>Where can I find my MAC Address and Device Key?</summary>
+      <p>Open Vision 4K on your device. The MAC Address and Device Key appear on the app’s activation screen. Enter both values here exactly as shown.</p>
+    </details>
 
     <div id="manager" class="manager">
       <div class="manager-head">
@@ -134,12 +300,16 @@
         After making changes, press <b>UPDATE</b> in Vision 4K.
       </div>
     </div>
+    <div class="privacy-note">
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <span>Device verification &nbsp;·&nbsp; Manage up to 5 playlists per device</span>
+    </div>
   </div></section>
 
-  <div class="footer">
-    Vision 4K is a media player only. No channels, playlists or subscriptions are provided.
+  <footer class="footer">
+    <strong>Vision 4K is a media player only.</strong> No channels, playlists or subscriptions are provided.<br>
     Use only content you are authorized to access.
-  </div>
+  </footer>
 </main>
 
 <div id="addModal" class="modal">
