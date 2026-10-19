@@ -627,7 +627,8 @@ function formatMacInput(el) {
       "MAC: " + auth.mac + "\n" +
       "Device Key: " + auth.key;
     const url = "https://t.me/coosmoi?text=" + encodeURIComponent(message);
-    window.open(url, "_blank", "noopener,noreferrer");
+    // Navigate directly from the user's click; this avoids popup blockers on mobile browsers.
+    window.location.href = url;
   }
 
   function renderPlaylists(data) {
