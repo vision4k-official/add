@@ -162,6 +162,21 @@
     .manager-head h3 { margin: 0; font-size: 18px; letter-spacing: -.3px; }
     .count { font-size: 12px; color: #b9d4eb; background: #09233e; border: 1px solid var(--line); padding: 7px 10px; border-radius: 999px; }
     .playlist-list { display: grid; gap: 12px; }
+    .access-card { margin: 0 0 20px; padding: 20px; border: 1px solid rgba(75, 160, 235, .28); border-radius: 16px; background: radial-gradient(ellipse at 100% 0%, rgba(32, 132, 232, .12), transparent 60%), linear-gradient(140deg, rgba(12, 43, 73, .9), rgba(6, 23, 42, .92)); }
+    .access-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+    .access-title { margin: 0; font-size: 16px; font-weight: 850; letter-spacing: -.25px; }
+    .access-subtitle { margin: 7px 0 0; color: #93abc5; font-size: 12px; line-height: 1.65; }
+    .access-state { display: inline-flex; align-items: center; border: 1px solid rgba(120, 172, 225, .22); border-radius: 999px; padding: 7px 10px; background: rgba(5, 20, 37, .7); color: #c1d8ee; font-size: 10px; font-weight: 850; letter-spacing: .55px; }
+    .access-state.trial { color: #ffd5d9; border-color: rgba(235, 43, 69, .3); }
+    .access-state.active { color: #9cf1c8; border-color: rgba(40, 201, 132, .28); }
+    .access-expiry { margin-top: 10px; color: #9bb4cc; font-size: 11px; }
+    .access-plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 17px; }
+    .access-plan { min-width: 0; border: 1px solid rgba(100, 163, 224, .25); background: rgba(18, 55, 91, .75); color: #e9f5ff; padding: 11px 6px; border-radius: 10px; font-size: 11px; font-weight: 850; }
+    .access-plan[aria-pressed="true"] { border-color: rgba(255, 92, 111, .65); background: linear-gradient(135deg, #e9334b, #a91b35); box-shadow: 0 7px 20px rgba(220, 29, 58, .18); }
+    .access-contact { width: 100%; margin-top: 11px; min-height: 46px; background: linear-gradient(105deg, #168ed0, #229ed9); box-shadow: 0 8px 22px rgba(24, 142, 208, .15); }
+    .access-note { margin: 11px 0 0; color: #7f9ab5; font-size: 10px; line-height: 1.65; }
+    @media (max-width: 420px) { .access-card { padding: 16px; } .access-plans { gap: 6px; } .access-plan { font-size: 10px; padding-inline: 3px; } }
+
     .playlist { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 17px; border-radius: 14px; background: linear-gradient(135deg, rgba(16, 55, 91, .58), rgba(7, 27, 49, .72)); border: 1px solid rgba(93, 170, 235, .17); }
     .playlist-title { font-size: 15px; font-weight: 800; margin-bottom: 5px; word-break: break-word; }
     .playlist-type { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
@@ -403,7 +418,7 @@ body::before{background-image:linear-gradient(90deg,rgba(115,169,250,.06) 1px,tr
           <span>Get Vision 4K announcements, updates and support.</span>
         </div>
       </div>
-      <a class="telegram-join" href="https://t.me/vision4k_official" target="_blank" rel="noopener noreferrer" aria-label="Join the Vision 4K Telegram group (opens in a new tab)">
+      <a class="telegram-join" href="https://t.me/+CSVQOs7SuQowNzA0" target="_blank" rel="noopener noreferrer" aria-label="Join the Vision 4K Telegram group (opens in a new tab)">
         JOIN TELEGRAM <span aria-hidden="true">↗</span>
       </a>
     </div>
@@ -431,6 +446,25 @@ body::before{background-image:linear-gradient(90deg,rgba(115,169,250,.06) 1px,tr
         <h3>Your Playlists</h3>
         <div id="count" class="count">0/5</div>
       </div>
+
+      <section class="access-card" aria-labelledby="accessTitle">
+        <div class="access-head">
+          <div>
+            <h4 class="access-title" id="accessTitle">Vision 4K Support · Extend App Access</h4>
+            <p class="access-subtitle">Choose the requested access period. Telegram will open with your device details so support can identify your request.</p>
+          </div>
+          <span id="accessState" class="access-state">ACCESS STATUS</span>
+        </div>
+        <div id="accessExpiry" class="access-expiry" hidden></div>
+        <div class="access-plans" role="group" aria-label="Select access extension period">
+          <button type="button" class="access-plan" data-months="1" aria-pressed="true">1 MONTH</button>
+          <button type="button" class="access-plan" data-months="3" aria-pressed="false">3 MONTHS</button>
+          <button type="button" class="access-plan" data-months="6" aria-pressed="false">6 MONTHS</button>
+          <button type="button" class="access-plan" data-months="12" aria-pressed="false">12 MONTHS</button>
+        </div>
+        <button type="button" id="requestExtension" class="access-contact">CONTACT SUPPORT ON TELEGRAM ↗</button>
+        <p class="access-note">This sends an extension request only. Your expiry date is not changed automatically by selecting a plan.</p>
+      </section>
 
       <div id="playlistList" class="playlist-list"></div>
 
@@ -548,6 +582,55 @@ function formatMacInput(el) {
     return data;
   }
 
+  function formatExpiry(value) {
+    const raw = String(value || "").trim().slice(0, 10);
+    if (!raw || raw === "2099-12-31") return "";
+    const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return raw;
+    const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    return date.toLocaleDateString("en-GB", {day: "2-digit", month: "short", year: "numeric"});
+  }
+
+  function updateAccessInfo(data) {
+    const state = $("accessState");
+    const expiry = $("accessExpiry");
+    const trialValue = data.is_trial ?? data.isTrial ?? data.is_trial_device ?? null;
+    if (trialValue !== null && trialValue !== undefined) {
+      const isTrial = trialValue === true || trialValue === 1 || trialValue === "1" || String(trialValue).toLowerCase() === "true";
+      state.textContent = isTrial ? "FREE TRIAL • 1 MONTH" : "ACTIVE ACCESS";
+      state.className = "access-state " + (isTrial ? "trial" : "active");
+    } else if (state.textContent === "ACCESS STATUS") {
+      state.textContent = "ACCESS EXTENSION";
+      state.className = "access-state";
+    }
+    const expiryFields = ["deviceExpiresAt", "device_expires_at", "expiredDate", "expired_date", "expires_at"];
+    const hasExpiryField = expiryFields.some((key) => Object.prototype.hasOwnProperty.call(data, key));
+    if (hasExpiryField) {
+      const expiryText = formatExpiry(data.deviceExpiresAt ?? data.device_expires_at ?? data.expiredDate ?? data.expired_date ?? data.expires_at ?? "");
+      if (expiryText) {
+        expiry.textContent = "Current expiry: " + expiryText;
+        expiry.hidden = false;
+      } else {
+        expiry.textContent = "";
+        expiry.hidden = true;
+      }
+    }
+  }
+
+  function openExtensionTelegram(months) {
+    if (!auth) {
+      setStatus("Connect your device first.", "err");
+      return;
+    }
+    const plan = months === 1 ? "1 month" : `${months} months`;
+    const message = "Vision 4K extension request\n" +
+      "Plan: " + plan + "\n" +
+      "MAC: " + auth.mac + "\n" +
+      "Device Key: " + auth.key;
+    const url = "https://t.me/coosmoi?text=" + encodeURIComponent(message);
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
   function renderPlaylists(data) {
     const list = $("playlistList");
     const playlists = Array.isArray(data.playlists) ? data.playlists : [];
@@ -613,6 +696,7 @@ function formatMacInput(el) {
       const data = await api("verify_device");
       $("manager").classList.add("show");
       renderPlaylists(data);
+      updateAccessInfo(data);
       setStatus("Device connected successfully.", "ok");
       sessionStorage.setItem("vision4k_mac", mac);
       sessionStorage.setItem("vision4k_key", key);
@@ -630,6 +714,7 @@ function formatMacInput(el) {
     try {
       const data = await api("list_playlists");
       renderPlaylists(data);
+      updateAccessInfo(data);
       setStatus("Playlists refreshed.", "ok");
     } catch (err) {
       setStatus(err.message, "err");
@@ -740,6 +825,18 @@ function formatMacInput(el) {
   }
 
   function closeModal(id) { $(id).classList.remove("show"); }
+
+  document.querySelectorAll(".access-plan").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".access-plan").forEach((item) => {
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+    });
+  });
+  $("requestExtension").addEventListener("click", () => {
+    const selected = document.querySelector('.access-plan[aria-pressed="true"]');
+    openExtensionTelegram(Number(selected?.dataset.months || 1));
+  });
 
   $("connect").addEventListener("click", connectDevice);
   $("refresh").addEventListener("click", refreshPlaylists);
