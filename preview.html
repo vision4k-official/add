@@ -626,9 +626,12 @@ function formatMacInput(el) {
       "Plan: " + plan + "\n" +
       "MAC: " + auth.mac + "\n" +
       "Device Key: " + auth.key;
-    const url = "https://t.me/coosmoi?text=" + encodeURIComponent(message);
-    // Navigate directly from the user's click; this avoids popup blockers on mobile browsers.
-    window.location.href = url;
+    // Match the Android app's openTelegramSupport() deep link exactly.
+    // Telegram app opens the chat with the request prefilled, when installed.
+    const telegramUri = "tg://resolve?domain=coosmoi&text=" + encodeURIComponent(message);
+    // Use a real top-level navigation directly in the click handler so Android
+    // can hand the tg:// URI to Telegram instead of opening a new popup.
+    window.location.href = telegramUri;
   }
 
   function renderPlaylists(data) {
