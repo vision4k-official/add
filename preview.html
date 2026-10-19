@@ -451,7 +451,7 @@ body::before{background-image:linear-gradient(90deg,rgba(115,169,250,.06) 1px,tr
         <div class="access-head">
           <div>
             <h4 class="access-title" id="accessTitle">Vision 4K Support · Extend App Access</h4>
-            <p class="access-subtitle">Choose the requested access period. Telegram will open with your device details so support can identify your request.</p>
+            <p class="access-subtitle">Choose an access period to open your Telegram chat with the request and device details.</p>
           </div>
           <span id="accessState" class="access-state">ACCESS STATUS</span>
         </div>
@@ -462,7 +462,6 @@ body::before{background-image:linear-gradient(90deg,rgba(115,169,250,.06) 1px,tr
           <button type="button" class="access-plan" data-months="6" aria-pressed="false">6 MONTHS</button>
           <button type="button" class="access-plan" data-months="12" aria-pressed="false">12 MONTHS</button>
         </div>
-        <button type="button" id="requestExtension" class="access-contact">CONTACT SUPPORT ON TELEGRAM ↗</button>
         <p class="access-note">This sends an extension request only. Your expiry date is not changed automatically by selecting a plan.</p>
       </section>
 
@@ -831,11 +830,9 @@ function formatMacInput(el) {
       document.querySelectorAll(".access-plan").forEach((item) => {
         item.setAttribute("aria-pressed", String(item === button));
       });
+      // Open the user's Telegram chat immediately when a duration is selected.
+      openExtensionTelegram(Number(button.dataset.months || 1));
     });
-  });
-  $("requestExtension").addEventListener("click", () => {
-    const selected = document.querySelector('.access-plan[aria-pressed="true"]');
-    openExtensionTelegram(Number(selected?.dataset.months || 1));
   });
 
   $("connect").addEventListener("click", connectDevice);
