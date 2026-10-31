@@ -1,0 +1,12 @@
+{
+  "maintenance": false,
+  "maintenance_text": {
+    "en": "We are performing maintenance. We will be back shortly.",
+    "sq": "Po kryejmë mirëmbajtje. Do të kthehemi së shpejti."
+  },
+  "enabled": false,
+  "text": {
+    "en": "Scheduled maintenance tonight. Service may be briefly unavailable.",
+    "sq": "Mirëmbajtje e planifikuar sonte. Shërbimi mund të mos jetë i disponueshëm për pak kohë."
+  }
+}
