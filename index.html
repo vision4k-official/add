@@ -641,6 +641,53 @@ html { scroll-behavior: smooth; }
 @keyframes fabPulse { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
 @media (max-width: 680px) { .fab-stack { right: 14px; bottom: 90px; } .fab { width: 50px; height: 50px; } }
 @media (prefers-reduced-motion: reduce) { .fab, .fab-label { transition: none; } .fab-wa::after { animation: none; display: none; } }
+
+/* Post-login polish: access card, playlists, toolbar */
+.manager-head h3 { font-size: 20px; letter-spacing: -.4px; }
+.access-card { padding: 22px; border-radius: 18px; }
+.access-headline { display: flex; gap: 13px; align-items: flex-start; min-width: 0; }
+.access-icon { flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(140deg, #2f93ff, #1876e9); box-shadow: 0 8px 20px rgba(24, 118, 233, .28); }
+.access-icon svg { width: 21px; height: 21px; }
+.access-title { font-size: 17px; }
+.access-plans { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+.access-plan {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 76px; padding: 10px 6px;
+  border-radius: 14px; border: 1px solid rgba(100, 163, 224, .25); background: rgba(14, 40, 70, .75); color: #cfe3f7;
+}
+.access-plan b { font-size: 26px; line-height: 1; font-weight: 800; letter-spacing: -.5px; color: #f1f7ff; }
+.access-plan span { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #8fb0d0; }
+.access-plan[aria-pressed="true"] { border-color: rgba(98, 184, 255, .85); background: linear-gradient(145deg, #1a6fe0, #1259b8); box-shadow: 0 10px 26px rgba(24, 118, 233, .32); }
+.access-plan[aria-pressed="true"] span { color: #d6ebff; }
+.access-request {
+  width: 100%; margin-top: 14px; min-height: 52px; display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-size: 12px; letter-spacing: .7px; border-radius: 13px;
+  background: linear-gradient(100deg, #229ed9, #2589e4); box-shadow: 0 10px 26px rgba(21, 127, 203, .26);
+}
+.access-request svg { width: 20px; height: 20px; fill: #fff; flex: 0 0 auto; }
+.access-note { margin-top: 12px; text-align: center; }
+.playlist-list { gap: 10px; }
+.playlist {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 13px 14px; padding: 16px 18px; border-radius: 16px;
+  flex-direction: unset; background: linear-gradient(135deg, rgba(16, 48, 82, .62), rgba(7, 25, 46, .78)); border: 1px solid rgba(100, 163, 224, .2);
+}
+.playlist-icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(140deg, #2f93ff, #1876e9); box-shadow: 0 8px 18px rgba(24, 118, 233, .24); }
+.playlist-icon svg { width: 22px; height: 22px; }
+.playlist-info { min-width: 0; }
+.playlist-title { font-size: 15px; margin: 0 0 6px; }
+.playlist-type { display: inline-block; padding: 4px 9px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: .9px; color: #9fd0ff; background: rgba(30, 99, 170, .25); border: 1px solid rgba(90, 170, 240, .25); }
+.playlist .actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+.playlist .actions button { min-height: 40px; font-size: 11px; letter-spacing: .6px; }
+.playlist .actions .danger { background: rgba(217, 37, 56, .14); border: 1px solid rgba(235, 43, 69, .4); color: #ffb3bc; }
+.playlist .actions .danger:hover { background: rgba(217, 37, 56, .28); }
+.empty { display: grid; gap: 6px; padding: 28px 20px; }
+.empty strong { color: #dcebfa; font-size: 14px; }
+.empty span { font-size: 12px; line-height: 1.6; }
+.toolbar { display: grid; gap: 10px; margin-top: 16px; }
+.add-main { width: 100%; min-height: 52px; margin: 0 !important; font-size: 13px; letter-spacing: .9px; }
+.tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tool-grid button { min-height: 42px; font-size: 11px; letter-spacing: .6px; }
+@media (min-width: 560px) { .tool-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .playlist .actions { width: auto; grid-column: auto; justify-self: end; grid-template-columns: auto auto; } .playlist { grid-template-columns: auto minmax(0, 1fr) auto; } }
+@media (max-width: 420px) { .access-card { padding: 18px; } .access-plan { min-height: 68px; } .access-plan b { font-size: 22px; } }
   </style>
 </head>
 <body>
@@ -713,30 +760,41 @@ html { scroll-behavior: smooth; }
 
       <section class="access-card" aria-labelledby="accessTitle">
         <div class="access-head">
-          <div>
-            <h4 class="access-title" id="accessTitle">Vision 4K Support · Extend App Access</h4>
-            <p class="access-subtitle">Choose an access period to open your Telegram chat with the request and device details.</p>
+          <div class="access-headline">
+            <span class="access-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <div>
+              <h4 class="access-title" id="accessTitle">Extend your access</h4>
+              <p class="access-subtitle">Choose a period, then send your request to our support team on Telegram.</p>
+            </div>
           </div>
           <span id="accessState" class="access-state">ACCESS STATUS</span>
         </div>
         <div id="accessExpiry" class="access-expiry" hidden></div>
         <div class="access-plans" role="group" aria-label="Select access extension period">
-          <button type="button" class="access-plan" data-months="1" aria-pressed="true">1 MONTH</button>
-          <button type="button" class="access-plan" data-months="3" aria-pressed="false">3 MONTHS</button>
-          <button type="button" class="access-plan" data-months="6" aria-pressed="false">6 MONTHS</button>
-          <button type="button" class="access-plan" data-months="12" aria-pressed="false">12 MONTHS</button>
+          <button type="button" class="access-plan" data-months="1" aria-pressed="true"><b>1</b><span>month</span></button>
+          <button type="button" class="access-plan" data-months="3" aria-pressed="false"><b>3</b><span>months</span></button>
+          <button type="button" class="access-plan" data-months="6" aria-pressed="false"><b>6</b><span>months</span></button>
+          <button type="button" class="access-plan" data-months="12" aria-pressed="false"><b>12</b><span>months</span></button>
         </div>
-        <p class="access-note">This sends an extension request only. Your expiry date is not changed automatically by selecting a plan.</p>
+        <button type="button" id="accessRequest" class="access-request">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22.1 3.3 1.8 11.1c-1.2.46-1.2 1.1-.21 1.41l5.2 1.62 2 6.1c.24.7.13.98.86.98.56 0 .8-.26 1.12-.56l2.7-2.6 5.6 4.14c1.03.57 1.77.27 2.03-.96l3.35-15.9c.38-1.51-.58-2.2-1.54-1.78ZM7.6 13.77l12.52-7.9c.63-.38 1.21-.17.73.27l-10.7 9.67-.42 4.42-2.13-6.46Z"/></svg>
+          <span id="accessRequestText">REQUEST 1 MONTH</span>
+        </button>
+        <p class="access-note">This sends a request only. Your expiry date is updated by our team after confirmation.</p>
       </section>
 
       <div id="playlistList" class="playlist-list"></div>
 
       <div class="toolbar">
-        <button id="disconnect" class="ghost">DISCONNECT</button>
-        <button id="copyMac" class="ghost">COPY MAC</button>
-        <button id="copyKey" class="ghost">COPY KEY</button>
-        <button id="refresh" class="ghost">REFRESH</button>
-        <button id="add" class="primary">+ ADD PLAYLIST</button>
+        <button id="add" class="primary add-main">+ ADD PLAYLIST</button>
+        <div class="tool-grid">
+          <button id="refresh" class="ghost">REFRESH</button>
+          <button id="copyMac" class="ghost">COPY MAC</button>
+          <button id="copyKey" class="ghost">COPY KEY</button>
+          <button id="disconnect" class="ghost">DISCONNECT</button>
+        </div>
       </div>
 
       <div class="security">
@@ -982,7 +1040,7 @@ function formatMacInput(el) {
     $("add").disabled = playlists.length >= max;
 
     if (!playlists.length) {
-      list.innerHTML = `<div class="empty">No playlists added yet.</div>`;
+      list.innerHTML = `<div class="empty"><strong>No playlists yet</strong><span>Press “+ Add playlist” to add your first M3U or Xtream Codes playlist.</span></div>`;
       return;
     }
 
@@ -992,7 +1050,13 @@ function formatMacInput(el) {
       const row = document.createElement("div");
       row.className = "playlist";
 
+      const icon = document.createElement("div");
+      icon.className = "playlist-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h12M4 12h12M4 18h8"/><path d="m17 14 4 3-4 3z"/></svg>';
+
       const info = document.createElement("div");
+      info.className = "playlist-info";
       const title = document.createElement("div");
       title.className = "playlist-title";
       title.textContent = item.name || "Playlist";
@@ -1016,7 +1080,7 @@ function formatMacInput(el) {
       del.addEventListener("click", () => deletePlaylist(item));
 
       actions.append(rename, del);
-      row.append(info, actions);
+      row.append(icon, info, actions);
       list.append(row);
     }
   }
@@ -1168,15 +1232,18 @@ function formatMacInput(el) {
 
   function closeModal(id) { $(id).classList.remove("show"); }
 
+  let selectedMonths = 1;
+  function planLabel(m) { return m === 1 ? "1 MONTH" : m + " MONTHS"; }
   document.querySelectorAll(".access-plan").forEach((button) => {
     button.addEventListener("click", () => {
+      selectedMonths = Number(button.dataset.months || 1);
       document.querySelectorAll(".access-plan").forEach((item) => {
         item.setAttribute("aria-pressed", String(item === button));
       });
-      // Open the user's Telegram chat immediately when a duration is selected.
-      openExtensionTelegram(Number(button.dataset.months || 1));
+      $("accessRequestText").textContent = "REQUEST " + planLabel(selectedMonths);
     });
   });
+  $("accessRequest").addEventListener("click", () => openExtensionTelegram(selectedMonths));
 
   async function copyText(text, label) {
     if (!text) return;
