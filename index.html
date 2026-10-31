@@ -644,7 +644,7 @@ html { scroll-behavior: smooth; }
 
 /* Post-login polish: access card, playlists, toolbar */
 .manager-head h3 { font-size: 20px; letter-spacing: -.4px; }
-.access-card { padding: 22px; border-radius: 18px; }
+.access-card { padding: 22px; border-radius: 18px; margin: 22px 0 0; }
 .access-headline { display: flex; gap: 13px; align-items: flex-start; min-width: 0; }
 .access-icon { flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(140deg, #2f93ff, #1876e9); box-shadow: 0 8px 20px rgba(24, 118, 233, .28); }
 .access-icon svg { width: 21px; height: 21px; }
@@ -758,6 +758,18 @@ html { scroll-behavior: smooth; }
         <div id="count" class="count">0/5</div>
       </div>
 
+      <div id="playlistList" class="playlist-list"></div>
+
+      <div class="toolbar">
+        <button id="add" class="primary add-main">+ ADD PLAYLIST</button>
+        <div class="tool-grid">
+          <button id="refresh" class="ghost">REFRESH</button>
+          <button id="copyMac" class="ghost">COPY MAC</button>
+          <button id="copyKey" class="ghost">COPY KEY</button>
+          <button id="disconnect" class="ghost">DISCONNECT</button>
+        </div>
+      </div>
+
       <section class="access-card" aria-labelledby="accessTitle">
         <div class="access-head">
           <div class="access-headline">
@@ -784,18 +796,6 @@ html { scroll-behavior: smooth; }
         </button>
         <p class="access-note">This sends a request only. Your expiry date is updated by our team after confirmation.</p>
       </section>
-
-      <div id="playlistList" class="playlist-list"></div>
-
-      <div class="toolbar">
-        <button id="add" class="primary add-main">+ ADD PLAYLIST</button>
-        <div class="tool-grid">
-          <button id="refresh" class="ghost">REFRESH</button>
-          <button id="copyMac" class="ghost">COPY MAC</button>
-          <button id="copyKey" class="ghost">COPY KEY</button>
-          <button id="disconnect" class="ghost">DISCONNECT</button>
-        </div>
-      </div>
 
       <div class="security">
         For privacy, saved playlist URLs, usernames and passwords are never displayed on this page.
