@@ -688,6 +688,31 @@ html { scroll-behavior: smooth; }
 .tool-grid button { min-height: 42px; font-size: 11px; letter-spacing: .6px; }
 @media (min-width: 560px) { .tool-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .playlist .actions { width: auto; grid-column: auto; justify-self: end; grid-template-columns: auto auto; } .playlist { grid-template-columns: auto minmax(0, 1fr) auto; } }
 @media (max-width: 420px) { .access-card { padding: 18px; } .access-plan { min-height: 68px; } .access-plan b { font-size: 22px; } }
+
+/* Paired state: only MAC, key and playlist manager stay visible */
+body.paired .hero,
+body.paired #pair .eyebrow,
+body.paired #pair h2,
+body.paired #pair .lead,
+body.paired #pair .badges,
+body.paired #pair .divider,
+body.paired #connect,
+body.paired #pair .help,
+body.paired .layout.logged .side,
+body.paired .side { display: none !important; }
+body.paired .layout.logged { display: block; max-width: 780px; margin-left: auto; margin-right: auto; }
+body.paired #pair .pad { padding-top: 30px; }
+body.paired .brand { margin-bottom: 26px; }
+body.paired input[readonly] { opacity: .8; cursor: default; }
+body.paired .manager { margin-top: 24px; padding-top: 22px; }
+.head-right { display: flex; align-items: center; gap: 10px; }
+.dots { width: 40px; height: 40px; min-height: 40px; padding: 0; border-radius: 12px; display: grid; place-items: center; background: rgba(18, 49, 82, .9); border: 1px solid rgba(111, 165, 220, .3); }
+.dots svg { width: 20px; height: 20px; fill: #cfe3f7; }
+.modal-box .access-card { margin: 0; padding: 0; border: 0; background: none; border-radius: 0; }
+.modal-box .access-head { align-items: center; }
+.modal-box .access-subtitle { margin: 0; max-width: 300px; }
+.modal { z-index: 1000; }
+@media (max-width: 680px) { .wrap { padding-bottom: 150px; } }
   </style>
 </head>
 <body>
@@ -755,7 +780,12 @@ html { scroll-behavior: smooth; }
     <div id="manager" class="manager">
       <div class="manager-head">
         <h3>Your Playlists</h3>
-        <div id="count" class="count">0/5</div>
+        <div class="head-right">
+          <div id="count" class="count">0/5</div>
+          <button type="button" id="moreBtn" class="dots" aria-label="Extend access" aria-haspopup="dialog" title="Extend access">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+          </button>
+        </div>
       </div>
 
       <div id="playlistList" class="playlist-list"></div>
@@ -769,33 +799,6 @@ html { scroll-behavior: smooth; }
           <button id="disconnect" class="ghost">DISCONNECT</button>
         </div>
       </div>
-
-      <section class="access-card" aria-labelledby="accessTitle">
-        <div class="access-head">
-          <div class="access-headline">
-            <span class="access-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            </span>
-            <div>
-              <h4 class="access-title" id="accessTitle">Extend your access</h4>
-              <p class="access-subtitle">Choose a period, then send your request to our support team on Telegram.</p>
-            </div>
-          </div>
-          <span id="accessState" class="access-state">ACCESS STATUS</span>
-        </div>
-        <div id="accessExpiry" class="access-expiry" hidden></div>
-        <div class="access-plans" role="group" aria-label="Select access extension period">
-          <button type="button" class="access-plan" data-months="1" aria-pressed="true"><b>1</b><span>month</span></button>
-          <button type="button" class="access-plan" data-months="3" aria-pressed="false"><b>3</b><span>months</span></button>
-          <button type="button" class="access-plan" data-months="6" aria-pressed="false"><b>6</b><span>months</span></button>
-          <button type="button" class="access-plan" data-months="12" aria-pressed="false"><b>12</b><span>months</span></button>
-        </div>
-        <button type="button" id="accessRequest" class="access-request">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22.1 3.3 1.8 11.1c-1.2.46-1.2 1.1-.21 1.41l5.2 1.62 2 6.1c.24.7.13.98.86.98.56 0 .8-.26 1.12-.56l2.7-2.6 5.6 4.14c1.03.57 1.77.27 2.03-.96l3.35-15.9c.38-1.51-.58-2.2-1.54-1.78ZM7.6 13.77l12.52-7.9c.63-.38 1.21-.17.73.27l-10.7 9.67-.42 4.42-2.13-6.46Z"/></svg>
-          <span id="accessRequestText">REQUEST 1 MONTH</span>
-        </button>
-        <p class="access-note">This sends a request only. Your expiry date is updated by our team after confirmation.</p>
-      </section>
 
       <div class="security">
         For privacy, saved playlist URLs, usernames and passwords are never displayed on this page.
@@ -889,6 +892,30 @@ html { scroll-behavior: smooth; }
   </a>
 </div>
 
+<div id="accessModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="accessModalTitle">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="accessModalTitle">Extend your access</h3><button type="button" class="x ghost" data-close="accessModal" aria-label="Close">×</button></div>
+    <section class="access-card">
+      <div class="access-head">
+        <p class="access-subtitle">Choose a period, then send your request to our support team on Telegram.</p>
+        <span id="accessState" class="access-state">ACCESS STATUS</span>
+      </div>
+      <div id="accessExpiry" class="access-expiry" hidden></div>
+      <div class="access-plans" role="group" aria-label="Select access extension period">
+        <button type="button" class="access-plan" data-months="1" aria-pressed="true"><b>1</b><span>month</span></button>
+        <button type="button" class="access-plan" data-months="3" aria-pressed="false"><b>3</b><span>months</span></button>
+        <button type="button" class="access-plan" data-months="6" aria-pressed="false"><b>6</b><span>months</span></button>
+        <button type="button" class="access-plan" data-months="12" aria-pressed="false"><b>12</b><span>months</span></button>
+      </div>
+      <button type="button" id="accessRequest" class="access-request">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22.1 3.3 1.8 11.1c-1.2.46-1.2 1.1-.21 1.41l5.2 1.62 2 6.1c.24.7.13.98.86.98.56 0 .8-.26 1.12-.56l2.7-2.6 5.6 4.14c1.03.57 1.77.27 2.03-.96l3.35-15.9c.38-1.51-.58-2.2-1.54-1.78ZM7.6 13.77l12.52-7.9c.63-.38 1.21-.17.73.27l-10.7 9.67-.42 4.42-2.13-6.46Z"/></svg>
+        <span id="accessRequestText">REQUEST 1 MONTH</span>
+      </button>
+      <p class="access-note">This sends a request only. Your expiry date is updated by our team after confirmation.</p>
+    </section>
+  </div>
+</div>
+
 <div id="addModal" class="modal">
   <div class="modal-box">
     <div class="modal-head"><h3>Add Playlist</h3><button class="x ghost" data-close="addModal">×</button></div>
@@ -951,6 +978,12 @@ function formatMacInput(el) {
   function clearStatus() {
     $("status").className = "status";
     $("status").textContent = "";
+  }
+
+  function setPaired(on) {
+    document.body.classList.toggle("paired", on);
+    $("mac").readOnly = on;
+    $("key").readOnly = on;
   }
 
   async function api(action, extra = {}) {
@@ -1101,6 +1134,7 @@ function formatMacInput(el) {
     try {
       const data = await api("verify_device");
       $("manager").classList.add("show");
+      setPaired(true);
       renderPlaylists(data);
       updateAccessInfo(data);
       setStatus("Device connected successfully.", "ok");
@@ -1109,6 +1143,7 @@ function formatMacInput(el) {
     } catch (err) {
       auth = null;
       $("manager").classList.remove("show");
+    setPaired(false);
       setStatus(err.message || "Could not connect device.", "err");
     } finally {
       $("connect").disabled = false;
@@ -1133,6 +1168,7 @@ function formatMacInput(el) {
     sessionStorage.removeItem("vision4k_key");
     $("key").value = "";
     $("manager").classList.remove("show");
+    setPaired(false);
     clearStatus();
   }
 
@@ -1244,6 +1280,10 @@ function formatMacInput(el) {
     });
   });
   $("accessRequest").addEventListener("click", () => openExtensionTelegram(selectedMonths));
+  $("moreBtn").addEventListener("click", () => $("accessModal").classList.add("show"));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") document.querySelectorAll(".modal.show").forEach((m) => m.classList.remove("show"));
+  });
 
   async function copyText(text, label) {
     if (!text) return;
