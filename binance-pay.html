@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vision 4K – Activate Device</title>
+<style>
+  :root{--bg:#0e1424;--card:#171f36;--line:#2a3558;--text:#f2f4fa;--muted:#9aa4c4;--accent:#f0b90b;--ok:#3ecf8e;--err:#ff8a8a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;padding:20px 16px 48px}
+  main{max-width:420px;margin:0 auto}
+  h1{font-size:22px;margin:8px 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+  h2{font-size:15px;margin:0 0 12px}
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .plan{background:transparent;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px 8px;font-size:15px;cursor:pointer;text-align:center}
+  .plan small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+  .plan.on{border-color:var(--accent);background:rgba(240,185,11,.1)}
+  .plan:disabled{opacity:.4;cursor:not-allowed}
+  input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1020;color:var(--text);font-size:16px;letter-spacing:.5px}
+  input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  #macErr{color:var(--err);font-size:13px;min-height:18px;margin:6px 0 0}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+  .row:first-of-type{border-top:0}
+  .row span{color:var(--muted);font-size:13px}
+  .row b{display:block;font-size:16px;word-break:break-all}
+  .copy{flex:none;background:transparent;color:var(--accent);border:1px solid var(--accent);border-radius:8px;padding:7px 12px;font-size:14px;cursor:pointer}
+  .copy.done{color:var(--ok);border-color:var(--ok)}
+  .steps{color:var(--muted);font-size:14px;margin:12px 0 0;padding-left:18px}
+  .wa{display:block;text-align:center;background:var(--accent);color:#1a1400;font-weight:700;text-decoration:none;border-radius:10px;padding:14px;margin-top:14px;font-size:16px}
+  #pay{display:none}
+</style>
+</head>
+<body>
+<main>
+  <h1>Activate your device</h1>
+  <p class="sub">Choose a period, enter your MAC address, then pay with Binance.</p>
+
+  <section>
+    <h2>Choose period</h2>
+    <div class="plans" id="plans"></div>
+  </section>
+
+  <section>
+    <h2>Your MAC address</h2>
+    <input id="mac" placeholder="00:1A:79:AA:BB:CC" autocomplete="off" autocapitalize="characters" maxlength="17">
+    <p id="macErr"></p>
+  </section>
+
+  <section id="pay">
+    <h2>Pay with Binance</h2>
+    <div class="row"><div><span>Binance ID (Pay)</span><b id="bid"></b></div><button class="copy" data-c="bid">Copy</button></div>
+    <div class="row"><div><span>Amount</span><b id="amt"></b></div><button class="copy" data-c="amt">Copy</button></div>
+    <div class="row"><div><span>Note (required)</span><b id="note"></b></div><button class="copy" data-c="note">Copy</button></div>
+    <ol class="steps">
+      <li>In Binance, open Send, then Send to Binance User.</li>
+      <li>Select Binance ID and paste the ID above.</li>
+      <li>Send the amount in USDT and paste your MAC address in the Note field.</li>
+      <li>Tap the button below to tell us you paid.</li>
+    </ol>
+    <a class="wa" id="wa" href="#" target="_blank" rel="noopener">I paid – notify admin</a>
+  </section>
+</main>
+
+<script>
+// ===== EDIT THESE =====
+var BINANCE_ID = "PUT_YOUR_BINANCE_ID";     // your Binance Pay ID
+var WHATSAPP   = "PUT_WHATSAPP_NUMBER";     // digits only, with country code, e.g. 355XXXXXXXXX
+var PLANS = [
+  {id:"1m",   label:"1 Month",   price:0},      // set the 1 month price (0 = disabled)
+  {id:"6m",   label:"6 Months",  price:6.99},
+  {id:"12m",  label:"12 Months", price:9.99},
+  {id:"life", label:"Lifetime",  price:14.99}
+];
+// ======================
+
+var sel = null, mac = "";
+var plansEl = document.getElementById("plans");
+
+PLANS.forEach(function(p){
+  var b = document.createElement("button");
+  b.className = "plan"; b.type = "button";
+  b.innerHTML = p.label + "<small>" + (p.price > 0 ? "$" + p.price.toFixed(2) : "Not available") + "</small>";
+  if (p.price <= 0) b.disabled = true;
+  b.onclick = function(){
+    sel = p;
+    [].forEach.call(plansEl.children, function(c){ c.classList.remove("on"); });
+    b.classList.add("on");
+    update();
+  };
+  plansEl.appendChild(b);
+});
+
+var macEl = document.getElementById("mac");
+macEl.addEventListener("input", function(){
+  var hex = macEl.value.replace(/[^0-9a-fA-F]/g, "").toUpperCase().slice(0, 12);
+  macEl.value = hex.match(/.{1,2}/g) ? hex.match(/.{1,2}/g).join(":") : "";
+  mac = hex.length === 12 ? macEl.value : "";
+  document.getElementById("macErr").textContent =
+    hex.length > 0 && hex.length < 12 ? "MAC address needs 12 characters (6 pairs)." : "";
+  update();
+});
+
+function update(){
+  var box = document.getElementById("pay");
+  if (!sel || !mac) { box.style.display = "none"; return; }
+  document.getElementById("bid").textContent  = BINANCE_ID;
+  document.getElementById("amt").textContent  = sel.price.toFixed(2) + " USDT";
+  document.getElementById("note").textContent = mac;
+  var msg = "Hello, I paid for Vision 4K.\nMAC: " + mac + "\nPlan: " + sel.label + "\nAmount: " + sel.price.toFixed(2) + " USDT";
+  document.getElementById("wa").href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
+  box.style.display = "block";
+}
+
+document.querySelectorAll(".copy").forEach(function(btn){
+  btn.onclick = function(){
+    var txt = document.getElementById(btn.dataset.c).textContent.replace(" USDT", "");
+    var done = function(){ btn.textContent = "Copied"; btn.classList.add("done");
+      setTimeout(function(){ btn.textContent = "Copy"; btn.classList.remove("done"); }, 1500); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(done, done); } else { done(); }
+  };
+});
+</script>
+</body>
+</html>
