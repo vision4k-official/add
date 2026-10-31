@@ -807,6 +807,80 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
 .maint h1 { margin: 0; font-size: clamp(28px, 6vw, 46px); font-weight: 800; letter-spacing: -1px; }
 .maint p { margin: 0; max-width: 520px; color: #a2b4c9; font-size: 15px; line-height: 1.7; }
 .maint .gear { font-size: 54px; }
+
+/* ===== Payment block (Activate Device) ===== */
+.pay-block { margin-top: 24px; }
+.pay-title { display: flex; align-items: center; gap: 11px; margin: 0 0 14px; font-size: 15px; font-weight: 750; letter-spacing: -.1px; color: #f1f7ff; }
+.pay-num { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #2f93ff, #1876e9); box-shadow: 0 6px 16px rgba(24, 118, 233, .38); }
+.pay-tag { margin-left: auto; padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #9fd0ff; background: rgba(30, 99, 170, .25); border: 1px solid rgba(90, 170, 240, .3); }
+
+/* Period cards */
+.pay-plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.pay-plan {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  min-height: 96px; padding: 16px 8px 14px; border-radius: 16px; overflow: hidden; cursor: pointer;
+  color: #cfe3f7; border: 1px solid rgba(100, 163, 224, .26);
+  background: linear-gradient(160deg, rgba(24, 62, 104, .6), rgba(9, 26, 48, .85));
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.pay-plan .pp-label { font-size: 11px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; color: #8fb0d0; }
+.pay-plan b { font-size: 29px; line-height: 1; font-weight: 800; letter-spacing: -.8px; color: #f1f7ff; }
+.pay-plan:hover { transform: translateY(-2px); border-color: rgba(98, 184, 255, .62); box-shadow: 0 12px 26px rgba(0, 0, 0, .3); }
+.pay-plan:active { transform: scale(.97); }
+.pay-plan[aria-pressed="true"] { border-color: #62b8ff; background: linear-gradient(150deg, #1a72e8, #1259b8); box-shadow: 0 0 0 1px #62b8ff, 0 16px 32px rgba(24, 118, 233, .4); }
+.pay-plan[aria-pressed="true"] .pp-label { color: #d6ebff; }
+.pay-plan[aria-pressed="true"]::after { content: "✓"; position: absolute; top: 9px; right: 10px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 900; color: #1259b8; background: #fff; }
+.pay-plan:focus-visible, .pay-copy:focus-visible { outline: 3px solid #89d5ff; outline-offset: 3px; }
+
+/* MAC address */
+.pay-mac { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 20px; font-weight: 700; letter-spacing: 1.2px; text-align: center; padding: 16px 12px; border-radius: 14px; color: #f1f7ff; background: rgba(5, 20, 37, .72); border: 1px solid rgba(62, 207, 142, .5); box-shadow: 0 0 0 3px rgba(62, 207, 142, .07); word-break: break-all; }
+.pay-ok { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; color: #9cf1c8; font-size: 12px; font-weight: 700; }
+.pay-need { padding: 16px; border-radius: 14px; border: 1px dashed rgba(120, 172, 225, .34); color: #a2b4c9; font-size: 13px; line-height: 1.65; text-align: center; }
+.pay-need a { display: inline-block; margin-top: 4px; color: #6fb2ff; font-weight: 800; text-decoration: none; }
+.pay-need a:hover { text-decoration: underline; }
+.pay-hint { margin: 18px 0 0; text-align: center; color: #8ea9c4; font-size: 12.5px; }
+
+/* Payment details */
+.pay-box { margin-top: 24px; padding: 18px; border-radius: 18px; background: rgba(5, 20, 37, .5); border: 1px solid rgba(112, 161, 218, .22); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03); animation: rise .35s ease both; }
+.pay-box[hidden], .pay-hint[hidden], #payHave[hidden], .pay-need[hidden] { display: none !important; }
+.pay-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 0; border-top: 1px solid rgba(113, 162, 212, .14); }
+.pay-title + .pay-row { border-top: 0; padding-top: 2px; }
+.pay-row span { display: block; color: #8ea9c4; font-size: 12px; }
+.pay-row b { display: block; margin-top: 3px; font-size: 18px; letter-spacing: .2px; color: #f1f7ff; word-break: break-all; }
+.pay-copy {
+  flex: none; display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 16px; border-radius: 999px;
+  font-size: 12px; font-weight: 800; letter-spacing: .7px; color: #e3f2ff; cursor: pointer;
+  background: linear-gradient(135deg, rgba(47, 147, 255, .3), rgba(24, 118, 233, .16)); border: 1px solid rgba(98, 184, 255, .5);
+  transition: transform .14s ease, background .16s ease, border-color .16s ease;
+}
+.pay-copy svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pay-copy:hover { background: linear-gradient(135deg, rgba(47, 147, 255, .5), rgba(24, 118, 233, .32)); }
+.pay-copy:active { transform: scale(.95); }
+.pay-copy.done { color: #9cf1c8; border-color: rgba(40, 201, 132, .6); background: rgba(28, 193, 128, .13); }
+
+/* Steps */
+.pay-steps { list-style: none; counter-reset: ps; margin: 16px 0 0; padding: 14px 0 0; display: grid; gap: 11px; border-top: 1px solid rgba(113, 162, 212, .14); }
+.pay-steps li { counter-increment: ps; position: relative; padding-left: 36px; min-height: 24px; color: #a9bfd6; font-size: 13px; line-height: 1.55; }
+.pay-steps li::before { content: counter(ps); position: absolute; left: 0; top: -1px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #bfe0ff; background: rgba(30, 99, 170, .3); border: 1px solid rgba(90, 170, 240, .38); }
+
+/* "I paid" button */
+.pay-wa {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 11px; overflow: hidden;
+  margin-top: 20px; min-height: 58px; padding: 0 18px; border-radius: 16px; color: #fff; text-decoration: none; text-align: center;
+  font-weight: 800; font-size: 14px; letter-spacing: .8px; text-transform: uppercase;
+  background: linear-gradient(100deg, #1876e9 0%, #1697fa 55%, #19b7ef 100%);
+  box-shadow: 0 14px 32px rgba(14, 119, 234, .4), inset 0 1px 0 rgba(255, 255, 255, .28);
+  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
+}
+.pay-wa svg { position: relative; width: 22px; height: 22px; fill: #fff; flex: none; }
+.pay-wa span { position: relative; }
+.pay-wa::before { content: ""; position: absolute; top: 0; bottom: 0; left: -80%; width: 55%; transform: skewX(-20deg); background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .3), transparent); animation: paySheen 3.4s ease-in-out infinite; }
+@keyframes paySheen { 0%, 55% { left: -80%; } 100% { left: 130%; } }
+.pay-wa:hover { color: #fff; transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 18px 38px rgba(14, 119, 234, .5), inset 0 1px 0 rgba(255, 255, 255, .28); }
+.pay-wa:active { transform: scale(.98); }
+.pay-wa:focus-visible { outline: 3px solid #89d5ff; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .pay-box { animation: none; } .pay-wa, .pay-plan, .pay-copy { transition: none; } .pay-wa::before { animation: none; display: none; } }
+@media (max-width: 380px) { .pay-plan b { font-size: 25px; } .pay-row b { font-size: 16px; } }
 </style>
 </head>
 <body>
@@ -892,22 +966,41 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
       </div>
 <section class="access-card">
       <div class="access-head">
-        <p class="access-subtitle">Choose a period, then send your request to our support team on Telegram.</p>
+        <p class="access-subtitle">Choose a period, check your MAC address, then pay.</p>
         <span id="accessState" class="access-state">ACCESS STATUS</span>
       </div>
       <div id="accessExpiry" class="access-expiry" hidden></div>
-      <div class="access-plans" role="group" aria-label="Select access extension period">
-        <button type="button" class="access-plan" data-months="1" aria-pressed="true"><b>1</b><span>month</span></button>
-        <button type="button" class="access-plan" data-months="3" aria-pressed="false"><b>3</b><span>months</span></button>
-        <button type="button" class="access-plan" data-months="6" aria-pressed="false"><b>6</b><span>months</span></button>
-        <button type="button" class="access-plan" data-months="12" aria-pressed="false"><b>12</b><span>months</span></button>
+
+      <div class="pay-block">
+        <div class="pay-title"><span class="pay-num">1</span>Choose period</div>
+        <div class="pay-plans" id="payPlans" role="group" aria-label="Select access period"></div>
       </div>
-      <button type="button" id="accessRequest" class="access-request">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22.1 3.3 1.8 11.1c-1.2.46-1.2 1.1-.21 1.41l5.2 1.62 2 6.1c.24.7.13.98.86.98.56 0 .8-.26 1.12-.56l2.7-2.6 5.6 4.14c1.03.57 1.77.27 2.03-.96l3.35-15.9c.38-1.51-.58-2.2-1.54-1.78ZM7.6 13.77l12.52-7.9c.63-.38 1.21-.17.73.27l-10.7 9.67-.42 4.42-2.13-6.46Z"/></svg>
-        <span id="accessRequestText">REQUEST 1 MONTH</span>
-      </button>
-      <div id="activateNote" class="status err" role="status" aria-live="polite"></div>
-      <p class="access-note">This sends a request only. Your expiry date is updated by our team after confirmation.</p>
+
+      <div class="pay-block">
+        <div class="pay-title"><span class="pay-num">2</span>Your MAC address</div>
+        <div id="payHave" hidden>
+          <div class="pay-mac" id="payMac"></div>
+          <div class="pay-ok">✓ Detected automatically from your device</div>
+        </div>
+        <div id="payNeed" class="pay-need">Pair your device first and your MAC address will appear here automatically.<br><a href="#playlists">Pair device →</a></div>
+      </div>
+
+      <p class="pay-hint" id="payHint" hidden>Select a period above to see the payment details.</p>
+
+      <div id="payBox" class="pay-box" hidden>
+        <div class="pay-title"><span class="pay-num">3</span>Pay with Binance<span class="pay-tag">USDT</span></div>
+        <div class="pay-row"><div><span>Binance ID (Pay)</span><b id="payBid"></b></div><button type="button" class="pay-copy" data-c="payBid"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg><span>COPY</span></button></div>
+        <div class="pay-row"><div><span>Amount</span><b id="payAmt"></b></div><button type="button" class="pay-copy" data-c="payAmt"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg><span>COPY</span></button></div>
+        <div class="pay-row"><div><span>Note (required)</span><b id="payNote"></b></div><button type="button" class="pay-copy" data-c="payNote"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg><span>COPY</span></button></div>
+        <ol class="pay-steps">
+          <li>In Binance, open Send, then Send to Binance User.</li>
+          <li>Select Binance ID and paste the ID above.</li>
+          <li>Send the amount in USDT and paste your MAC address in the Note field.</li>
+          <li>Tap the button below to tell us you paid.</li>
+        </ol>
+        <a class="pay-wa" id="payWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 3.5A11.6 11.6 0 0 0 12.1 0 11.8 11.8 0 0 0 1.9 17.8L0 24l6.4-1.7A12 12 0 0 0 12.1 24C18.7 24 24 18.6 24 12.1a11.9 11.9 0 0 0-3.5-8.6ZM12.1 22a9.9 9.9 0 0 1-5.1-1.4l-.4-.2-3.8 1 1-3.7-.3-.4a10 10 0 0 1-1.5-5.2C2 6.6 6.5 2 12.1 2a10 10 0 0 1 10 10.1A10 10 0 0 1 12.1 22Zm5.5-7.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-.9 1.1-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.4c-.3-.6-.5-.5-.7-.5H7.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 2.9 1.3 3.1.2.2 2.2 3.4 5.3 4.8.7.3 1.3.5 1.8.7.8.2 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.5.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.3Z"/></svg><span>I paid – notify admin</span></a>
+      </div>
+      <p class="access-note">After payment, our team confirms it and updates your expiry date.</p>
     </section>
     </div>
   </section>
@@ -1026,7 +1119,7 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
         </details>
         <details class="faq-item">
           <summary>How do I extend my access?</summary>
-          <p>Pair your device, open the menu (⋮) in the playlist section, choose 1, 3, 6 or 12 months and send the request to support.</p>
+          <p>Pair your device, open Activate Device, choose your period, pay with Binance and tap “I paid – notify admin”. Our team confirms and updates your expiry date.</p>
         </details>
         <details class="faq-item">
           <summary>Does Vision 4K provide channels or playlists?</summary>
@@ -1245,34 +1338,6 @@ function formatMacInput(el) {
     }
   }
 
-  function openExtensionTelegram(months) {
-    if (!auth) {
-      const note = $("activateNote");
-      if (note) { note.textContent = "Pair your device first (MAC Address and Device Key), then come back and send the request."; note.classList.add("show"); }
-      setStatus("Connect your device first.", "err");
-      if (window.goView) setTimeout(() => window.goView("playlists"), 1200);
-      return;
-    }
-    const plan = months === 1 ? "1 month" : `${months} months`;
-    const message = "Vision 4K extension request\n" +
-      "Plan: " + plan + "\n" +
-      "MAC: " + auth.mac + "\n" +
-      "Device Key: " + auth.key;
-    // Match the Android app's openTelegramSupport() deep link exactly.
-    // Telegram app opens the chat with the request prefilled, when installed.
-    const telegramUri = "tg://resolve?domain=coosmoi&text=" + encodeURIComponent(message);
-    // Use a real top-level navigation directly in the click handler so Android
-    // can hand the tg:// URI to Telegram instead of opening a new popup.
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile) {
-      window.location.href = telegramUri;
-    } else {
-      // Desktop: open Telegram Web / desktop app through the normal web link.
-      const w = window.open("https://t.me/coosmoi?text=" + encodeURIComponent(message), "_blank", "noopener");
-      if (!w) window.location.href = "https://t.me/coosmoi?text=" + encodeURIComponent(message);
-    }
-  }
-
   function renderPlaylists(data) {
     const list = $("playlistList");
     const playlists = Array.isArray(data.playlists) ? data.playlists : [];
@@ -1349,6 +1414,7 @@ function formatMacInput(el) {
       setStatus("Device connected successfully.", "ok");
       sessionStorage.setItem("vision4k_mac", mac);
       sessionStorage.setItem("vision4k_key", key);
+      window.dispatchEvent(new CustomEvent("v4k:paired", {detail: {mac: mac, key: key}}));
     } catch (err) {
       auth = null;
       $("manager").classList.remove("show");
@@ -1375,6 +1441,7 @@ function formatMacInput(el) {
     auth = null;
     sessionStorage.removeItem("vision4k_mac");
     sessionStorage.removeItem("vision4k_key");
+    window.dispatchEvent(new CustomEvent("v4k:unpaired"));
     $("key").value = "";
     $("manager").classList.remove("show");
     setPaired(false);
@@ -1477,18 +1544,6 @@ function formatMacInput(el) {
 
   function closeModal(id) { $(id).classList.remove("show"); }
 
-  let selectedMonths = 1;
-  function planLabel(m) { return m === 1 ? "1 MONTH" : m + " MONTHS"; }
-  document.querySelectorAll(".access-plan").forEach((button) => {
-    button.addEventListener("click", () => {
-      selectedMonths = Number(button.dataset.months || 1);
-      document.querySelectorAll(".access-plan").forEach((item) => {
-        item.setAttribute("aria-pressed", String(item === button));
-      });
-      $("accessRequestText").textContent = "REQUEST " + planLabel(selectedMonths);
-    });
-  });
-  $("accessRequest").addEventListener("click", () => openExtensionTelegram(selectedMonths));
   $("moreBtn").addEventListener("click", () => { window.goView("activate"); });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") document.querySelectorAll(".modal.show").forEach((m) => m.classList.remove("show"));
@@ -1677,6 +1732,83 @@ function formatMacInput(el) {
       if (!left && !document.hidden) { window.location.href = gmail; }
     }, 1400);
   });
+})();
+</script>
+<script>
+/* Activate Device: Binance payment with the MAC taken automatically from the paired device */
+(function () {
+  "use strict";
+  // ===== EDIT THESE =====
+  var BINANCE_ID = "1095100117";   // your Binance Pay ID
+  var WHATSAPP   = "447727188441"; // digits only, with country code
+  var PLANS = [
+    {id: "1m",   label: "1 month",   title: "1 Month",   price: 1.99},
+    {id: "6m",   label: "6 months",  title: "6 Months",  price: 6.99},
+    {id: "12m",  label: "12 months", title: "12 Months", price: 9.99},
+    {id: "life", label: "lifetime",  title: "Lifetime",  price: 14.99}
+  ];
+  // ======================
+
+  var CHECK_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.2 4.2L19 7"/></svg>';
+  var $ = function (id) { return document.getElementById(id); };
+  var plansEl = $("payPlans");
+  if (!plansEl) return;
+  var sel = null;
+
+  PLANS.forEach(function (p) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "pay-plan";
+    b.setAttribute("aria-pressed", "false");
+    b.innerHTML = '<span class="pp-label">' + p.label + '</span><b>$' + p.price.toFixed(2) + '</b>';
+    b.addEventListener("click", function () {
+      sel = p;
+      [].forEach.call(plansEl.children, function (c) { c.setAttribute("aria-pressed", String(c === b)); });
+      render();
+    });
+    plansEl.appendChild(b);
+  });
+
+  function readMac() {
+    try { return sessionStorage.getItem("vision4k_mac") || ""; } catch (e) { return ""; }
+  }
+
+  function render() {
+    var mac = readMac();
+    $("payHave").hidden = !mac;
+    $("payNeed").hidden = !!mac;
+    if (mac) $("payMac").textContent = mac;
+
+    var ready = !!(mac && sel);
+    $("payHint").hidden = !(mac && !sel);
+    $("payBox").hidden = !ready;
+    if (!ready) return;
+
+    var price = sel.price.toFixed(2);
+    $("payBid").textContent  = BINANCE_ID;
+    $("payAmt").textContent  = price + " USDT";
+    $("payNote").textContent = mac;
+
+    var msg = "Hello, I paid for Vision 4K.\nMAC: " + mac + "\nPlan: " + sel.title +
+              "\nAmount: " + price + " USDT\nMethod: Binance";
+    $("payWa").href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
+  }
+
+  document.querySelectorAll(".pay-copy").forEach(function (btn) {
+    var original = btn.innerHTML;
+    btn.addEventListener("click", function () {
+      var txt = $(btn.dataset.c).textContent.replace(/ USDT$/, "");
+      var done = function () {
+        btn.innerHTML = CHECK_SVG + "<span>COPIED</span>"; btn.classList.add("done");
+        setTimeout(function () { btn.innerHTML = original; btn.classList.remove("done"); }, 1500);
+      };
+      if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(done, done); } else { done(); }
+    });
+  });
+
+  window.addEventListener("v4k:paired", render);
+  window.addEventListener("v4k:unpaired", render);
+  render();
 })();
 </script>
 <!--Start of Tawk.to Script-->
