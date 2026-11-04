@@ -1028,6 +1028,7 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
         </ol>
         <a class="pay-wa" id="payWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 3.5A11.6 11.6 0 0 0 12.1 0 11.8 11.8 0 0 0 1.9 17.8L0 24l6.4-1.7A12 12 0 0 0 12.1 24C18.7 24 24 18.6 24 12.1a11.9 11.9 0 0 0-3.5-8.6ZM12.1 22a9.9 9.9 0 0 1-5.1-1.4l-.4-.2-3.8 1 1-3.7-.3-.4a10 10 0 0 1-1.5-5.2C2 6.6 6.5 2 12.1 2a10 10 0 0 1 10 10.1A10 10 0 0 1 12.1 22Zm5.5-7.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-.9 1.1-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.4c-.3-.6-.5-.5-.7-.5H7.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 2.9 1.3 3.1.2.2 2.2 3.4 5.3 4.8.7.3 1.3.5 1.8.7.8.2 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.5.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.3Z"/></svg><span>I paid – notify admin</span></a>
       </div>
+      <p class="access-note" id="payReq" hidden role="status" aria-live="polite"></p>
       <p class="access-note">After payment, our team confirms it and updates your expiry date.</p>
     </section>
     </div>
@@ -1119,7 +1120,7 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
       <section class="card info-card video-card">
         <h3 data-i18n="vid_t">Video: how to load your playlists</h3>
         <p class="sub" data-i18n="vid_d">A one-minute guide to adding M3U and Xtream playlists.</p>
-        <video id="tutVideo" controls playsinline preload="metadata" poster="tutorial-poster.jpg" src="tutorial-en.mp4"></video>
+        <video id="tutVideo" controls playsinline preload="metadata" poster="https://vision4k-official.github.io/add/tutorial-poster.jpg" src="https://vision4k-official.github.io/add/tutorial-en.mp4"></video>
       </section>
       <section class="card info-card steps-tut">
         <details class="faq-item" open>
@@ -1673,7 +1674,7 @@ function formatMacInput(el) {
   var v = document.getElementById("tutVideo");
   if (!v) return;
   window.refreshTutVideo = function (l) {
-    var want = "tutorial-en.mp4";
+    var want = "https://vision4k-official.github.io/add/tutorial-en.mp4";
     if ((v.getAttribute("src") || "") === want) return;
     var wasPlaying = !v.paused;
     v.setAttribute("src", want);
@@ -1859,6 +1860,27 @@ function formatMacInput(el) {
 
   window.addEventListener("v4k:paired", render);
   window.addEventListener("v4k:unpaired", render);
+
+  /* Tell the server about the payment (the admin confirms it in the panel); WhatsApp still opens as before. */
+  var REQ_URL = "https://albplayr.openibc.fit/app/api/payment_request.php";
+  var payWaEl = $("payWa"), payReqEl = $("payReq");
+  if (payWaEl) payWaEl.addEventListener("click", function () {
+    var mac = readMac(), key = "";
+    try { key = sessionStorage.getItem("vision4k_key") || ""; } catch (e) {}
+    if (!mac || !key || !sel || !payReqEl) return;
+    payReqEl.hidden = false;
+    payReqEl.textContent = "Sending your payment request...";
+    fetch(REQ_URL, {
+      method: "POST", headers: {"Content-Type": "application/json"}, keepalive: true, cache: "no-store",
+      body: JSON.stringify({action: "create", mac_address: mac, device_key: key, plan: sel.id})
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      payReqEl.textContent = (d && d.status)
+        ? "Payment request #" + d.request_id + " sent. We will confirm it as soon as we see your payment."
+        : ((d && d.message) || "Could not send the request.") + " Please message us on WhatsApp.";
+    }).catch(function () {
+      payReqEl.textContent = "Could not reach the server. Please message us on WhatsApp.";
+    });
+  });
   render();
 })();
 </script>
