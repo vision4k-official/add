@@ -132,6 +132,8 @@
     .input-shell input { padding-left: 47px; height: 53px; }
     .input-icon { position: absolute; width: 19px; height: 19px; left: 17px; top: 17px; color: #6897c2; pointer-events: none; transition: color .2s; }
     .input-shell:focus-within .input-icon { color: #64b7ff; }
+    .key-prefix { position: absolute; left: 47px; top: 0; height: 53px; line-height: 53px; font-size: 14px; letter-spacing: .25px; font-weight: 800; color: #64b7ff; pointer-events: none; user-select: none; }
+    #key { padding-left: 105px; text-transform: uppercase; }
     button {
       border: 0; border-radius: 12px; min-height: 41px; padding: 12px 17px;
       color: #fff; background: #153c66; cursor: pointer; font-weight: 800;
@@ -1061,8 +1063,9 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
         <label for="key">DEVICE KEY</label>
         <div class="input-shell">
           <svg class="input-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4.5"/><path d="m11.2 11.8 8.2-8.2 2 2-2.2 2.2M16 7l2 2"/></svg>
+          <span class="key-prefix" id="keyPrefix" aria-hidden="true">AP4K-</span>
           <input id="key" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false"
-            placeholder="AP4K-XXXXXXXX" maxlength="64">
+            placeholder="XXXXXXXX" maxlength="64" aria-label="Device Key (after AP4K-)">
         </div>
       </div>
     </div>
@@ -1426,11 +1429,32 @@ function formatMacInput(el) {
     }
   }
 
+  const KEY_PREFIX = "AP4K-";
+  function keyTail(v) {
+    v = String(v || "").trim().toUpperCase().replace(/\s+/g, "");
+    if (v.indexOf(KEY_PREFIX) === 0) v = v.slice(KEY_PREFIX.length);
+    else if (v.indexOf("AP4K") === 0) v = v.replace(/^AP4K[-_ ]?/, "");
+    return v;
+  }
+  (function () {
+    const inp = document.getElementById("key"), pre = document.getElementById("keyPrefix");
+    if (!inp || !pre) return;
+    const fit = () => { const w = pre.offsetWidth; if (w) inp.style.paddingLeft = (47 + w + 6) + "px"; };
+    fit();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    window.addEventListener("load", fit);
+    inp.addEventListener("input", () => {
+      const t = keyTail(inp.value);
+      if (t !== inp.value.trim().toUpperCase()) inp.value = t;
+    });
+  })();
+
   async function connectDevice() {
     const mac = $("mac").value.trim().toUpperCase();
-    const key = $("key").value.trim().toUpperCase();
+    const keyRest = keyTail($("key").value);
+    const key = keyRest ? KEY_PREFIX + keyRest : "";
 
-    if (!mac || !key) {
+    if (!mac || !keyRest) {
       setStatus("Enter MAC Address and Device Key.", "err");
       return;
     }
@@ -1629,7 +1653,7 @@ function formatMacInput(el) {
   const savedKey = sessionStorage.getItem("vision4k_key");
   if (savedMac && savedKey) {
     $("mac").value = savedMac;
-    $("key").value = savedKey;
+    $("key").value = keyTail(savedKey);
   }
 })();
 </script>
