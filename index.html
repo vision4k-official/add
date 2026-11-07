@@ -901,6 +901,114 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
 .pay-wa:focus-visible { outline: 3px solid #89d5ff; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .pay-box { animation: none; } .pay-wa, .pay-plan, .pay-copy { transition: none; } .pay-wa::before { animation: none; display: none; } }
 @media (max-width: 380px) { .pay-plan b { font-size: 25px; } .pay-row b { font-size: 16px; } }
+
+/* ===== v4k-look: Cinema dark redesign (look only) ===== */
+:root{--bg:#050810;--panel:#0d1630;--line:rgba(255,255,255,.09);--red:#e8283e;--text:#f4f6fb;--muted:#9fb0cc}
+html{background:#050810}
+body{background:radial-gradient(60% 45% at 50% 0%,rgba(232,40,62,.16),transparent 70%),radial-gradient(50% 50% at 100% 80%,rgba(109,40,217,.12),transparent 70%),linear-gradient(#04060c,#080b15) !important}
+body::before{opacity:.12}
+.topbar{background:rgba(5,8,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+.menu a.active{color:#fff;box-shadow:inset 0 -2px 0 #e8283e}
+@media(min-width:900px){.menu a{font-weight:800}}
+.home-hero h1{letter-spacing:-.035em}
+.home-hero h1 .hl{background:none;color:#ff3b53;-webkit-text-fill-color:#ff3b53}
+.home-cta a{background:linear-gradient(135deg,#e8283e,#b91c1c);box-shadow:0 14px 34px rgba(232,40,62,.38);border:0}
+.home-cta a.alt{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);box-shadow:none}
+.feat{background:linear-gradient(160deg,rgba(17,26,50,.85),rgba(10,16,34,.85));border:1px solid rgba(255,255,255,.08);border-radius:18px}
+.feat strong{color:#fff}.feat span{color:#9fb0cc}
+.card{background:linear-gradient(160deg,#0f1a36,#0a1126) !important;border:1px solid rgba(255,255,255,.09) !important;box-shadow:0 30px 90px rgba(0,0,0,.6) !important}
+.eyebrow{color:#ff5468 !important}
+.btn-main{background:linear-gradient(135deg,#e8283e,#b91c1c) !important;box-shadow:0 14px 34px rgba(232,40,62,.38) !important}
+.tab.active{background:#e8283e !important}
+.input-shell{background:#060b1a}
+.menu a:hover{background:rgba(232,40,62,.1)}
+/* wide hero on home only */
+.wrap:has(#view-home.active){width:min(1280px,calc(100% - 36px))}
+.v4tv{position:relative;width:min(1000px,100%);margin:34px auto 0}
+.v4tv .frame{position:relative;aspect-ratio:16/9;border-radius:12px;background:linear-gradient(145deg,#3a404d,#0a0d13 35%,#242a36);padding:6px;box-shadow:0 0 0 1px #ffffff2a,0 0 0 2px #04060a,0 50px 100px #000c,0 0 140px rgba(232,40,62,.22)}
+.v4tv .screen{position:relative;width:100%;height:100%;border-radius:6px;overflow:hidden;background:#050810;container-type:inline-size}
+.v4tv .screen::after{content:"";position:absolute;inset:0;background:linear-gradient(118deg,#ffffff22 0%,transparent 28%,transparent 72%,#ffffff0a 100%);pointer-events:none}
+.v4tv .stand{display:flex;justify-content:space-between;width:70%;margin:0 auto}.v4tv .stand i{width:8px;height:26px;background:linear-gradient(#222733,#06080c);clip-path:polygon(0 0,100% 0,60% 100%,0 100%)}.v4tv .stand i:last-child{transform:scaleX(-1)}
+.v4tv .bar{height:5px;border-radius:5px;background:linear-gradient(#232836,#06080c);width:130%;margin-left:-15%}
+.v4tv .glow{height:40px;margin:-4px 10% 0;background:radial-gradient(ellipse at top,rgba(232,40,62,.5),transparent 70%);filter:blur(10px)}
+.v4tv .app{position:absolute;inset:0;display:grid;grid-template-columns:5.2cqw 1fr;background:radial-gradient(90% 80% at 85% 0%,#3a0f1c,#060913 65%);color:#fff;font-size:1cqw}
+.v4tv .rail{background:#03060dcc;display:flex;flex-direction:column;align-items:center;gap:1.6cqw;padding:1.6cqw 0;border-right:1px solid #ffffff10}
+.v4tv .rail img{width:3.4cqw;margin-bottom:.8cqw}.v4tv .rail u{width:2.2cqw;height:2.2cqw;border-radius:.6cqw;background:#ffffff1f;display:block}.v4tv .rail u.on{background:#e8283e;box-shadow:0 0 1.2cqw #e8283e99}.v4tv .rail u.st{margin-top:auto}
+.v4tv .main{padding:1.6cqw 2cqw;display:flex;flex-direction:column;gap:1.4cqw;min-width:0}
+.v4tv .hd{display:flex;align-items:center;gap:2cqw;font-weight:700;font-size:1.05cqw;color:#9fb0cc}.v4tv .hd b{color:#fff;border-bottom:.25cqw solid #e8283e;padding-bottom:.35cqw}.v4tv .hd .r{margin-left:auto;display:flex;gap:1.2cqw;align-items:center}.v4tv .hd .pill{padding:.45cqw 1cqw;border-radius:99px;background:#ffffff1a;color:#fff}
+.v4tv .f2{flex:1.35;border-radius:1.2cqw;position:relative;overflow:hidden;background:linear-gradient(110deg,#e8283e,#6d28d9);padding:2.2cqw;display:flex;flex-direction:column;justify-content:flex-end;gap:.6cqw;min-height:0}
+.v4tv .f2::before{content:"";position:absolute;right:-8%;top:-45%;width:62%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffffff55,transparent 66%)}
+.v4tv .f2 .t{position:relative;font-size:.9cqw;font-weight:800;letter-spacing:.14em;color:#ffffffcc}.v4tv .f2 h3{position:relative;font-size:3cqw;font-weight:900;letter-spacing:-.02em;margin:0}.v4tv .f2 p{position:relative;font-size:1.05cqw;color:#ffffffd0;max-width:40%;margin:0}
+.v4tv .f2 .acts{position:relative;display:flex;gap:1cqw;margin-top:.8cqw}.v4tv .f2 .acts span{padding:.7cqw 1.6cqw;border-radius:.7cqw;font-weight:800;font-size:1.05cqw;background:#fff;color:#111}.v4tv .f2 .acts span+span{background:#ffffff30;color:#fff}
+.v4tv .f2 .k{position:absolute;right:2cqw;top:2cqw;font-size:1.1cqw;font-weight:900;padding:.35cqw .9cqw;border-radius:.5cqw;background:#0007;border:1px solid #ffffff55}
+.v4tv .sec{font-size:1.1cqw;font-weight:800;color:#dbe4f3;margin-bottom:-.5cqw}
+.v4tv .rowp{display:grid;grid-template-columns:repeat(6,1fr);gap:1.2cqw;flex:.85;min-height:0}.v4tv .rowp i{border-radius:.9cqw;background:linear-gradient(160deg,#1e3a8a,#0e7490);position:relative}.v4tv .rowp i:nth-child(2n){filter:hue-rotate(40deg) brightness(.9)}.v4tv .rowp i:nth-child(3n){filter:hue-rotate(-55deg)}.v4tv .rowp i::after{content:"";position:absolute;left:8%;right:35%;bottom:9%;height:.45cqw;border-radius:9px;background:#ffffff88}
+.v4pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:34px 0 8px}.v4pills span{padding:8px 16px;border:1px solid rgba(255,255,255,.14);border-radius:99px;font-size:12px;font-weight:800;color:#9fb0cc;background:rgba(255,255,255,.04)}
+.primary{background:linear-gradient(135deg,#e8283e,#b91c1c) !important;box-shadow:0 14px 34px rgba(232,40,62,.38) !important}
+.primary:hover{box-shadow:0 16px 40px rgba(232,40,62,.5) !important}
+h2 span[style*="43a8ff"]{color:#e8283e !important}
+.input-shell:focus-within{border-color:#e8283e !important;box-shadow:0 0 0 3px rgba(232,40,62,.18) !important}
+.ft-title{margin-top:46px !important}
+
+/* ===== v4k-signature: split hero + signature badge ===== */
+.menu a{white-space:nowrap}
+@media(min-width:900px){.menu a{font-size:12px;padding:10px 12px}}
+@media(min-width:1100px){
+ #view-home.active{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);grid-template-areas:"hero tv" "pills pills" "title title" "feats feats";column-gap:42px;align-items:center}
+ #view-home .home-hero{grid-area:hero;text-align:left;margin:0;max-width:none;padding:30px 0}
+ #view-home .home-hero h1{font-size:clamp(40px,4.2vw,64px)}
+ #view-home .home-hero h1 .hl{display:inline;margin-right:.28em}
+ #view-home .home-hero p{margin-left:0;max-width:540px}
+ #view-home .home-cta{justify-content:flex-start}
+ #view-home .v4tv{grid-area:tv;margin:0;width:100%}
+ #view-home .v4pills{grid-area:pills}
+ #view-home .ft-title{grid-area:title;text-align:center}
+ #view-home .features{grid-area:feats;max-width:none;width:100%}
+}
+.v4sig{position:fixed;right:18px;bottom:92px;z-index:900;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;background:rgba(20,24,36,.92);border:1px solid rgba(255,255,255,.12);box-shadow:0 14px 40px rgba(0,0,0,.55);backdrop-filter:blur(8px);color:#cbd5e1;font-size:11px;line-height:1.35;text-align:left}
+.v4sig img{height:34px;width:auto;filter:drop-shadow(0 4px 10px rgba(232,40,62,.4))}
+.v4sig small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7b8ba6;margin-bottom:2px}
+.v4sig b{display:block;font-size:14px;color:#fff;letter-spacing:-.01em}
+.v4sig b i{font-style:normal;color:#ff3b53}
+@media(max-width:700px){.v4sig{display:none}}
+.v4sigline{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:10px;color:#7b8ba6;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.v4sigline::before,.v4sigline::after{content:"";height:1px;width:46px;background:linear-gradient(90deg,transparent,rgba(232,40,62,.7))}
+.v4sigline::after{transform:scaleX(-1)}
+.v4sigline b{color:#ff3b53;letter-spacing:.06em}
+
+
+
+/* full-screen auto-changing TV demo */
+.v4tv .hd span{padding-bottom:.35cqw;border-bottom:.25cqw solid transparent;transition:color .4s,border-color .4s}
+.v4tv .hd span.on{color:#fff;border-bottom-color:#e8283e}
+.v4tv .hd .r span{border:0;padding:.45cqw 1cqw}
+.v4tv .stk{position:relative;flex:1;min-height:0}
+.v4tv .scr{position:absolute;inset:0;opacity:0;transform:translateY(1cqw) scale(.99);transition:opacity .8s ease,transform .8s ease;display:flex;flex-direction:column;gap:1.3cqw;pointer-events:none}
+.v4tv .scr.on{opacity:1;transform:none}
+.v4tv .bn{flex:1.4;border-radius:1.2cqw;position:relative;overflow:hidden;background:linear-gradient(110deg,#e8283e,#6d28d9);display:flex;align-items:flex-start;padding:2cqw}
+.v4tv .bn::before{content:"";position:absolute;right:-8%;top:-45%;width:62%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffffff55,transparent 66%)}
+.v4tv .bn h3{position:relative;font-size:2.4cqw;font-weight:900;margin:0;letter-spacing:-.02em}
+.v4tv .bn .k{position:absolute;right:2cqw;top:2cqw;font-size:1.1cqw;font-weight:900;padding:.35cqw .9cqw;border-radius:.5cqw;background:#0007;border:1px solid #ffffff55}
+.v4tv .rowp.tall{flex:1}
+.v4tv .live{display:grid;grid-template-columns:19cqw 1fr;gap:1.3cqw;flex:1;min-height:0}
+.v4tv .chl{background:#ffffff0d;border-radius:1cqw;padding:.8cqw;display:flex;flex-direction:column;gap:.5cqw;overflow:hidden}
+.v4tv .chl div{display:flex;align-items:center;gap:.8cqw;padding:.6cqw .8cqw;border-radius:.7cqw;font-size:1cqw;font-weight:700;color:#b6c2d9}.v4tv .chl div i{width:2.2cqw;height:2.2cqw;border-radius:.5cqw;background:linear-gradient(135deg,#2563eb,#7c3aed);flex:none}.v4tv .chl div small{display:block;font-size:.8cqw;font-weight:500;color:#7b8ba6}.v4tv .chl div.on{background:#e8283e33;color:#fff;outline:1px solid #e8283e88}
+.v4tv .pl{display:flex;flex-direction:column;gap:1cqw;min-width:0}
+.v4tv .vid{flex:1;border-radius:1cqw;position:relative;overflow:hidden;background:linear-gradient(120deg,#2563eb,#7c3aed);min-height:0}
+.v4tv .vid .lb{position:absolute;left:1.2cqw;top:1.2cqw;padding:.3cqw .8cqw;border-radius:.5cqw;background:#e8283e;font-size:.9cqw;font-weight:900;letter-spacing:.1em}
+.v4tv .vid .ov{position:absolute;left:0;right:0;top:auto;bottom:0;padding:1.2cqw;background:linear-gradient(transparent,#000a);display:flex;flex-direction:column;gap:.6cqw}.v4tv .vid .ov b{font-size:1.3cqw}.v4tv .vid .prog{height:.35cqw;border-radius:9px;background:#ffffff33}.v4tv .vid .prog i{display:block;width:42%;height:100%;border-radius:9px;background:#e8283e}
+.v4tv .epg{display:grid;grid-template-columns:repeat(4,1fr);gap:.8cqw}.v4tv .epg div{padding:.7cqw .9cqw;border-radius:.7cqw;background:#ffffff0f;font-size:.95cqw;font-weight:700;color:#cbd5e1}.v4tv .epg div small{display:block;color:#7b8ba6;font-weight:500;font-size:.8cqw}.v4tv .epg div.on{background:#e8283e2e;outline:1px solid #e8283e77;color:#fff}
+.v4tv .plw{display:grid;grid-template-columns:1fr 1fr;gap:1cqw;width:100%}
+.v4tv .pli{display:flex;align-items:center;gap:1cqw;padding:1.8cqw 1.5cqw;border-radius:1cqw;background:#ffffff0f;border:1px solid #ffffff14;font-size:1.2cqw;font-weight:800}.v4tv .pli i{width:3cqw;height:3cqw;border-radius:.8cqw;background:linear-gradient(135deg,#0e7490,#2563eb)}.v4tv .pli small{display:block;font-weight:500;color:#7b8ba6;font-size:.9cqw}.v4tv .pli em{margin-left:auto;font-style:normal;font-size:.9cqw;color:#4ade80;font-weight:800}
+.v4tv .pli.add{justify-content:center;flex-direction:column;gap:.2cqw;border-style:dashed;color:#cbd5e1}
+.v4tv .stg{display:grid;grid-template-columns:1fr 1fr;gap:1.2cqw;width:100%}.v4tv .stg div{padding:2cqw;border-radius:1cqw;background:#ffffff0f;border:1px solid #ffffff14}.v4tv .stg small{display:block;color:#7b8ba6;font-size:.85cqw;letter-spacing:.1em;margin-bottom:.5cqw}.v4tv .stg b{font-size:1.5cqw}.v4tv .stg .tr{grid-column:1/3;background:linear-gradient(110deg,#15803d,#0e7490)}.v4tv .stg .tr small{color:#ffffffcc}
+.v4tv .cap{position:absolute;left:0;bottom:0;max-width:52%;padding:1.3cqw 1.6cqw;border-radius:1.1cqw;background:rgba(5,8,16,.86);border:1px solid #ffffff22;backdrop-filter:blur(8px);box-shadow:0 1cqw 3cqw #000a;display:flex;flex-direction:column;gap:.3cqw;z-index:2}
+.v4tv .cap small{font-size:.85cqw;font-weight:800;letter-spacing:.16em;color:#ff5468}.v4tv .cap b{font-size:2.2cqw;font-weight:900;letter-spacing:-.02em;line-height:1.1}.v4tv .cap span{font-size:1.1cqw;color:#cbd5e1;line-height:1.45}
+.v4tv .v4d{position:absolute;right:2cqw;bottom:1.6cqw;display:flex;gap:.6cqw;z-index:4}
+.v4tv .v4d i{width:.7cqw;height:.7cqw;border-radius:99px;background:#ffffff55;transition:all .3s;cursor:pointer}.v4tv .v4d i.on{width:2.2cqw;background:#fff}
+@media(prefers-reduced-motion:reduce){.v4tv .scr{transition:none;transform:none}}
+@media(max-width:1100px){.v4tv .bar{width:100%;margin-left:0}}
+@media(max-width:680px){.v4tv{margin-top:22px}.v4tv .app{font-size:0}}
 </style>
 </head>
 <body>
@@ -937,6 +1045,15 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
         <a class="alt soon" href="#reseller" aria-disabled="true" tabindex="-1"><span data-i18n="home_reseller">Become a Reseller</span> · <span data-i18n="soon">Coming soon</span></a>
       </div>
     </div>
+
+    <div class="v4tv" aria-hidden="true"><div class="frame"><div class="screen"><div class="app"><div class="rail"><img class="tvlogo" alt=""><u class="on"></u><u></u><u></u><u></u><u class="st"></u></div><div class="main"><div class="hd" id="v4hd"><span class="on">Home</span><span>Live TV</span><span>Movies</span><span>Playlists</span><span>Settings</span><div class="r"><span class="pill">4K</span><span>20:45</span></div></div><div class="stk" id="v4stk"><div class="scr on"><div class="bn"><span class="k">4K</span><h3>Vision 4K</h3></div><div class="sec">Continue watching</div><div class="rowp"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="cap"><small>HOME</small><b>Everything in one place</b><span>Your playlists, beautifully organized on every screen.</span></div></div><div class="scr"><div class="live"><div class="chl"><div class=""><i></i><span>Channel 01<small>Now playing</small></span></div><div class="on"><i></i><span>Channel 02<small>Now playing</small></span></div><div class=""><i></i><span>Channel 03<small>Now playing</small></span></div><div class=""><i></i><span>Channel 04<small>Now playing</small></span></div><div class=""><i></i><span>Channel 05<small>Now playing</small></span></div></div><div class="pl"><div class="vid"><span class="lb">LIVE</span><div class="ov"><b>Channel 02 · Now playing</b><div class="prog"><i></i></div></div></div><div class="epg"><div class="on">20:00<small>Now</small></div><div>21:00<small>Next</small></div><div>22:00<small>Later</small></div><div>23:00<small>Later</small></div></div></div></div><div class="cap"><small>LIVE TV</small><b>Live TV in 4K</b><span>Switch channels instantly with a clean guide built for the big screen.</span></div></div><div class="scr"><div class="sec">Movies &amp; Series</div><div class="rowp tall"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="rowp tall"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="cap"><small>MOVIES &amp; SERIES</small><b>Your library, your way</b><span>Browse movies and series from your own playlists.</span></div></div><div class="scr"><div class="sec">My Playlists</div><div class="plw"><div class="pli"><i></i><span>My Playlist 1<small>M3U link</small></span><em>Active</em></div><div class="pli"><i></i><span>My Playlist 2<small>Xtream Codes</small></span><em>Active</em></div><div class="pli"><i></i><span>My Playlist 3<small>M3U link</small></span><em>Active</em></div><div class="pli add">＋ Add playlist<small>M3U or Xtream Codes · up to 5</small></div></div><div class="cap"><small>PLAYLISTS</small><b>M3U &amp; Xtream Codes</b><span>Add up to 5 playlists and manage them from any browser.</span></div></div><div class="scr"><div class="sec">Device &amp; Activation</div><div class="stg"><div><small>MAC ADDRESS</small><b>00:1A:79:AA:BB:CC</b></div><div><small>DEVICE KEY</small><b>AP4K-XXXXXXXX</b></div><div class="tr"><small>STATUS</small><b>Free trial · 30 days</b></div></div><div class="cap"><small>FREE TRIAL</small><b>30 days free</b><span>Pair your device and start watching. Activate in minutes.</span></div></div></div></div><div class="v4d"><i class="on"></i><i></i><i></i><i></i><i></i></div></div></div></div></div><div class="stand"><i></i><i></i></div><div class="bar"></div><div class="glow"></div></div>
+    <div class="v4pills" aria-hidden="true"><span>Android TV</span><span>Fire TV</span><span>Phone</span><span>Tablet</span><span>Box</span></div>
+    <script>(function(){var stk=document.getElementById("v4stk");if(!stk)return;var sc=stk.querySelectorAll(".scr"),tb=document.querySelectorAll("#v4hd > span:not(.pill)"),dt=document.querySelectorAll(".v4d i"),n=sc.length,k=0,t;
+tb=Array.prototype.slice.call(document.querySelectorAll("#v4hd > span"));
+function go(i){sc[k].classList.remove("on");tb[k].classList.remove("on");dt[k].classList.remove("on");k=(i+n)%n;sc[k].classList.add("on");tb[k].classList.add("on");dt[k].classList.add("on")}
+function run(){clearInterval(t);t=setInterval(function(){if(!document.hidden)go(k+1)},4800)}
+dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});run();})();</script>
+<script>(function(){var m=document.querySelector(".topbar .mark-logo");if(m)document.querySelectorAll(".tvlogo").forEach(function(i){i.src=m.src});})();</script>
     <h2 class="view-title ft-title" data-i18n="ft_title">Why Vision 4K</h2>
     <div class="features">
       <div class="feat"><strong>M3U &amp; Xtream Codes</strong><span data-i18n="f1d">Add your own playlists in either format.</span></div>
@@ -1222,8 +1339,11 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
   <footer class="footer">
     <strong>Vision 4K is a media player only.</strong> No channels, playlists or subscriptions are provided.<br>
     Use only content you are authorized to access.
+    <div class="v4sigline">Crafted by <b>Vision 4K</b> · Premium Media Player</div>
   </footer>
 </main>
+<div class="v4sig" aria-hidden="true"><img class="tvlogo" alt=""><div><small>Developed by</small><b>Vision <i>4K</i></b></div></div>
+<script>(function(){var m=document.querySelector(".topbar .mark-logo");if(m)document.querySelectorAll(".v4sig .tvlogo").forEach(function(i){i.src=m.src});})();</script>
 
 <div id="addModal" class="modal">
   <div class="modal-box">
