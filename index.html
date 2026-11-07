@@ -693,8 +693,10 @@ html { scroll-behavior: smooth; }
 .playlist-info { min-width: 0; }
 .playlist-title { font-size: 15px; margin: 0 0 6px; }
 .playlist-type { display: inline-block; padding: 4px 9px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: .9px; color: #9fd0ff; background: rgba(30, 99, 170, .25); border: 1px solid rgba(90, 170, 240, .25); }
-.playlist .actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+.playlist .actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; }
 .playlist .actions button { min-height: 40px; font-size: 11px; letter-spacing: .6px; }
+.playlist .actions button:disabled { opacity: .4; cursor: not-allowed; }
+.playlist-lock { display: inline-block; margin-left: 6px; padding: 4px 9px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: .6px; color: #ffd9a0; background: rgba(217, 140, 20, .18); border: 1px solid rgba(240, 170, 60, .35); }
 .playlist .actions .danger { background: rgba(217, 37, 56, .14); border: 1px solid rgba(235, 43, 69, .4); color: #ffb3bc; }
 .playlist .actions .danger:hover { background: rgba(217, 37, 56, .28); }
 .empty { display: grid; gap: 6px; padding: 28px 20px; }
@@ -704,7 +706,7 @@ html { scroll-behavior: smooth; }
 .add-main { width: 100%; min-height: 52px; margin: 0 !important; font-size: 13px; letter-spacing: .9px; }
 .tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .tool-grid button { min-height: 42px; font-size: 11px; letter-spacing: .6px; }
-@media (min-width: 560px) { .tool-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .playlist .actions { width: auto; grid-column: auto; justify-self: end; grid-template-columns: auto auto; } .playlist { grid-template-columns: auto minmax(0, 1fr) auto; } }
+@media (min-width: 560px) { .tool-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .playlist .actions { width: auto; grid-column: auto; justify-self: end; grid-template-columns: auto auto auto; } .playlist { grid-template-columns: auto minmax(0, 1fr) auto; } }
 @media (max-width: 420px) { .access-card { padding: 18px; } .access-plan { min-height: 68px; } .access-plan b { font-size: 22px; } }
 
 /* Paired state: only MAC, key and playlist manager stay visible */
@@ -1257,6 +1259,30 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
   </div>
 </div>
 
+<div id="editModal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head"><h3>Edit Playlist</h3><button class="x ghost" data-close="editModal">×</button></div>
+    <div class="tabs">
+      <button id="editTabM3u" class="tab active">M3U</button>
+      <button id="editTabXtream" class="tab">XTREAM CODES</button>
+    </div>
+    <div class="field"><label for="editName">PLAYLIST NAME</label><input id="editName" placeholder="My Playlist" maxlength="100"></div>
+    <div id="editM3uFields">
+      <div class="field"><label for="editM3uUrl">NEW M3U URL</label><input id="editM3uUrl" placeholder="http://example.com/get.php?..." autocomplete="off"></div>
+    </div>
+    <div id="editXtreamFields" class="hidden">
+      <div class="field"><label for="editServerUrl">SERVER URL</label><input id="editServerUrl" placeholder="http://example.com:8080" autocomplete="off"></div>
+      <div class="field"><label for="editXcUser">USERNAME</label><input id="editXcUser" placeholder="Username" autocomplete="off"></div>
+      <div class="field"><label for="editXcPass">PASSWORD</label><input id="editXcPass" type="password" placeholder="Leave empty to keep the current password" autocomplete="off"></div>
+    </div>
+    <p style="font-size:12px;opacity:.75;margin:10px 0 0">For privacy, saved URLs and passwords are never shown. Enter the new details to replace them.</p>
+    <div class="modal-actions">
+      <button class="ghost" data-close="editModal">CANCEL</button>
+      <button id="saveEdit" class="primary">SAVE CHANGES</button>
+    </div>
+  </div>
+</div>
+
 <script>
 function formatMacInput(el) {
   const clean = String(el.value || "")
@@ -1409,6 +1435,13 @@ function formatMacInput(el) {
       type.className = "playlist-type";
       type.textContent = item.type === "xtream" ? "XTREAM CODES" : "M3U";
       info.append(title, type);
+      if (item.locked) {
+        const lock = document.createElement("span");
+        lock.className = "playlist-lock";
+        lock.textContent = "🔒 LOCKED";
+        lock.title = "Locked by the administrator";
+        info.append(lock);
+      }
 
       const actions = document.createElement("div");
       actions.className = "actions";
@@ -1418,12 +1451,24 @@ function formatMacInput(el) {
       rename.textContent = "RENAME";
       rename.addEventListener("click", () => openRename(item));
 
+      const edit = document.createElement("button");
+      edit.className = "ghost";
+      edit.textContent = "EDIT";
+      edit.addEventListener("click", () => openEdit(item));
+
       const del = document.createElement("button");
       del.className = "danger";
       del.textContent = "DELETE";
       del.addEventListener("click", () => deletePlaylist(item));
 
-      actions.append(rename, del);
+      if (item.locked) {
+        for (const b of [rename, edit, del]) {
+          b.disabled = true;
+          b.title = "This playlist is locked by the administrator.";
+        }
+      }
+
+      actions.append(rename, edit, del);
       row.append(icon, info, actions);
       list.append(row);
     }
@@ -1587,6 +1632,65 @@ function formatMacInput(el) {
     }
   }
 
+  let editId = 0;
+  let editType = "m3u";
+
+  function setEditType(type) {
+    editType = type === "xtream" ? "xtream" : "m3u";
+    $("editTabM3u").classList.toggle("active", editType === "m3u");
+    $("editTabXtream").classList.toggle("active", editType === "xtream");
+    $("editM3uFields").classList.toggle("hidden", editType !== "m3u");
+    $("editXtreamFields").classList.toggle("hidden", editType !== "xtream");
+  }
+
+  function openEdit(item) {
+    if (item.locked) return;
+    editId = Number(item.id || 0);
+    $("editName").value = item.name || "Playlist";
+    $("editM3uUrl").value = "";
+    $("editServerUrl").value = "";
+    $("editXcUser").value = "";
+    $("editXcPass").value = "";
+    setEditType(item.type === "xtream" ? "xtream" : "m3u");
+    $("editModal").classList.add("show");
+    setTimeout(() => $("editName").focus(), 80);
+  }
+
+  async function saveEdit() {
+    if (!editId) return;
+    const payload = {
+      playlist_id: editId,
+      playlist_name: $("editName").value.trim(),
+      playlist_type: editType
+    };
+
+    if (editType === "m3u") {
+      const m3u_url = $("editM3uUrl").value.trim();
+      if (!m3u_url) { alert("Enter the new M3U URL."); return; }
+      payload.m3u_url = m3u_url;
+    } else {
+      const server_url = $("editServerUrl").value.trim();
+      const username = $("editXcUser").value.trim();
+      const password = $("editXcPass").value;
+      if (!server_url || !username) { alert("Enter Server URL and Username."); return; }
+      payload.server_url = server_url;
+      payload.username = username;
+      payload.password = password;
+    }
+
+    $("saveEdit").disabled = true;
+    try {
+      const data = await api("edit_playlist", payload);
+      closeModal("editModal");
+      renderPlaylists(data);
+      setStatus(data.message || "Playlist updated.", "ok");
+    } catch (err) {
+      setStatus(err.message, "err");
+    } finally {
+      $("saveEdit").disabled = false;
+    }
+  }
+
   async function deletePlaylist(item) {
     if (!confirm(`Delete "${item.name || "Playlist"}"?`)) return;
     setStatus("Deleting playlist...", "wait");
@@ -1635,6 +1739,9 @@ function formatMacInput(el) {
   $("tabXtream").addEventListener("click", () => setType("xtream"));
   $("savePlaylist").addEventListener("click", savePlaylist);
   $("saveRename").addEventListener("click", saveRename);
+  $("editTabM3u").addEventListener("click", () => setEditType("m3u"));
+  $("editTabXtream").addEventListener("click", () => setEditType("xtream"));
+  $("saveEdit").addEventListener("click", saveEdit);
 
   document.querySelectorAll("[data-close]").forEach((btn) => {
     btn.addEventListener("click", () => closeModal(btn.dataset.close));
