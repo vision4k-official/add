@@ -1104,7 +1104,7 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
       </div>
 
       <div class="security">
-        For privacy, saved playlist URLs, usernames and passwords are never displayed on this page.
+        For privacy, saved playlist details are shown only inside the Edit window of an unlocked playlist.
         After making changes, press <b>UPDATE</b> in Vision 4K.
       </div>
 
@@ -1174,7 +1174,7 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
     <div class="stack"><section class="card info-card legal">
       <h3>Media player only</h3><p>Vision 4K is a media player. It does not provide, sell or host any channels, playlists or subscriptions.</p>
       <h3>Your content</h3><p>You are solely responsible for the content you add. Use only content you are authorized to access.</p>
-      <h3>Privacy</h3><p>The MAC Address and Device Key are used only to link your device to your playlists. For privacy, saved playlist URLs, usernames and passwords are never displayed on this page.</p>
+      <h3>Privacy</h3><p>The MAC Address and Device Key are used only to link your device to your playlists. For privacy, saved playlist details are shown only inside the Edit window of an unlocked playlist.</p>
       <h3>Access period</h3><p>New devices receive a free trial. After it ends, access can be extended by contacting our support team. Extension requests are confirmed by our team.</p>
       <h3>Changes</h3><p>We may update these terms and the service from time to time. Continued use means you accept the updated terms.</p>
     </section></div>
@@ -1268,14 +1268,13 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
     </div>
     <div class="field"><label for="editName">PLAYLIST NAME</label><input id="editName" placeholder="My Playlist" maxlength="100"></div>
     <div id="editM3uFields">
-      <div class="field"><label for="editM3uUrl">NEW M3U URL</label><input id="editM3uUrl" placeholder="http://example.com/get.php?..." autocomplete="off"></div>
+      <div class="field"><label for="editM3uUrl">M3U URL</label><input id="editM3uUrl" placeholder="http://example.com/get.php?..." autocomplete="off"></div>
     </div>
     <div id="editXtreamFields" class="hidden">
       <div class="field"><label for="editServerUrl">SERVER URL</label><input id="editServerUrl" placeholder="http://example.com:8080" autocomplete="off"></div>
       <div class="field"><label for="editXcUser">USERNAME</label><input id="editXcUser" placeholder="Username" autocomplete="off"></div>
-      <div class="field"><label for="editXcPass">PASSWORD</label><input id="editXcPass" type="password" placeholder="Leave empty to keep the current password" autocomplete="off"></div>
+      <div class="field"><label for="editXcPass">PASSWORD</label><input id="editXcPass" type="password" placeholder="Password" autocomplete="off"></div>
     </div>
-    <p style="font-size:12px;opacity:.75;margin:10px 0 0">For privacy, saved URLs and passwords are never shown. Enter the new details to replace them.</p>
     <div class="modal-actions">
       <button class="ghost" data-close="editModal">CANCEL</button>
       <button id="saveEdit" class="primary">SAVE CHANGES</button>
@@ -1643,17 +1642,25 @@ function formatMacInput(el) {
     $("editXtreamFields").classList.toggle("hidden", editType !== "xtream");
   }
 
-  function openEdit(item) {
+  async function openEdit(item) {
     if (item.locked) return;
-    editId = Number(item.id || 0);
-    $("editName").value = item.name || "Playlist";
-    $("editM3uUrl").value = "";
-    $("editServerUrl").value = "";
-    $("editXcUser").value = "";
-    $("editXcPass").value = "";
-    setEditType(item.type === "xtream" ? "xtream" : "m3u");
-    $("editModal").classList.add("show");
-    setTimeout(() => $("editName").focus(), 80);
+    setStatus("Loading playlist...", "wait");
+    try {
+      const data = await api("get_playlist", {playlist_id: Number(item.id)});
+      const pl = data.playlist || {};
+      editId = Number(pl.id || item.id || 0);
+      $("editName").value = pl.name || item.name || "Playlist";
+      $("editM3uUrl").value = pl.m3u_url || "";
+      $("editServerUrl").value = pl.server_url || "";
+      $("editXcUser").value = pl.username || "";
+      $("editXcPass").value = pl.password || "";
+      setEditType(pl.type === "xtream" ? "xtream" : "m3u");
+      clearStatus();
+      $("editModal").classList.add("show");
+      setTimeout(() => $("editName").focus(), 80);
+    } catch (err) {
+      setStatus(err.message, "err");
+    }
   }
 
   async function saveEdit() {
