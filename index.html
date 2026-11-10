@@ -1168,6 +1168,22 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 
+<style id="v4k-slide">
+/* ===== v4k-slide: faqja hyn nga anët dhe fokusohet në qendër ===== */
+body{overflow-x:clip}
+@keyframes v4kFromL{from{opacity:0;transform:translateX(-110px) scale(.95);filter:blur(12px)}60%{filter:blur(2px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes v4kFromR{from{opacity:0;transform:translateX(110px) scale(.95);filter:blur(12px)}60%{filter:blur(2px)}to{opacity:1;transform:none;filter:blur(0)}}
+/* MODI 1: gjithçka vjen nga e majta */
+html.slide-left .view.active>*,html.slide-left .view.active .card .pad>*{animation:v4kFromL .65s cubic-bezier(.2,.8,.2,1) both}
+/* MODI 2: nga të dyja anët, takohen në qendër */
+html.slide-both .view.active>*:nth-child(odd),html.slide-both .view.active .card .pad>*:nth-child(odd){animation:v4kFromL .65s cubic-bezier(.2,.8,.2,1) both}
+html.slide-both .view.active>*:nth-child(even),html.slide-both .view.active .card .pad>*:nth-child(even){animation:v4kFromR .65s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){html.slide-left .view.active>*,html.slide-both .view.active>*,html.slide-left .view.active .card .pad>*,html.slide-both .view.active .card .pad>*{animation:none !important;filter:none}}
+</style>
+<script>
+document.documentElement.classList.add('slide-both');
+</script>
+
 </head>
 <body>
 <header class="topbar">
