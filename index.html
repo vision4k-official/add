@@ -1010,6 +1010,164 @@ h2 span[style*="43a8ff"]{color:#e8283e !important}
 @media(max-width:1100px){.v4tv .bar{width:100%;margin-left:0}}
 @media(max-width:680px){.v4tv{margin-top:22px}.v4tv .app{font-size:0}}
 </style>
+<style id="v4k-3d">
+/* ===== v4k-3d: butona 3D me animacione (vetëm pamje, pa ndryshuar logjikën) ===== */
+:root{--e1:#7d101f;--e2:#0b2a4a}
+button.primary,button.ghost,button.tab,button.dots,.btn-main,.btn-alt,.home-cta a{
+  position:relative;overflow:hidden;isolation:isolate;border-radius:14px;
+  transform:perspective(700px) translateY(0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s ease,filter .16s ease,background .2s ease;
+  will-change:transform;-webkit-tap-highlight-color:transparent}
+/* gloss sipër + shkëlqim që kalon në hover */
+button.primary::before,button.ghost::before,button.dots::before,.btn-main::before,.btn-alt::before,.home-cta a::before{
+  content:"";position:absolute;inset:0 0 50% 0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.04))}
+button.primary::after,button.ghost::after,button.dots::after,.btn-main::after,.btn-alt::after,.home-cta a::after{
+  content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;z-index:-1;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);
+  transform:skewX(-20deg) translateX(0);transition:none}
+button.primary:hover::after,button.ghost:hover::after,button.dots:hover::after,.btn-main:hover::after,.btn-alt:hover::after,.home-cta a:hover::after{
+  transform:skewX(-20deg) translateX(520%);transition:transform .75s ease}
+
+/* butoni kryesor (i kuq) me "buzë" 3D poshtë */
+button.primary,.btn-main,.home-cta a:not(.alt){
+  background:linear-gradient(180deg,#ff4a5f 0%,#e8283e 48%,#c21a2e 100%) !important;
+  border:1px solid rgba(255,170,180,.45) !important;
+  box-shadow:0 6px 0 var(--e1),0 16px 26px -6px rgba(232,40,62,.55),inset 0 1px 0 rgba(255,255,255,.35) !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.35)}
+button.primary:hover,.btn-main:hover,.home-cta a:not(.alt):hover{
+  transform:perspective(700px) translateY(-3px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  box-shadow:0 9px 0 var(--e1),0 22px 32px -6px rgba(232,40,62,.65),inset 0 1px 0 rgba(255,255,255,.4) !important;filter:brightness(1.06)}
+button.primary:active,.btn-main:active,.home-cta a:not(.alt):active{
+  transform:perspective(700px) translateY(5px);
+  box-shadow:0 1px 0 var(--e1),0 4px 10px -4px rgba(232,40,62,.5),inset 0 2px 6px rgba(0,0,0,.3) !important;filter:brightness(.97)}
+
+/* butonat dytësorë (xham i errët) me buzë blu */
+button.ghost,.btn-alt,button.dots,.home-cta a.alt{
+  background:linear-gradient(180deg,rgba(40,62,104,.95),rgba(16,28,56,.98)) !important;
+  border:1px solid rgba(140,175,230,.35) !important;color:#e8f1ff;
+  box-shadow:0 5px 0 var(--e2),0 12px 20px -8px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.14)}
+button.ghost:hover,.btn-alt:hover,button.dots:hover,.home-cta a.alt:hover{
+  transform:perspective(700px) translateY(-2px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  box-shadow:0 7px 0 var(--e2),0 16px 24px -8px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.2);filter:brightness(1.1)}
+button.ghost:active,.btn-alt:active,button.dots:active,.home-cta a.alt:active{
+  transform:perspective(700px) translateY(4px);box-shadow:0 1px 0 var(--e2),0 3px 8px -4px rgba(0,0,0,.7),inset 0 2px 6px rgba(0,0,0,.35)}
+
+/* butoni i rrezikshëm (Delete) */
+.playlist .actions button.danger{
+  background:linear-gradient(180deg,rgba(120,24,40,.9),rgba(70,12,24,.95)) !important;border:1px solid rgba(255,110,130,.45) !important;color:#ffc2cb;
+  box-shadow:0 5px 0 #3b0813,0 12px 20px -8px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.12)}
+.playlist .actions button.danger:hover{box-shadow:0 7px 0 #3b0813,0 16px 24px -8px rgba(217,37,56,.5),inset 0 1px 0 rgba(255,255,255,.16)}
+
+/* tab-et M3U / XTREAM si çelës 3D */
+button.tab{box-shadow:0 4px 0 var(--e2),inset 0 1px 0 rgba(255,255,255,.1)}
+button.tab.active{background:linear-gradient(180deg,#ff4a5f,#c21a2e) !important;box-shadow:0 4px 0 var(--e1),0 10px 18px -6px rgba(232,40,62,.55),inset 0 1px 0 rgba(255,255,255,.35) !important;color:#fff}
+button.tab:active{transform:perspective(700px) translateY(3px);box-shadow:0 1px 0 var(--e2)}
+
+/* butonat kryesorë "marrin frymë" lehtë */
+@keyframes v4k3dGlow{0%,100%{box-shadow:0 6px 0 var(--e1),0 16px 26px -6px rgba(232,40,62,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+  50%{box-shadow:0 6px 0 var(--e1),0 18px 38px -4px rgba(255,74,95,.85),inset 0 1px 0 rgba(255,255,255,.35)}}
+#connect.primary:not(:disabled):not(:hover),#add.primary:not(:disabled):not(:hover){animation:v4k3dGlow 2.6s ease-in-out infinite}
+#connect .connect-arrow{display:inline-block;transition:transform .2s ease}
+#connect:hover .connect-arrow{transform:translateX(5px)}
+
+/* kartat e playlist-ave ngrihen lehtë */
+.playlist{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.playlist:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(0,0,0,.7);border-color:rgba(140,175,230,.35)}
+
+/* i çaktivizuar: pa animacion */
+button.primary:disabled,button.ghost:disabled{animation:none !important;transform:none !important;filter:grayscale(.5) brightness(.8);box-shadow:0 3px 0 rgba(0,0,0,.4) !important;cursor:not-allowed}
+button.primary:disabled::after,button.ghost:disabled::after{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  button.primary,button.ghost,button.tab,button.dots,.btn-main,.btn-alt,.home-cta a{transition:none;transform:none !important}
+  button.primary,#connect.primary,#add.primary{animation:none !important}
+  button.primary::after,button.ghost::after,.btn-main::after,.btn-alt::after{display:none}
+}
+</style>
+<script>
+/* tilt i lehtë 3D sipas pozicionit të miut (vetëm kompjuter, jo prekje) */
+(function(){
+  try{
+    if(!window.matchMedia||!matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var SEL='button.primary,button.ghost,.btn-main,.btn-alt,.home-cta a';
+    document.addEventListener('pointermove',function(e){
+      var b=e.target.closest&&e.target.closest(SEL);if(!b||b.disabled)return;
+      var r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      b.style.setProperty('--ry',(x*8).toFixed(1)+'deg');b.style.setProperty('--rx',(-y*8).toFixed(1)+'deg');
+    },{passive:true});
+    document.addEventListener('pointerout',function(e){
+      var b=e.target.closest&&e.target.closest(SEL);if(b){b.style.removeProperty('--rx');b.style.removeProperty('--ry');}
+    },{passive:true});
+  }catch(e){}
+})();
+</script>
+
+<style id="v4k-motion">
+/* ===== v4k-motion: animacione hapjeje (vetëm pamje) ===== */
+@keyframes v4kIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes v4kFade{from{opacity:0}to{opacity:1}}
+@keyframes v4kPop{0%{opacity:0;transform:translateY(14px) scale(.9)}60%{opacity:1;transform:translateY(-2px) scale(1.02)}100%{opacity:1;transform:none}}
+@keyframes v4kLogo{0%{opacity:0;transform:scale(.6) rotate(-8deg)}70%{transform:scale(1.08) rotate(2deg)}100%{opacity:1;transform:none}}
+@keyframes v4kCard{from{opacity:0;transform:translateX(-18px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes v4kDraw{to{stroke-dashoffset:0}}
+@keyframes v4kBadge{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}35%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1)}}
+
+/* logoja hyn kur hapet faqja */
+.brand img,nav .brand img,header img{animation:v4kLogo .7s cubic-bezier(.34,1.56,.64,1) both}
+
+/* faqja e re hyn, elementët brenda hyjnë me radhë */
+.view.active{animation:v4kFade .35s ease both}
+.view.active>*,.view.active .card .pad>*{animation:v4kIn .5s cubic-bezier(.2,.8,.2,1) both}
+.view.active>*:nth-child(1),.view.active .card .pad>*:nth-child(1){animation-delay:.02s}
+.view.active>*:nth-child(2),.view.active .card .pad>*:nth-child(2){animation-delay:.08s}
+.view.active>*:nth-child(3),.view.active .card .pad>*:nth-child(3){animation-delay:.14s}
+.view.active>*:nth-child(4),.view.active .card .pad>*:nth-child(4){animation-delay:.2s}
+.view.active>*:nth-child(5),.view.active .card .pad>*:nth-child(5){animation-delay:.26s}
+.view.active>*:nth-child(n+6),.view.active .card .pad>*:nth-child(n+6){animation-delay:.32s}
+
+/* dritaret: sfondi zbehet, kutia del me efekt elastik */
+.modal.show{animation:v4kFade .25s ease both}
+.modal.show .modal-box{animation:v4kPop .45s cubic-bezier(.34,1.56,.64,1) both}
+
+/* kartat e playlist-ave hyjnë me radhë */
+.playlist-list>.playlist{animation:v4kCard .5s cubic-bezier(.2,.8,.2,1) both}
+.playlist-list>.playlist:nth-child(1){animation-delay:.05s}
+.playlist-list>.playlist:nth-child(2){animation-delay:.13s}
+.playlist-list>.playlist:nth-child(3){animation-delay:.21s}
+.playlist-list>.playlist:nth-child(4){animation-delay:.29s}
+.playlist-list>.playlist:nth-child(n+5){animation-delay:.37s}
+
+/* shenja ✓ pas lidhjes me sukses */
+.v4k-okbadge{position:fixed;left:50%;top:42%;z-index:2000;width:112px;height:112px;border-radius:50%;pointer-events:none;
+  display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#47e3a0,#12a066);
+  box-shadow:0 0 0 10px rgba(62,207,142,.18),0 20px 60px rgba(18,160,102,.55);animation:v4kBadge 1.6s ease both}
+.v4k-okbadge svg{width:58px;height:58px;fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.v4k-okbadge path{stroke-dasharray:48;stroke-dashoffset:48;animation:v4kDraw .45s .25s ease forwards}
+
+@media (prefers-reduced-motion:reduce){
+  .brand img,header img,.view.active,.view.active>*,.view.active .card .pad>*,.modal.show,.modal.show .modal-box,.playlist-list>.playlist,.v4k-okbadge,.v4k-okbadge path{animation:none !important;stroke-dashoffset:0}
+  .v4k-okbadge{display:none}
+}
+</style>
+<script>
+/* shenja ✓ kur pajisja lidhet (vetëm pamje; nuk prek logjikën e lidhjes) */
+document.addEventListener('DOMContentLoaded',function(){
+  try{
+    var t0=Date.now(),was=document.body.classList.contains('paired');
+    new MutationObserver(function(){
+      var now=document.body.classList.contains('paired');
+      if(now&&!was&&Date.now()-t0>1200&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)){
+        var d=document.createElement('div');d.className='v4k-okbadge';d.setAttribute('aria-hidden','true');
+        d.innerHTML='<svg viewBox="0 0 52 52"><path d="M13 27l9 9 17-19"/></svg>';
+        document.body.appendChild(d);setTimeout(function(){d.remove()},1700);
+      }
+      was=now;
+    }).observe(document.body,{attributes:true,attributeFilter:['class']});
+  }catch(e){}
+});
+</script>
+
 </head>
 <body>
 <header class="topbar">
