@@ -1293,6 +1293,18 @@ label,.eyebrow,.pp-label{color:#0b7d92 !important}
 .v4sig small{color:#8a7f70 !important}
 .v4sig b{color:#1d3a47 !important}
 .v4sig b i{color:#128aa8 !important}
+
+/* ===== shkrim i mprehtë: pa turbullim, pa transformime 3D mbi tekst ===== */
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.topbar,header{background:rgba(255,250,242,.96)!important}
+.modal{background:rgba(40,70,90,.42)!important}
+button.primary,button.ghost,button.tab,button.dots,.btn-main,.btn-alt,.home-cta a,.topbar a,.menu a{transform:none!important;will-change:auto!important}
+button.primary:hover,button.ghost:hover,button.tab:hover,button.dots:hover,.btn-main:hover,.btn-alt:hover,.home-cta a:hover{transform:translateY(-2px)!important}
+button.primary:active,button.ghost:active,button.tab:active,button.dots:active,.btn-main:active,.btn-alt:active,.home-cta a:active{transform:translateY(2px)!important}
+.playlist,.card,.view,.view *{filter:none!important}
+.view.active,.view.active>*,.view.active .card .pad>*{animation-fill-mode:none!important}
+p,li,span,label,h1,h2,h3,h4{text-shadow:none}
 </style>
 </head>
 <body>
