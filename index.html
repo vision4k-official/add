@@ -1185,6 +1185,115 @@ document.documentElement.classList.add('slide-both');
 </script>
 
 <style id="v4k-menufix">body.menu-open .topbar,body.menu-open header{backdrop-filter:none !important;-webkit-backdrop-filter:none !important;transform:none !important;filter:none !important}body.menu-open .topbar{background:#050810}body.menu-open .menu{z-index:940}</style>
+<style id="v4k-ocean">
+/* v4k-ocean-light: temë e çelët oqeani për të gjitha faqet (vetëm pamja, pa prekur logjikën) */
+:root{color-scheme:light !important;--bg:#e9f8ff !important;--panel:rgba(255,255,255,.9) !important;--line:rgba(14,165,233,.22) !important;--text:#0a2a3d !important;--muted:#4a6b7d !important;--blue:#0891b2 !important;--red:#0284c7 !important;--e1:#035a7a !important;--e2:#9fd8ea !important;--shadow:0 22px 60px rgba(8,100,140,.16) !important}
+html{background:#e9f8ff !important}
+body{background:radial-gradient(ellipse 70% 55% at 85% 8%,rgba(34,211,238,.35),transparent 70%),radial-gradient(ellipse 60% 50% at 5% 40%,rgba(45,212,191,.22),transparent 70%),linear-gradient(170deg,#f2fcff 0%,#dff5fd 50%,#c9ecf8 100%) !important;color:#0a2a3d !important}
+body::before{background-image:linear-gradient(90deg,rgba(8,145,178,.07) 1px,transparent 1px) !important;opacity:.5 !important}
+/* tekste */
+h1,h2,h3,h4,.view-title,.ft-title,.playlist-title,.pay-title,.faq-item summary,.faq-item button{color:#0a2a3d !important}
+p,.view-sub,.lead,.sub,.muted,.cap,small,.pay-hint,.access-note,.live-note,.legal,.footer,.security,.privacy-note,.days-label{color:#4a6b7d !important}
+a,.step-link{color:#0369a1 !important}
+label,.eyebrow,.pay-tag,.pp-label,.lb{color:#0e7490 !important}
+.hero h1 span,.home-hero h1 span,h1 em,h1 .red,.hl{color:#0891b2 !important;-webkit-text-fill-color:#0891b2 !important}
+.footer b,.legal b,.footer strong{color:#0a2a3d !important}
+/* header + meny */
+.topbar,header{background:rgba(255,255,255,.78) !important;border-bottom:1px solid rgba(14,165,233,.2) !important;backdrop-filter:blur(12px)}
+.topbar,.topbar *,.brand span{color:#0a2a3d}
+.lang select,select{background:#fff !important;color:#0a2a3d !important;border:1px solid rgba(14,165,233,.35) !important}
+.burger span,.burger i{background:#0a2a3d !important}
+.burger svg,.burger path{stroke:#0a2a3d !important}
+.menu{background:#f2fcff !important}
+.menu a{color:#0a2a3d !important}
+body.menu-open .topbar{background:#f2fcff !important}
+/* karta */
+.card,.info-card,.feat,.video-card,.faq-item,.pay-box,.pay-block,.days-card,.modal-box,.stack>*,.sec,.screen,.frame{background:linear-gradient(165deg,rgba(255,255,255,.94),rgba(226,246,253,.9)) !important;border:1px solid rgba(14,165,233,.25) !important;box-shadow:0 18px 50px rgba(8,100,140,.13),inset 0 1px 0 #fff !important;color:#0a2a3d}
+.pay-plans>*,.plan,.pli,.pl{background:#fff !important;border:1px solid rgba(14,165,233,.3) !important;color:#0a2a3d !important}
+.pay-num,.days-val{color:#0369a1 !important}
+.pay-mac,.pay-need,.pay-hint,.empty{background:rgba(224,246,253,.8) !important;border:1px dashed rgba(14,165,233,.4) !important;color:#355b6e !important}
+.chip,.pill,.badge,.v4pills *,.chips *{background:#e0f7fd !important;border:1px solid rgba(14,165,233,.35) !important;color:#075e78 !important}
+.divider{background:rgba(14,165,233,.22) !important}
+.faq-item,.steps-tut>*{border-color:rgba(14,165,233,.22) !important}
+details,summary{color:#0a2a3d !important}
+/* inpute */
+input,textarea,.input-shell input{background:#fff !important;border:1px solid rgba(14,165,233,.35) !important;color:#0a2a3d !important}
+input::placeholder{color:#7da3b5 !important}
+.input-icon,.key-prefix{color:#0891b2 !important}
+/* butona */
+button.primary,.btn-main,.home-cta a:not(.alt),.download-btn,.whatsapp-contact,.email-contact{background:linear-gradient(135deg,#22d3ee,#0284c7) !important;color:#fff !important;text-shadow:0 1px 0 rgba(2,60,90,.35);border:0 !important;box-shadow:0 8px 0 #035a7a,0 20px 30px -8px rgba(2,132,199,.5),inset 0 1px 0 rgba(255,255,255,.5) !important}
+button.primary:hover,.btn-main:hover,.home-cta a:not(.alt):hover{box-shadow:0 10px 0 #035a7a,0 24px 34px -8px rgba(2,132,199,.6),inset 0 1px 0 rgba(255,255,255,.55) !important}
+button.ghost,.btn-alt,button.dots,.home-cta a.alt,button.tab{background:linear-gradient(180deg,#ffffff,#dff5fc) !important;border:1px solid rgba(14,165,233,.45) !important;color:#075e78 !important;box-shadow:0 5px 0 #a5dcec,0 12px 18px -8px rgba(8,100,140,.3),inset 0 1px 0 #fff !important}
+button.tab.active,button.tab.on{background:linear-gradient(135deg,#22d3ee,#0284c7) !important;color:#fff !important}
+button.dots svg{fill:#075e78 !important}
+.playlist .actions button.danger{background:linear-gradient(180deg,#fff1f2,#fecdd3) !important;border:1px solid rgba(225,29,72,.5) !important;color:#be123c !important;box-shadow:0 5px 0 #f3a3b0,0 12px 18px -8px rgba(190,18,60,.3) !important}
+.soon,.home-cta a.soon{background:#e7eef2 !important;color:#7d98a6 !important;box-shadow:none !important}
+button:disabled{opacity:.5}
+/* listat */
+.playlist{background:linear-gradient(135deg,#ffffff,#e4f7fd) !important;border:1px solid rgba(14,165,233,.3) !important}
+.playlist-icon{background:linear-gradient(140deg,#22d3ee,#0891b2) !important;box-shadow:0 8px 18px rgba(6,182,212,.35) !important}
+.playlist-type{background:#d5f4fb !important;color:#075e78 !important;border-color:rgba(14,165,233,.4) !important}
+.playlist-lock{background:#fff3d6 !important;color:#8a5a00 !important;border-color:rgba(217,140,20,.5) !important}
+.count{background:#e0f7fd !important;border:1px solid rgba(14,165,233,.4) !important;color:#075e78 !important}
+/* modale */
+.modal{background:rgba(180,225,240,.6) !important}
+/* footer */
+.footer *,.legal *{color:#4a6b7d}
+.footer b{color:#0a2a3d !important}
+/* korrigjime kontrasti */
+.feat strong,.download-copy strong,.whatsapp-copy strong,.email-copy strong,.pay-plan b,.pay-plan strong{color:#0a2a3d !important}
+.pay-plan,.pay-plans>*{background:#fff !important}
+.pay-tag,.access-status,.pay-ok{background:#e0f7fd !important;color:#075e78 !important;border:1px solid rgba(14,165,233,.35) !important}
+.input-shell,.field,.pay-row,.pay-steps>*{background:transparent !important;border-color:rgba(14,165,233,.3) !important;box-shadow:none !important}
+.input-shell input{box-shadow:none !important;border-radius:14px !important}
+.whatsapp-invite,.email-invite,.download-invite,.download-info{background:linear-gradient(165deg,#fff,#e2f6fd) !important;border:1px solid rgba(14,165,233,.3) !important;color:#0a2a3d !important}
+.announce{background:#e0f7fd !important;color:#075e78 !important;border-color:rgba(14,165,233,.4) !important}
+.announce *{color:#075e78 !important}
+.help,.help summary{color:#0e7490 !important}
+.faq-item p,.steps-tut p{color:#355b6e !important}
+.pay-title{background:transparent !important;border:0 !important;box-shadow:none !important;outline:0 !important}
+.access-head span,.access-head div,.access-head b{background:#e0f7fd !important;color:#075e78 !important;border:1px solid rgba(14,165,233,.35) !important}
+.feat p,.feat span{color:#4a6b7d !important}
+.download-copy span,.download-copy small{color:#4a6b7d !important}
+/* ===== variant i ngrohtë + i butë ===== */
+:root{--bg:#fff7ec !important;--line:rgba(20,150,170,.2) !important}
+html{background:#fff7ec !important}
+body{background:radial-gradient(ellipse 80% 55% at 90% 0%,rgba(255,214,170,.55),transparent 70%),radial-gradient(ellipse 70% 50% at 0% 45%,rgba(120,220,210,.28),transparent 72%),radial-gradient(ellipse 80% 50% at 60% 100%,rgba(150,225,235,.4),transparent 70%),linear-gradient(175deg,#fffaf2 0%,#fdeedd 38%,#e3f5f1 72%,#cfeef2 100%) !important}
+body::before{opacity:.18 !important}
+.topbar,header{background:rgba(255,250,242,.8) !important;border-bottom:1px solid rgba(214,170,120,.25) !important}
+body.menu-open .topbar,.menu{background:#fffaf2 !important}
+.card,.info-card,.feat,.video-card,.faq-item,.pay-box,.pay-block,.days-card,.modal-box,.stack>*,.sec,.screen,.frame,.whatsapp-invite,.email-invite,.download-invite,.download-info{background:linear-gradient(170deg,rgba(255,255,255,.92),rgba(255,247,236,.88)) !important;border:1px solid rgba(214,170,120,.28) !important;border-radius:26px !important;box-shadow:0 14px 40px rgba(120,90,50,.1),0 2px 6px rgba(120,90,50,.05) !important}
+.playlist,.pay-plans>*,.plan,.pay-plan{background:linear-gradient(170deg,#fff,#fff6ea) !important;border:1px solid rgba(214,170,120,.3) !important;border-radius:18px !important;box-shadow:0 6px 18px rgba(120,90,50,.08) !important}
+.input-shell input,input,textarea,select{background:#fffdf9 !important;border:1px solid rgba(214,170,120,.4) !important;border-radius:16px !important}
+.chip,.pill,.badge,.count,.access-head span,.playlist-type,.pay-tag{background:#e6f6f4 !important;border:1px solid rgba(20,150,170,.3) !important;color:#0b6478 !important}
+/* butona të butë (pa buzë të trashë 3D) */
+button.primary,.btn-main,.home-cta a:not(.alt),.download-btn,.whatsapp-contact,.email-contact{background:linear-gradient(135deg,#38d6d0,#1a9fcf) !important;border-radius:18px !important;box-shadow:0 10px 24px -6px rgba(26,159,207,.45),inset 0 1px 0 rgba(255,255,255,.55) !important}
+button.primary:hover,.btn-main:hover,.home-cta a:not(.alt):hover{box-shadow:0 14px 30px -6px rgba(26,159,207,.55),inset 0 1px 0 rgba(255,255,255,.6) !important;filter:brightness(1.04)}
+button.primary:active,.btn-main:active{box-shadow:0 4px 10px -4px rgba(26,159,207,.5),inset 0 2px 5px rgba(0,60,90,.2) !important}
+button.ghost,.btn-alt,button.dots,.home-cta a.alt,button.tab{background:linear-gradient(180deg,#fffdf9,#fff1e0) !important;border:1px solid rgba(214,170,120,.45) !important;border-radius:16px !important;color:#0b6478 !important;box-shadow:0 6px 14px -6px rgba(120,90,50,.25),inset 0 1px 0 #fff !important}
+button.tab.active,button.tab.on{background:linear-gradient(135deg,#38d6d0,#1a9fcf) !important;color:#fff !important}
+.playlist .actions button.danger{background:linear-gradient(180deg,#fff3f3,#fde0e0) !important;border:1px solid rgba(225,29,72,.35) !important;box-shadow:0 6px 14px -6px rgba(190,18,60,.3) !important;border-radius:16px !important}
+.playlist-icon{background:linear-gradient(140deg,#43dcd2,#1a9fcf) !important;border-radius:14px !important;box-shadow:0 8px 18px rgba(26,159,207,.3) !important}
+.soon,.home-cta a.soon{background:#f1e9dd !important;color:#a89580 !important}
+.hero h1 span,.home-hero h1 span,h1 em{color:#128aa8 !important;-webkit-text-fill-color:#128aa8 !important}
+h1,h2,h3,.view-title,.ft-title,.playlist-title,.pay-title{color:#1d3a47 !important}
+p,.view-sub,.lead,.sub,.cap,.security,.privacy-note,.legal,.footer{color:#6a6258 !important}
+label,.eyebrow,.pp-label{color:#0b7d92 !important}
+.divider{background:rgba(214,170,120,.3) !important}
+.pay-mac,.pay-need,.empty{background:rgba(255,244,230,.75) !important;border:1px dashed rgba(214,170,120,.55) !important;color:#6a5a48 !important}
+.pay-num,.days-val{color:#0b7d92 !important}
+.feat p,.feat span,.download-copy span{color:#6a6258 !important}
+
+/* korrigjime finale */
+.pay-title+*{background:transparent !important;border:0 !important;box-shadow:none !important}
+.v4sigline::before,.v4sigline::after{background:linear-gradient(90deg,transparent,rgba(26,159,207,.7)) !important}
+.v4sigline b{color:#128aa8 !important}
+.v4sigline{color:#6a6258 !important}
+.v4sig{background:rgba(255,250,242,.95) !important;border:1px solid rgba(214,170,120,.35) !important;box-shadow:0 14px 34px rgba(120,90,50,.15) !important;color:#6a6258 !important}
+.v4sig small{color:#8a7f70 !important}
+.v4sig b{color:#1d3a47 !important}
+.v4sig b i{color:#128aa8 !important}
+</style>
 </head>
 <body>
 <header class="topbar">
