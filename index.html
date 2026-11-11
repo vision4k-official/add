@@ -1417,6 +1417,46 @@ p,li,span,label,h1,h2,h3,h4{text-shadow:none}
 #view-home .devices .d-lab{color:#0b6478!important}
 
 .row3 .shelf{display:none!important}
+
+/* ===== formulari i kontaktit ===== */
+.cform{max-width:780px;margin:22px auto 0;padding:34px 30px 30px;border-radius:30px;background:radial-gradient(70% 60% at 90% 0%,rgba(255,196,140,.22),transparent 62%),linear-gradient(160deg,#0d3b56 0%,#0a2740 55%,#081a2e 100%);box-shadow:0 30px 60px -26px rgba(0,90,140,.55),0 0 0 1px rgba(255,255,255,.5)}
+.cform h3{margin:0 0 6px;color:#fff!important;font-size:clamp(24px,4.6vw,32px);font-weight:800;letter-spacing:-.4px}
+.cform .cf-sub{margin:0 0 18px;color:#a9cfdc!important;font-size:14px}
+.cform .cf-sub b{color:#7ff3e6}
+.cform form{display:grid;gap:6px}
+.cform .cf{position:relative;display:block;padding-top:16px;color:#cfe8f0!important;font-size:inherit;letter-spacing:normal;text-transform:none}
+.cform .cf input,.cform .cf textarea{width:100%;display:block;background:transparent!important;border:0!important;border-bottom:2px solid rgba(190,235,245,.42)!important;border-radius:0!important;box-shadow:none!important;color:#fff!important;font-family:inherit;font-size:18px;font-weight:600;line-height:1.4;padding:12px 4px 10px!important;outline:none;transition:border-color .2s}
+.cform .cf textarea{resize:vertical;min-height:130px}
+.cform .cf span{position:absolute;left:4px;top:28px;color:#b9d6e0;font-weight:700;font-size:18px;pointer-events:none;transition:top .18s,font-size .18s,color .18s}
+.cform .cf input:focus,.cform .cf textarea:focus{border-bottom-color:#38d6d0!important}
+.cform .cf input:focus+span,.cform .cf input:not(:placeholder-shown)+span,.cform .cf textarea:focus+span,.cform .cf textarea:not(:placeholder-shown)+span{top:2px;font-size:12px;color:#7ff3e6;letter-spacing:.6px}
+.cform .cf-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.cform .cf-send{margin-top:20px;width:100%;min-height:56px;border:0!important;border-radius:16px!important;font-weight:900;font-size:18px;letter-spacing:1px;color:#fff!important;cursor:pointer;background:linear-gradient(135deg,#38d6d0,#1a9fcf)!important;box-shadow:0 14px 30px -10px rgba(26,159,207,.7),inset 0 1px 0 rgba(255,255,255,.5)!important;transition:transform .2s,box-shadow .2s}
+.cform .cf-send:hover{transform:translateY(-2px)}
+.cform .cf-send:disabled{opacity:.6;cursor:wait;transform:none}
+.cform .cf-status{min-height:22px;margin:10px 0 0;font-size:15px;font-weight:700;text-align:center}
+.cform .cf-status.ok{color:#7ff3c4!important}
+.cform .cf-status.err{color:#ffb3b3!important}
+
+/* ===== Support: Downloader ===== */
+.dlcard .dl-row{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:2px solid rgba(190,235,245,.25)}
+.dlcard .dl-lab{color:#7ff3e6!important;font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.dlcard .dl-val{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dlcard .dl-val code{font:800 clamp(22px,6vw,34px)/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#ffe08a;letter-spacing:2px;word-break:break-all}
+.dlcard #dlUrl{font-size:clamp(14px,3.9vw,24px);letter-spacing:0;color:#fff;white-space:nowrap;word-break:normal}
+.dlcard .dl-copy{flex:none;min-width:84px;height:42px;padding:0 14px!important;border-radius:12px!important;border:1px solid rgba(160,240,250,.5)!important;background:rgba(255,255,255,.1)!important;color:#e9fdff!important;font-weight:900;font-size:13px;letter-spacing:.8px;box-shadow:none!important;cursor:pointer;transform:none!important}
+.dlcard .dl-copy:hover{background:rgba(56,214,208,.25)!important}
+.dlcard .dl-steps{margin:18px 0 4px;padding-left:22px;color:#cfe8f0!important;font-size:16px;line-height:1.65}
+.dlcard .dl-steps li{color:#cfe8f0!important;margin:4px 0}
+.dlcard .dl-steps b{color:#fff}
+.dlcard .dl-go{display:flex;align-items:center;justify-content:center;text-decoration:none!important}
+
+/* subjekti me zgjedhje */
+.cform .cf-sel span{top:2px;font-size:12px;color:#7ff3e6;letter-spacing:.6px}
+.cform .cf-sel select{width:100%;display:block;appearance:none;-webkit-appearance:none;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237ff3e6' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 6px center/20px!important;border:0!important;border-bottom:2px solid rgba(190,235,245,.42)!important;border-radius:0!important;box-shadow:none!important;color:#fff!important;font-family:inherit;font-size:18px;font-weight:600;line-height:1.4;padding:12px 34px 10px 4px!important;outline:none;cursor:pointer}
+.cform .cf-sel select:invalid{color:#b9d6e0!important}
+.cform .cf-sel select:focus{border-bottom-color:#38d6d0!important}
+.cform .cf-sel select option{background:#0a2740;color:#fff}
 </style>
 </head>
 <body>
@@ -1455,7 +1495,7 @@ p,li,span,label,h1,h2,h3,h4{text-shadow:none}
     </div>
 
     <div class="stage devices row3" aria-hidden="true">
-    <div class="d-slot"><div class="d-ph"><div class="d-bez"><div class="d-scr"><div class="s-top"><img class="devlogo" alt="Vision 4K" decoding="async"><b>Vision 4K</b></div><div class="s-hero phh"><img class="devlogo" alt="Vision 4K" decoding="async"></div><div class="s-grid c2"><u></u><u></u><u></u><u></u></div><div class="s-nav"><i class="on"></i><i></i><i></i><i></i></div></div></div></div><span class="d-lab">Phone</span></div><div class="d-slot"><div class="d-tab"><div class="d-bez"><div class="d-scr"><div class="s-top"><img class="devlogo" alt="Vision 4K" decoding="async"><b>Vision 4K</b><span class="on">Home</span><span class="">Live TV</span></div><div class="s-hero"><img class="devlogo" alt="Vision 4K" decoding="async"><div><b>Vision 4K</b><small>Live TV · Movies · Series</small></div></div><div class="s-grid c3"><u>Live TV</u><u>Movies</u><u>Series</u><u>Sport</u><u>Kids</u><u>Music</u></div></div></div></div><span class="d-lab">Tablet</span></div><div class="d-slot"><div class="d-box"><div class="d-top"><img class="devlogo" alt="Vision 4K" decoding="async"><span>ANDROID BOX</span><em></em></div><div class="d-front"><i></i><i></i><i></i><b>4K</b></div></div><span class="d-lab">Android Box</span></div><div class="d-slot"><div class="d-tv"><div class="d-bez"><div class="d-scr"><div class="s-top"><img class="devlogo" alt="Vision 4K" decoding="async"><b>Vision 4K</b><span class="on">Home</span><span class="">Live TV</span><span class="">Movies</span><span class="">Series</span><span class="">Settings</span></div><div class="s-hero"><img class="devlogo" alt="Vision 4K" decoding="async"><div><b>Vision 4K</b><small>Live TV · Movies · Series</small></div></div><div class="s-grid c6"><u>Live TV</u><u>Movies</u><u>Series</u><u>Sport</u><u>Kids</u><u>Music</u></div></div></div><i class="d-stand"></i></div><span class="d-lab">TV</span></div>
+    <div class="d-slot"><div class="d-ph"><div class="d-bez"><div class="d-scr"><div class="s-top"><img class="devlogo" alt="Vision 4K" decoding="async"><b>Vision 4K</b></div><div class="s-hero phh"><img class="devlogo" alt="Vision 4K" decoding="async"></div><div class="s-grid c2"><u></u><u></u><u></u><u></u></div><div class="s-nav"><i class="on"></i><i></i><i></i><i></i></div></div></div></div><span class="d-lab" data-i18n="d_phone">Phone</span></div><div class="d-slot"><div class="d-tab"><div class="d-bez"><div class="d-scr"><div class="s-top"><img class="devlogo" alt="Vision 4K" decoding="async"><b>Vision 4K</b><span class="on">Home</span><span class="">Live TV</span></div><div class="s-hero"><img class="devlogo" alt="Vision 4K" decoding="async"><div><b>Vision 4K</b><small>Live TV · Movies · Series</small></div></div><div class="s-grid c3"><u>Live TV</u><u>Movies</u><u>Series</u><u>Sport</u><u>Kids</u><u>Music</u></div></div></div></div><span class="d-lab" data-i18n="d_tablet">Tablet</span></div><div class="d-slot"><div class="d-box"><div class="d-top"><img class="devlogo" alt="Vision 4K" decoding="async"><span>ANDROID BOX</span><em></em></div><div class="d-front"><i></i><i></i><i></i><b>4K</b></div></div><span class="d-lab" data-i18n="d_box">Android Box</span></div><div class="d-slot"><div class="d-tv"><div class="d-bez"><div class="d-scr"><div class="s-top"><img class="devlogo" alt="Vision 4K" decoding="async"><b>Vision 4K</b><span class="on">Home</span><span class="">Live TV</span><span class="">Movies</span><span class="">Series</span><span class="">Settings</span></div><div class="s-hero"><img class="devlogo" alt="Vision 4K" decoding="async"><div><b>Vision 4K</b><small>Live TV · Movies · Series</small></div></div><div class="s-grid c6"><u>Live TV</u><u>Movies</u><u>Series</u><u>Sport</u><u>Kids</u><u>Music</u></div></div></div><i class="d-stand"></i></div><span class="d-lab" data-i18n="d_tv">TV</span></div>
     <div class="shelf"></div>
   </div>
     <script>(function(){var m=document.querySelector(".topbar .mark-logo")||document.querySelector(".brand img");if(!m)return;var f=function(){document.querySelectorAll(".devlogo").forEach(function(i){i.src=m.currentSrc||m.src})};if(m.complete)f();else m.addEventListener("load",f)})();</script>
@@ -1699,10 +1739,42 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
   <section class="view" id="view-contact" data-view="contact">
     <h2 class="view-title view-narrow" data-i18n="nav_contact">Contact</h2>
     <p class="view-sub view-narrow" data-i18n="contact_sub">How can we help you?</p>
-    <div class="stack">
-      <div class="whatsapp-invite"><div class="whatsapp-info"><div class="whatsapp-copy"><strong data-i18n="c1t">Technical help</strong><span data-i18n="c1d">Problems with your device or playlists.</span></div></div><a class="whatsapp-contact" href="#support" data-i18n="nav_sup">Support</a></div>
-      <div class="email-invite"><div class="email-info"><div class="email-copy"><strong data-i18n="home_reseller">Become a Reseller</strong><span data-i18n="c2d">Interested in selling Vision 4K access?</span></div></div><a class="email-contact soon" href="#reseller" aria-disabled="true" tabindex="-1" data-i18n="soon">Coming soon</a></div>
+<div class="cform" id="contactForm">
+      <h3 data-i18n="cf_title">Send Us a Message</h3>
+      <p class="cf-sub"><span data-i18n="cf_sub">Write to us and we reply by email.</span> <b>vision4k.support@gmail.com</b></p>
+      <form novalidate>
+        <label class="cf"><input name="name" required maxlength="80" placeholder=" " autocomplete="name"><span data-i18n="cf_name">Name</span></label>
+        <label class="cf"><input name="email" type="email" required maxlength="120" placeholder=" " autocomplete="email"><span data-i18n="cf_email">Email</span></label>
+        <label class="cf cf-sel"><select name="subject" required><option value="" selected disabled data-i18n="cf_choose">Choose a subject</option><option value="Technical support" data-i18n="cf_o1">Technical support</option><option value="Activation / MAC address" data-i18n="cf_o2">Activation / MAC address</option><option value="Playlist problem" data-i18n="cf_o3">Playlist problem</option><option value="Payment / Subscription" data-i18n="cf_o4">Payment / Subscription</option><option value="App download / Update" data-i18n="cf_o5">App download / Update</option><option value="Become a reseller" data-i18n="cf_o6">Become a reseller</option><option value="Other" data-i18n="cf_o7">Other</option></select><span data-i18n="cf_subject">Subject</span></label>
+        <label class="cf"><input name="mac" maxlength="17" placeholder=" " autocapitalize="characters" spellcheck="false"><span data-i18n="cf_mac">MAC Address (optional)</span></label>
+        <label class="cf cf-msg"><textarea name="message" required maxlength="4000" rows="5" placeholder=" "></textarea><span data-i18n="cf_msg">Message</span></label>
+        <input class="cf-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="cf-send" data-i18n="cf_send">SEND</button>
+        <p class="cf-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
+    <script>
+    (function(){
+      var box=document.getElementById("contactForm"); if(!box) return;
+      var f=box.querySelector("form"), st=box.querySelector(".cf-status"), bt=box.querySelector(".cf-send");
+      var API="https://albplayr.openibc.fit/app/api/contact.php";
+      function T(k,en){ var v=window.t?window.t(k):k; return (v&&v!==k)?v:en; }
+      function say(t,ok){ st.textContent=t; st.className="cf-status "+(ok?"ok":"err"); }
+      f.addEventListener("submit",function(e){
+        e.preventDefault();
+        var d={}; ["name","email","subject","mac","message","website"].forEach(function(k){ d[k]=(f.elements[k].value||"").trim(); });
+        if(!d.name||!d.email||!d.message){ say(T("cf_e_fill","Please fill in name, email and message."),false); return; }
+        if(!d.subject){ say(T("cf_e_subj","Please choose a subject."),false); return; }
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)){ say(T("cf_e_mail","Please enter a valid email address."),false); return; }
+        bt.disabled=true; bt.textContent=T("cf_sending","SENDING…"); say("",true);
+        fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)})
+          .then(function(r){ return r.json().catch(function(){ return {ok:false,message:"Server error."}; }); })
+          .then(function(j){ say(j.ok?T("cf_ok",j.message||"Message sent."):(j.message||T("cf_e_send","Message could not be sent.")),!!j.ok); if(j.ok) f.reset(); })
+          .catch(function(){ say(T("cf_e_conn","Connection problem. Please try again later."),false); })
+          .then(function(){ bt.disabled=false; bt.textContent=T("cf_send","SEND"); });
+      });
+    })();
+    </script>
   </section>
 
   <section class="view" id="view-reseller" data-view="reseller">
@@ -1716,24 +1788,41 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
   <section class="view" id="view-support" data-view="support">
     <h2 class="view-title view-narrow" data-i18n="nav_sup">Support</h2>
     <p class="view-sub view-narrow" data-i18n="sup_sub">Need help? Contact our team, we reply as soon as possible.</p>
-    <div class="stack">
-      <div class="whatsapp-invite">
-        <div class="whatsapp-info">
-          <div class="whatsapp-logo" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 3.5A11.6 11.6 0 0 0 12.1 0 11.8 11.8 0 0 0 1.9 17.8L0 24l6.4-1.7A12 12 0 0 0 12.1 24C18.7 24 24 18.6 24 12.1a11.9 11.9 0 0 0-3.5-8.6ZM12.1 22a9.9 9.9 0 0 1-5.1-1.4l-.4-.2-3.8 1 1-3.7-.3-.4a10 10 0 0 1-1.5-5.2C2 6.6 6.5 2 12.1 2a10 10 0 0 1 10 10.1A10 10 0 0 1 12.1 22Zm5.5-7.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-.9 1.1-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.4c-.3-.6-.5-.5-.7-.5H7.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 2.9 1.3 3.1.2.2 2.2 3.4 5.3 4.8.7.3 1.3.5 1.8.7.8.2 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.5.3-.8.3-1.4.2-1.5-.1-.1-.3-.2-.6-.3Z"/></svg></div>
-          <div class="whatsapp-copy"><strong>WhatsApp</strong><span data-i18n="wa_d">Chat with our support team.</span></div>
-        </div>
-        <a class="whatsapp-contact" href="https://wa.me/447727188441?text=Hello%2C+I+need+assistance+with+Vision+4K." target="_blank" rel="noopener noreferrer" data-i18n="wa_btn">OPEN WHATSAPP</a>
+    <div class="cform dlcard" id="dlCard">
+      <h3 data-i18n="dl_title">Install Vision 4K</h3>
+      <p class="cf-sub" data-i18n="dl_sub2">On Fire TV, Android TV or Android Box use the <b>Downloader</b> app.</p>
+      <div class="dl-row">
+        <span class="dl-lab" data-i18n="dl_code">Downloader Code</span>
+        <div class="dl-val"><code id="dlCode">1847520</code><button type="button" class="dl-copy" data-copy="1847520" data-i18n="dl_copy">COPY</button></div>
       </div>
-      <div class="email-invite">
-        <div class="email-info">
-          <div class="email-logo" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.8"/><path d="m3.5 7.5 8.5 6.2 8.5-6.2"/></svg></div>
-          <div class="email-copy"><strong>Email</strong><span>vision4k.support@gmail.com</span></div>
-        </div>
-        <a class="email-contact" id="mailFab" href="mailto:vision4k.support@gmail.com?subject=Vision%204K%20Support&body=Hello%2C%0A%0AI%20need%20assistance%20with%20Vision%204K.%0A%0AMAC%20Address%3A%20%0ADevice%20Key%3A%20" data-i18n="mail_btn">SEND EMAIL</a>
+      <div class="dl-row">
+        <span class="dl-lab" data-i18n="dl_url">Download URL</span>
+        <div class="dl-val"><code id="dlUrl">albplayr.openibc.fit/4k</code><button type="button" class="dl-copy" data-copy="https://albplayr.openibc.fit/4k" data-i18n="dl_copy">COPY</button></div>
       </div>
-      <p class="live-note" data-i18n="live_note">You can also use the live chat button at the bottom corner of the page.</p>
+      <ol class="dl-steps">
+        <li data-i18n="dl_s1">Install <b>Downloader</b> from the app store of your device.</li>
+        <li data-i18n="dl_s2">Open Downloader and type the code <b>1847520</b> (or the URL above).</li>
+        <li data-i18n="dl_s3">Press <b>Go</b>, download and install Vision 4K.</li>
+        <li data-i18n="dl_s4">Open the app and activate it with your MAC address.</li>
+      </ol>
+      <a class="cf-send dl-go" href="https://albplayr.openibc.fit/4k" target="_blank" rel="noopener" data-i18n="dl_btn">DOWNLOAD APK</a>
+      <p class="cf-status" id="dlStatus" role="status" aria-live="polite"></p>
     </div>
-  </section>
+    <script>
+    (function(){
+      var st=document.getElementById("dlStatus");
+      function T(k,en){ var v=window.t?window.t(k):k; return (v&&v!==k)?v:en; }
+      document.querySelectorAll("#dlCard .dl-copy").forEach(function(b){
+        b.addEventListener("click",function(){
+          var t=b.getAttribute("data-copy");
+          var done=function(){ b.textContent=T("dl_copied_b","COPIED"); st.textContent=T("dl_copied","Copied:")+" "+t; st.className="cf-status ok"; setTimeout(function(){ b.textContent=T("dl_copy","COPY"); },1600); };
+          if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done,function(){ st.textContent=t; st.className="cf-status ok"; }); }
+          else { var a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand("copy"); done();}catch(e){} a.remove(); }
+        });
+      });
+    })();
+    </script>
+</section>
 
   <footer class="footer">
     <strong>Vision 4K is a media player only.</strong> No channels, playlists or subscriptions are provided.<br>
@@ -2298,6 +2387,46 @@ function formatMacInput(el) {
   TR.sq.vid_t = "Video: si t'i ngarkosh listat"; TR.es.vid_t = "Vídeo: cómo cargar tus listas"; TR.de.vid_t = "Video: So lädst du deine Playlists"; TR.ar.vid_t = "فيديو: كيفية تحميل قوائم التشغيل"; TR.it.vid_t = "Video: come caricare le tue playlist";
   TR.sq.vid_d = "Udhëzues një-minutësh për shtimin e listave M3U dhe Xtream."; TR.es.vid_d = "Guía de un minuto para añadir listas M3U y Xtream."; TR.de.vid_d = "Eine Minute: M3U- und Xtream-Playlists hinzufügen."; TR.ar.vid_d = "دليل لمدة دقيقة لإضافة قوائم M3U و Xtream."; TR.it.vid_d = "Guida di un minuto per aggiungere liste M3U e Xtream.";
   TR.sq.soon = "Së shpejti"; TR.es.soon = "Próximamente"; TR.de.soon = "Demnächst"; TR.ar.soon = "قريبًا"; TR.it.soon = "Prossimamente";
+  /* përkthimet: formulari i kontaktit, Downloader, pajisjet */
+  TR.sq.cf_choose = "Zgjidh temën"; TR.es.cf_choose = "Elige un asunto"; TR.de.cf_choose = "Betreff wählen"; TR.ar.cf_choose = "اختر الموضوع"; TR.it.cf_choose = "Scegli un oggetto";
+  TR.sq.cf_e_conn = "Problem lidhjeje. Provo përsëri më vonë."; TR.es.cf_e_conn = "Problema de conexión. Inténtalo más tarde."; TR.de.cf_e_conn = "Verbindungsproblem. Bitte später erneut versuchen."; TR.ar.cf_e_conn = "مشكلة في الاتصال. حاول مرة أخرى لاحقًا."; TR.it.cf_e_conn = "Problema di connessione. Riprova più tardi.";
+  TR.sq.cf_e_fill = "Plotëso emrin, email-in dhe mesazhin."; TR.es.cf_e_fill = "Rellena nombre, email y mensaje."; TR.de.cf_e_fill = "Bitte Name, E-Mail und Nachricht ausfüllen."; TR.ar.cf_e_fill = "يرجى إدخال الاسم والبريد والرسالة."; TR.it.cf_e_fill = "Compila nome, email e messaggio.";
+  TR.sq.cf_e_mail = "Shkruaj një adresë email të saktë."; TR.es.cf_e_mail = "Introduce un email válido."; TR.de.cf_e_mail = "Bitte eine gültige E-Mail-Adresse eingeben."; TR.ar.cf_e_mail = "يرجى إدخال بريد إلكتروني صحيح."; TR.it.cf_e_mail = "Inserisci un indirizzo email valido.";
+  TR.sq.cf_e_send = "Mesazhi nuk u dërgua."; TR.es.cf_e_send = "No se pudo enviar el mensaje."; TR.de.cf_e_send = "Nachricht konnte nicht gesendet werden."; TR.ar.cf_e_send = "تعذر إرسال الرسالة."; TR.it.cf_e_send = "Impossibile inviare il messaggio.";
+  TR.sq.cf_e_subj = "Zgjidh një temë."; TR.es.cf_e_subj = "Elige un asunto."; TR.de.cf_e_subj = "Bitte einen Betreff wählen."; TR.ar.cf_e_subj = "يرجى اختيار موضوع."; TR.it.cf_e_subj = "Scegli un oggetto.";
+  TR.sq.cf_email = "Email"; TR.es.cf_email = "Email"; TR.de.cf_email = "E-Mail"; TR.ar.cf_email = "البريد الإلكتروني"; TR.it.cf_email = "Email";
+  TR.sq.cf_mac = "Adresa MAC (opsionale)"; TR.es.cf_mac = "Dirección MAC (opcional)"; TR.de.cf_mac = "MAC-Adresse (optional)"; TR.ar.cf_mac = "عنوان MAC (اختياري)"; TR.it.cf_mac = "Indirizzo MAC (facoltativo)";
+  TR.sq.cf_msg = "Mesazhi"; TR.es.cf_msg = "Mensaje"; TR.de.cf_msg = "Nachricht"; TR.ar.cf_msg = "الرسالة"; TR.it.cf_msg = "Messaggio";
+  TR.sq.cf_name = "Emri"; TR.es.cf_name = "Nombre"; TR.de.cf_name = "Name"; TR.ar.cf_name = "الاسم"; TR.it.cf_name = "Nome";
+  TR.sq.cf_o1 = "Mbështetje teknike"; TR.es.cf_o1 = "Soporte técnico"; TR.de.cf_o1 = "Technischer Support"; TR.ar.cf_o1 = "الدعم الفني"; TR.it.cf_o1 = "Supporto tecnico";
+  TR.sq.cf_o2 = "Aktivizim / adresa MAC"; TR.es.cf_o2 = "Activación / dirección MAC"; TR.de.cf_o2 = "Aktivierung / MAC-Adresse"; TR.ar.cf_o2 = "التفعيل / عنوان MAC"; TR.it.cf_o2 = "Attivazione / indirizzo MAC";
+  TR.sq.cf_o3 = "Problem me playlist-in"; TR.es.cf_o3 = "Problema con la lista"; TR.de.cf_o3 = "Problem mit Playlist"; TR.ar.cf_o3 = "مشكلة في القائمة"; TR.it.cf_o3 = "Problema con la playlist";
+  TR.sq.cf_o4 = "Pagesa / Abonimi"; TR.es.cf_o4 = "Pago / Suscripción"; TR.de.cf_o4 = "Zahlung / Abonnement"; TR.ar.cf_o4 = "الدفع / الاشتراك"; TR.it.cf_o4 = "Pagamento / Abbonamento";
+  TR.sq.cf_o5 = "Shkarkimi / Përditësimi i app-it"; TR.es.cf_o5 = "Descarga / Actualización de la app"; TR.de.cf_o5 = "App-Download / Update"; TR.ar.cf_o5 = "تنزيل / تحديث التطبيق"; TR.it.cf_o5 = "Download / Aggiornamento app";
+  TR.sq.cf_o6 = "Bëhu rishitës"; TR.es.cf_o6 = "Hazte revendedor"; TR.de.cf_o6 = "Reseller werden"; TR.ar.cf_o6 = "كن موزعًا"; TR.it.cf_o6 = "Diventa rivenditore";
+  TR.sq.cf_o7 = "Tjetër"; TR.es.cf_o7 = "Otro"; TR.de.cf_o7 = "Sonstiges"; TR.ar.cf_o7 = "أخرى"; TR.it.cf_o7 = "Altro";
+  TR.sq.cf_ok = "Faleminderit! Mesazhi u dërgua. Do të të përgjigjemi me email së shpejti."; TR.es.cf_ok = "¡Gracias! Tu mensaje ha sido enviado. Te responderemos pronto por email."; TR.de.cf_ok = "Danke! Ihre Nachricht wurde gesendet. Wir antworten bald per E-Mail."; TR.ar.cf_ok = "شكرًا! تم إرسال رسالتك. سنرد عليك قريبًا عبر البريد الإلكتروني."; TR.it.cf_ok = "Grazie! Il tuo messaggio è stato inviato. Ti risponderemo presto via email.";
+  TR.sq.cf_send = "DËRGO"; TR.es.cf_send = "ENVIAR"; TR.de.cf_send = "SENDEN"; TR.ar.cf_send = "إرسال"; TR.it.cf_send = "INVIA";
+  TR.sq.cf_sending = "PO DËRGOHET…"; TR.es.cf_sending = "ENVIANDO…"; TR.de.cf_sending = "WIRD GESENDET…"; TR.ar.cf_sending = "جارٍ الإرسال…"; TR.it.cf_sending = "INVIO IN CORSO…";
+  TR.sq.cf_sub = "Na shkruaj dhe të përgjigjemi me email."; TR.es.cf_sub = "Escríbenos y te responderemos por email."; TR.de.cf_sub = "Schreiben Sie uns, wir antworten per E-Mail."; TR.ar.cf_sub = "اكتب لنا وسنرد عليك عبر البريد الإلكتروني."; TR.it.cf_sub = "Scrivici e ti risponderemo via email.";
+  TR.sq.cf_subject = "Tema"; TR.es.cf_subject = "Asunto"; TR.de.cf_subject = "Betreff"; TR.ar.cf_subject = "الموضوع"; TR.it.cf_subject = "Oggetto";
+  TR.sq.cf_title = "Na dërgo një mesazh"; TR.es.cf_title = "Envíanos un mensaje"; TR.de.cf_title = "Schreiben Sie uns"; TR.ar.cf_title = "أرسل لنا رسالة"; TR.it.cf_title = "Inviaci un messaggio";
+  TR.sq.d_box = "Android Box"; TR.es.d_box = "Android Box"; TR.de.d_box = "Android Box"; TR.ar.d_box = "Android Box"; TR.it.d_box = "Android Box";
+  TR.sq.d_phone = "Telefon"; TR.es.d_phone = "Móvil"; TR.de.d_phone = "Handy"; TR.ar.d_phone = "هاتف"; TR.it.d_phone = "Telefono";
+  TR.sq.d_tablet = "Tablet"; TR.es.d_tablet = "Tablet"; TR.de.d_tablet = "Tablet"; TR.ar.d_tablet = "جهاز لوحي"; TR.it.d_tablet = "Tablet";
+  TR.sq.d_tv = "TV"; TR.es.d_tv = "TV"; TR.de.d_tv = "TV"; TR.ar.d_tv = "تلفاز"; TR.it.d_tv = "TV";
+  TR.sq.dl_btn = "SHKARKO APK"; TR.es.dl_btn = "DESCARGAR APK"; TR.de.dl_btn = "APK HERUNTERLADEN"; TR.ar.dl_btn = "تنزيل APK"; TR.it.dl_btn = "SCARICA APK";
+  TR.sq.dl_code = "Kodi i Downloader"; TR.es.dl_code = "Código Downloader"; TR.de.dl_code = "Downloader-Code"; TR.ar.dl_code = "رمز Downloader"; TR.it.dl_code = "Codice Downloader";
+  TR.sq.dl_copied = "U kopjua:"; TR.es.dl_copied = "Copiado:"; TR.de.dl_copied = "Kopiert:"; TR.ar.dl_copied = "تم النسخ:"; TR.it.dl_copied = "Copiato:";
+  TR.sq.dl_copied_b = "U KOPJUA"; TR.es.dl_copied_b = "COPIADO"; TR.de.dl_copied_b = "KOPIERT"; TR.ar.dl_copied_b = "تم النسخ"; TR.it.dl_copied_b = "COPIATO";
+  TR.sq.dl_copy = "KOPJO"; TR.es.dl_copy = "COPIAR"; TR.de.dl_copy = "KOPIEREN"; TR.ar.dl_copy = "نسخ"; TR.it.dl_copy = "COPIA";
+  TR.sq.dl_s1 = "Instalo <b>Downloader</b> nga dyqani i aplikacioneve të pajisjes."; TR.es.dl_s1 = "Instala <b>Downloader</b> desde la tienda de apps de tu dispositivo."; TR.de.dl_s1 = "Installieren Sie <b>Downloader</b> aus dem App-Store Ihres Geräts."; TR.ar.dl_s1 = "ثبّت <b>Downloader</b> من متجر التطبيقات على جهازك."; TR.it.dl_s1 = "Installa <b>Downloader</b> dallo store del tuo dispositivo.";
+  TR.sq.dl_s2 = "Hap Downloader dhe shkruaj kodin <b>1847520</b> (ose linkun më sipër)."; TR.es.dl_s2 = "Abre Downloader y escribe el código <b>1847520</b> (o la URL de arriba)."; TR.de.dl_s2 = "Öffnen Sie Downloader und geben Sie den Code <b>1847520</b> ein (oder die URL oben)."; TR.ar.dl_s2 = "افتح Downloader واكتب الرمز <b>1847520</b> (أو الرابط أعلاه)."; TR.it.dl_s2 = "Apri Downloader e digita il codice <b>1847520</b> (o l'URL sopra).";
+  TR.sq.dl_s3 = "Shtyp <b>Go</b>, shkarko dhe instalo Vision 4K."; TR.es.dl_s3 = "Pulsa <b>Go</b>, descarga e instala Vision 4K."; TR.de.dl_s3 = "Drücken Sie <b>Go</b>, laden Sie Vision 4K herunter und installieren Sie es."; TR.ar.dl_s3 = "اضغط <b>Go</b> ثم نزّل وثبّت Vision 4K."; TR.it.dl_s3 = "Premi <b>Go</b>, scarica e installa Vision 4K.";
+  TR.sq.dl_s4 = "Hap aplikacionin dhe aktivizoje me adresën MAC."; TR.es.dl_s4 = "Abre la app y actívala con tu dirección MAC."; TR.de.dl_s4 = "Öffnen Sie die App und aktivieren Sie sie mit Ihrer MAC-Adresse."; TR.ar.dl_s4 = "افتح التطبيق وفعّله باستخدام عنوان MAC."; TR.it.dl_s4 = "Apri l'app e attivala con il tuo indirizzo MAC.";
+  TR.sq.dl_sub2 = "Në Fire TV, Android TV ose Android Box përdor aplikacionin <b>Downloader</b>."; TR.es.dl_sub2 = "En Fire TV, Android TV o Android Box usa la app <b>Downloader</b>."; TR.de.dl_sub2 = "Auf Fire TV, Android TV oder Android Box die App <b>Downloader</b> verwenden."; TR.ar.dl_sub2 = "على Fire TV أو Android TV أو Android Box استخدم تطبيق <b>Downloader</b>."; TR.it.dl_sub2 = "Su Fire TV, Android TV o Android Box usa l'app <b>Downloader</b>.";
+  TR.sq.dl_title = "Instalo Vision 4K"; TR.es.dl_title = "Instala Vision 4K"; TR.de.dl_title = "Vision 4K installieren"; TR.ar.dl_title = "ثبّت Vision 4K"; TR.it.dl_title = "Installa Vision 4K";
+  TR.sq.dl_url = "Linku i shkarkimit"; TR.es.dl_url = "URL de descarga"; TR.de.dl_url = "Download-URL"; TR.ar.dl_url = "رابط التنزيل"; TR.it.dl_url = "URL di download";
   var DAYS_EN = {days_left: "{n} days left", days_exp: "Access expired"};
   var lang = "en";
   var originals = [];
