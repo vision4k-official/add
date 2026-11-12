@@ -1503,6 +1503,14 @@ label{color:#000!important}
 
 .cform .cf-sel select:invalid{-webkit-text-fill-color:#b9d6e0;font-weight:600!important}
 </style>
+<style>
+/* Downloader card inside Downloads: same dark card as in Support */
+.stack > #dlCard2{background:radial-gradient(70% 60% at 90% 0%,rgba(255,196,140,.22),rgba(0,0,0,0) 62%),linear-gradient(160deg,#0d3b56 0%,#0a2740 55%,#081a2e 100%) !important;border:1px solid rgba(160,240,250,.28) !important;border-radius:30px !important;padding:30px 28px 24px !important;margin:0 !important;max-width:none !important;width:100% !important;box-shadow:0 18px 40px rgba(8,60,90,.28) !important}
+#dlCard2 h3{color:#fff !important}
+#dlCard2 .cf-sub{color:#cfe8f0 !important}
+#dlCard2 .cf-sub b{color:#fff !important}
+#dlCard2 .dl-steps li{color:#cfe8f0 !important}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -1569,11 +1577,25 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10.5l5 5 5-5M4.5 20h15"/></svg>
           </div>
           <div class="download-copy">
-            <strong>Vision 4K Pro v3.8.1</strong>
+            <strong>Vision 4K Pro v4.1</strong>
             <span>Pro version · Direct download</span>
           </div>
         </div>
-        <a class="download-btn" href="https://albplayr.openibc.fit/downloads/get.php" download rel="noopener noreferrer" aria-label="Download Vision 4K Pro version 3.8.1">DOWNLOAD PRO <span aria-hidden="true">↓</span></a>
+        <a class="download-btn" href="https://albplayr.openibc.fit/downloads/get.php" download rel="noopener noreferrer" aria-label="Download Vision 4K Pro version 4.1">DOWNLOAD PRO <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="cform dlcard" id="dlCard2">
+        <h3 data-i18n="dl_title">Install Vision 4K</h3>
+        <p class="cf-sub" data-i18n="dl_sub2">On Fire TV, Android TV or Android Box use the <b>Downloader</b> app.</p>
+        <div class="dl-row">
+          <span class="dl-lab" data-i18n="dl_code">Downloader Code</span>
+          <div class="dl-val"><code>2133515</code><button type="button" class="dl-copy" data-copy="2133515" data-i18n="dl_copy">COPY</button></div>
+        </div>
+        <ol class="dl-steps">
+          <li data-i18n="dl_s1">Install <b>Downloader</b> from the app store of your device.</li>
+          <li data-i18n="dl_s2">Open Downloader and type the code <b>2133515</b> (or the URL above).</li>
+          <li data-i18n="dl_s3">Press <b>Go</b>, download and install Vision 4K.</li>
+        </ol>
+        <p class="cf-status" role="status" aria-live="polite"></p>
       </div>
       <section class="card info-card" aria-labelledby="devTitle">
         <h3 id="devTitle">Supported devices</h3>
@@ -1837,7 +1859,7 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
       <p class="cf-sub" data-i18n="dl_sub2">On Fire TV, Android TV or Android Box use the <b>Downloader</b> app.</p>
       <div class="dl-row">
         <span class="dl-lab" data-i18n="dl_code">Downloader Code</span>
-        <div class="dl-val"><code id="dlCode">1847520</code><button type="button" class="dl-copy" data-copy="1847520" data-i18n="dl_copy">COPY</button></div>
+        <div class="dl-val"><code id="dlCode">2133515</code><button type="button" class="dl-copy" data-copy="2133515" data-i18n="dl_copy">COPY</button></div>
       </div>
       <div class="dl-row">
         <span class="dl-lab" data-i18n="dl_url">Download URL</span>
@@ -1845,7 +1867,7 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
       </div>
       <ol class="dl-steps">
         <li data-i18n="dl_s1">Install <b>Downloader</b> from the app store of your device.</li>
-        <li data-i18n="dl_s2">Open Downloader and type the code <b>1847520</b> (or the URL above).</li>
+        <li data-i18n="dl_s2">Open Downloader and type the code <b>2133515</b> (or the URL above).</li>
         <li data-i18n="dl_s3">Press <b>Go</b>, download and install Vision 4K.</li>
         <li data-i18n="dl_s4">Open the app and activate it with your MAC address.</li>
       </ol>
@@ -1854,10 +1876,10 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
     </div>
     <script>
     (function(){
-      var st=document.getElementById("dlStatus");
       function T(k,en){ var v=window.t?window.t(k):k; return (v&&v!==k)?v:en; }
-      document.querySelectorAll("#dlCard .dl-copy").forEach(function(b){
+      document.querySelectorAll("#dlCard .dl-copy, #dlCard2 .dl-copy").forEach(function(b){
         b.addEventListener("click",function(){
+          var st=b.closest(".dlcard").querySelector(".cf-status");
           var t=b.getAttribute("data-copy");
           var done=function(){ b.textContent=T("dl_copied_b","COPIED"); st.textContent=T("dl_copied","Copied:")+" "+t; st.className="cf-status ok"; setTimeout(function(){ b.textContent=T("dl_copy","COPY"); },1600); };
           if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done,function(){ st.textContent=t; st.className="cf-status ok"; }); }
@@ -2465,7 +2487,7 @@ function formatMacInput(el) {
   TR.sq.dl_copied_b = "U KOPJUA"; TR.es.dl_copied_b = "COPIADO"; TR.de.dl_copied_b = "KOPIERT"; TR.ar.dl_copied_b = "تم النسخ"; TR.it.dl_copied_b = "COPIATO";
   TR.sq.dl_copy = "KOPJO"; TR.es.dl_copy = "COPIAR"; TR.de.dl_copy = "KOPIEREN"; TR.ar.dl_copy = "نسخ"; TR.it.dl_copy = "COPIA";
   TR.sq.dl_s1 = "Instalo <b>Downloader</b> nga dyqani i aplikacioneve të pajisjes."; TR.es.dl_s1 = "Instala <b>Downloader</b> desde la tienda de apps de tu dispositivo."; TR.de.dl_s1 = "Installieren Sie <b>Downloader</b> aus dem App-Store Ihres Geräts."; TR.ar.dl_s1 = "ثبّت <b>Downloader</b> من متجر التطبيقات على جهازك."; TR.it.dl_s1 = "Installa <b>Downloader</b> dallo store del tuo dispositivo.";
-  TR.sq.dl_s2 = "Hap Downloader dhe shkruaj kodin <b>1847520</b> (ose linkun më sipër)."; TR.es.dl_s2 = "Abre Downloader y escribe el código <b>1847520</b> (o la URL de arriba)."; TR.de.dl_s2 = "Öffnen Sie Downloader und geben Sie den Code <b>1847520</b> ein (oder die URL oben)."; TR.ar.dl_s2 = "افتح Downloader واكتب الرمز <b>1847520</b> (أو الرابط أعلاه)."; TR.it.dl_s2 = "Apri Downloader e digita il codice <b>1847520</b> (o l'URL sopra).";
+  TR.sq.dl_s2 = "Hap Downloader dhe shkruaj kodin <b>2133515</b> (ose linkun më sipër)."; TR.es.dl_s2 = "Abre Downloader y escribe el código <b>2133515</b> (o la URL de arriba)."; TR.de.dl_s2 = "Öffnen Sie Downloader und geben Sie den Code <b>2133515</b> ein (oder die URL oben)."; TR.ar.dl_s2 = "افتح Downloader واكتب الرمز <b>2133515</b> (أو الرابط أعلاه)."; TR.it.dl_s2 = "Apri Downloader e digita il codice <b>2133515</b> (o l'URL sopra).";
   TR.sq.dl_s3 = "Shtyp <b>Go</b>, shkarko dhe instalo Vision 4K."; TR.es.dl_s3 = "Pulsa <b>Go</b>, descarga e instala Vision 4K."; TR.de.dl_s3 = "Drücken Sie <b>Go</b>, laden Sie Vision 4K herunter und installieren Sie es."; TR.ar.dl_s3 = "اضغط <b>Go</b> ثم نزّل وثبّت Vision 4K."; TR.it.dl_s3 = "Premi <b>Go</b>, scarica e installa Vision 4K.";
   TR.sq.dl_s4 = "Hap aplikacionin dhe aktivizoje me adresën MAC."; TR.es.dl_s4 = "Abre la app y actívala con tu dirección MAC."; TR.de.dl_s4 = "Öffnen Sie die App und aktivieren Sie sie mit Ihrer MAC-Adresse."; TR.ar.dl_s4 = "افتح التطبيق وفعّله باستخدام عنوان MAC."; TR.it.dl_s4 = "Apri l'app e attivala con il tuo indirizzo MAC.";
   TR.sq.dl_sub2 = "Në Fire TV, Android TV ose Android Box përdor aplikacionin <b>Downloader</b>."; TR.es.dl_sub2 = "En Fire TV, Android TV o Android Box usa la app <b>Downloader</b>."; TR.de.dl_sub2 = "Auf Fire TV, Android TV oder Android Box die App <b>Downloader</b> verwenden."; TR.ar.dl_sub2 = "على Fire TV أو Android TV أو Android Box استخدم تطبيق <b>Downloader</b>."; TR.it.dl_sub2 = "Su Fire TV, Android TV o Android Box usa l'app <b>Downloader</b>.";
