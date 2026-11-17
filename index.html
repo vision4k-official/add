@@ -1913,6 +1913,19 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
 
       <p class="pay-hint" id="payHint" hidden>Select a period above to see the payment details.</p>
 
+      <div id="payAuto" class="pay-auto" hidden>
+        <div class="pay-title"><span class="pay-num">3</span>Pay automatically<span class="pay-tag">USDT · BTC</span></div>
+        <a class="pay-auto-btn" id="payAutoBtn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+          <span id="payAutoTxt">Pay now</span>
+        </a>
+        <ul class="pay-auto-pts">
+          <li>Your device is activated automatically after payment, usually within a few minutes.</li>
+          <li>Send USDT on the <b>BSC (BEP20)</b> network and the exact amount shown on the payment page.</li>
+          <li>No crypto yet? Buy USDT on Binance, then send it to the address shown.</li>
+        </ul>
+      </div>
+      <div id="payOr" class="pay-or" hidden><span>or pay manually with Binance ID</span></div>
       <div id="payBox" class="pay-box" hidden>
         <div class="pay-title"><span class="pay-num">3</span>Pay with Binance<span class="pay-tag">USDT</span></div>
         <div class="pay-row"><div><span>Binance ID (Pay)</span><b id="payBid"></b></div><button type="button" class="pay-copy" data-c="payBid"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg><span>COPY</span></button></div>
@@ -2918,8 +2931,10 @@ function formatMacInput(el) {
   var BINANCE_ID = "1095100117";   // your Binance Pay ID
   var WHATSAPP   = "447727188441"; // digits only, with country code
   var PLANS = [
-    {id: "12m",  label: "12 months", title: "12 Months", price: 5.99},
-    {id: "life", label: "lifetime",  title: "Lifetime",  price: 8.99}
+    {id: "3m",   label: "3 months",  title: "3 Months",  price: 3.59,  per: "$1.20 / month"},
+    {id: "6m",   label: "6 months",  title: "6 Months",  price: 5.59,  per: "$0.93 / month"},
+    {id: "12m",  label: "12 months", title: "12 Months", price: 8.69,  per: "$0.72 / month"},
+    {id: "life", label: "lifetime",  title: "Lifetime",  price: 14.69, per: "Pay once"}
   ];
   // ======================
 
@@ -2934,7 +2949,7 @@ function formatMacInput(el) {
     b.type = "button";
     b.className = "pay-plan";
     b.setAttribute("aria-pressed", "false");
-    b.innerHTML = '<span class="pp-label">' + p.label + '</span><b>$' + p.price.toFixed(2) + '</b>';
+    b.innerHTML = '<span class="pp-left"><span class="pp-label">' + p.label + '</span>' + (p.per ? '<small class="pp-per">' + p.per + '</small>' : '') + '</span><b>$' + p.price.toFixed(2) + '</b>';
     b.addEventListener("click", function () {
       sel = p;
       [].forEach.call(plansEl.children, function (c) { c.setAttribute("aria-pressed", String(c === b)); });
@@ -2954,6 +2969,12 @@ function formatMacInput(el) {
     if (mac) $("payMac").textContent = mac;
 
     var ready = !!(mac && sel);
+    $("payAuto").hidden = !ready;
+    $("payOr").hidden = !ready;
+    if (ready) {
+      $("payAutoBtn").href = "https://albplayr.openibc.fit/api/pay.php?mac=" + encodeURIComponent(mac) + "&plan=" + encodeURIComponent(sel.id);
+      $("payAutoTxt").textContent = "Pay $" + sel.price.toFixed(2) + " – " + sel.title;
+    }
     $("payHint").hidden = !(mac && !sel);
     $("payBox").hidden = !ready;
     if (!ready) return;
@@ -3020,6 +3041,30 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
+<style id="v4auto-css">
+.pay-auto{margin-top:14px;padding:16px;border-radius:18px;border:1px solid rgba(60,214,160,.45);background:linear-gradient(160deg,rgba(18,92,76,.55),rgba(9,40,48,.85))}
+.pay-auto-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0 12px;padding:16px 14px;border-radius:14px;font-weight:800;font-size:16px;letter-spacing:.3px;color:#fff !important;text-decoration:none;background:linear-gradient(135deg,#19c37d,#0e9f6e);box-shadow:0 10px 24px rgba(14,159,110,.4);transition:transform .15s}
+.pay-auto-btn:active{transform:scale(.98)}
+.pay-auto-btn svg{width:22px;height:22px;fill:#fff}
+.pay-auto-pts{margin:0;padding:0 0 0 18px;font-size:13px;line-height:1.5;color:#cfe8e0}
+.pay-auto-pts li{margin:4px 0}
+.pay-or{display:flex;align-items:center;gap:12px;margin:16px 2px 4px;color:#9db8d6;font-size:12px;letter-spacing:.4px;text-transform:uppercase}
+.pay-or::before,.pay-or::after{content:"";flex:1;height:1px;background:rgba(160,200,255,.25)}
+#payAuto a.pay-auto-btn{background:linear-gradient(135deg,#19c37d,#0e9f6e) !important;color:#fff !important;border:0 !important;box-shadow:0 10px 24px rgba(14,159,110,.4) !important}
+#payAuto a.pay-auto-btn span{color:#fff !important;background:transparent !important}
+#payAuto .pay-auto-pts,#payAuto .pay-auto-pts li{color:#e2f5ee !important;background:transparent !important}
+#payAuto .pay-auto-pts b{color:#fff !important}
+#payOr{color:#9db8d6 !important}
+</style>
+<style id="v4plan-css">
+/* Periudhat: një nën tjetrën (lart-poshtë) */
+.pay-plans{grid-template-columns:1fr !important;gap:10px !important}
+.pay-plan{flex-direction:row !important;justify-content:space-between !important;align-items:center !important;min-height:64px !important;padding:12px 18px !important;text-align:left}
+.pay-plan .pp-left{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.pay-plan .pp-per{font-size:12px;font-weight:600;opacity:.75;letter-spacing:.2px}
+.pay-plan b{font-size:24px !important}
+.pay-plan[aria-pressed="true"]::after{top:50% !important;transform:translateY(-50%);right:auto !important;left:-1px;display:none}
+</style>
 <style id="v4vid-css">
 .v4vid-box{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#0a1a3a;border:1px solid rgba(160,200,255,.28);margin-top:12px}
 .v4vid-box iframe,.v4vid-play{position:absolute;inset:0;width:100%;height:100%;border:0}
