@@ -1513,27 +1513,8 @@ label{color:#000!important}
 #dlCard2 .cf-sub b{color:#fff !important}
 #dlCard2 .dl-steps li{color:#cfe8f0 !important}
 </style>
-<style id="v4intro-css">
-#v4intro{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(circle at 50% 38%,#12356a 0,#0a1c3c 38%,#050c1c 75%);color:#fff;text-align:center;cursor:pointer;transition:opacity .55s ease,visibility .55s;overflow:hidden}
-#v4intro.out{opacity:0;visibility:hidden}
-#v4intro .lg{width:min(46vw,300px);opacity:0;transform:scale(.6) rotate(-6deg);animation:v4iLogo .9s cubic-bezier(.2,.9,.25,1.2) .15s forwards;filter:drop-shadow(0 18px 40px rgba(232,40,62,.45))}
-#v4intro .wl{font-size:clamp(14px,3.4vw,20px);letter-spacing:.38em;text-transform:uppercase;color:#9fc3ea;opacity:0;animation:v4iUp .6s ease .9s forwards}
-#v4intro .nm{font-size:clamp(34px,9vw,64px);font-weight:800;letter-spacing:-.01em;opacity:0;animation:v4iUp .6s ease 1.15s forwards}
-#v4intro .nm span{background:linear-gradient(90deg,#4cc9f0,#e8283e);-webkit-background-clip:text;background-clip:text;color:transparent}
-#v4intro .fl{display:flex;align-items:center;gap:14px;min-height:52px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
-#v4intro .fl.on{opacity:1;transform:none}
-#v4intro .fl img{height:40px;width:auto;border-radius:6px;box-shadow:0 6px 22px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.25)}
-#v4intro .fl b{font-size:clamp(16px,4vw,22px);font-weight:700;color:#e8f2ff}
-#v4intro .sk{position:absolute;bottom:26px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6f8cae;opacity:0;animation:v4iUp .6s ease 1.8s forwards}
-#v4intro .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,#4cc9f0,#e8283e);transform-origin:0 50%;transform:scaleX(0);animation:v4iBar 3.3s linear .1s forwards}
-@keyframes v4iLogo{to{opacity:1;transform:none}}
-@keyframes v4iUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes v4iBar{to{transform:scaleX(1)}}
-@media (prefers-reduced-motion:reduce){#v4intro .lg,#v4intro .wl,#v4intro .nm,#v4intro .sk{animation-duration:.01s;animation-delay:0s}#v4intro .bar{animation:none}}
-</style>
 </head>
 <body>
-<div id="v4intro" role="dialog" aria-label="Welcome to Vision 4K" hidden><img class="lg" alt="Vision 4K"><div class="wl">Welcome to</div><div class="nm"><span>Vision 4K</span></div><div class="fl" id="v4flag"><img alt="" width="60" height="40"><b></b></div><div class="sk">Tap to skip</div><div class="bar"></div></div>
 
 <header class="topbar">
   <div class="topbar-in">
@@ -3301,34 +3282,6 @@ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if
     f.allow="accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
     f.allowFullscreen=true;
     box.innerHTML="";box.appendChild(f);
-  });
-})();
-</script>
-<script id="v4intro-js">
-/* Welcome intro: shown once per visit. Country flag comes from a free IP-country lookup; if it fails the intro simply shows without a flag. */
-(function () {
-  var box = document.getElementById("v4intro"); if (!box) return;
-  try { if (sessionStorage.getItem("v4k_intro")) return; sessionStorage.setItem("v4k_intro", "1"); } catch (e) {}
-  var lg = document.querySelector(".mark-logo"); if (lg && lg.src) box.querySelector(".lg").src = lg.src; else box.querySelector(".lg").style.display = "none";
-  box.hidden = false; document.documentElement.style.overflow = "hidden";
-  var closed = false;
-  function close() { if (closed) return; closed = true; box.classList.add("out"); document.documentElement.style.overflow = ""; setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 700); }
-  box.addEventListener("click", close);
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" || e.key === "Enter" || e.key === " ") close(); });
-  setTimeout(close, 3500);
-  function show(code) {
-    if (closed || !code || !/^[A-Za-z]{2}$/.test(code)) return; code = code.toUpperCase();
-    var name = code; try { name = new Intl.DisplayNames(["en"], { type: "region" }).of(code) || code; } catch (e) {}
-    var fl = document.getElementById("v4flag"), im = fl.querySelector("img");
-    im.onload = function () { fl.querySelector("b").textContent = name; fl.classList.add("on"); };
-    im.src = "https://flagcdn.com/w160/" + code.toLowerCase() + ".png";
-  }
-  function get(url, pick, next) {
-    var done = false, t = setTimeout(function () { if (!done) { done = true; next && next(); } }, 1500);
-    fetch(url, { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) { if (done) return; done = true; clearTimeout(t); var c = pick(j); if (c) show(c); else next && next(); }).catch(function () { if (!done) { done = true; clearTimeout(t); next && next(); } });
-  }
-  get("https://api.country.is/", function (j) { return j && j.country; }, function () {
-    get("https://ipwho.is/", function (j) { return j && j.success !== false && j.country_code; });
   });
 })();
 </script>
