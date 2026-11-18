@@ -1524,6 +1524,7 @@ label{color:#000!important}
       <a href="#playlists" data-nav data-i18n="nav_pl">Manage Playlists</a>
       <a href="#tutorials" data-nav data-i18n="nav_tut">How to Tutorials</a>
       <a href="#support" data-nav data-i18n="nav_sup">Support</a>
+      <a href="#about" data-nav>About us</a>
       <a href="#legal" data-nav data-i18n="nav_legal">Legal Terms</a>
       <a href="#contact" data-nav data-i18n="nav_contact">Contact</a>
     </nav>
@@ -2088,6 +2089,80 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
       <h3>Access period</h3><p>New devices receive a free trial. After it ends, access can be extended by contacting our support team. Extension requests are confirmed by our team.</p>
       <h3>Changes</h3><p>We may update these terms and the service from time to time. Continued use means you accept the updated terms.</p>
     </section></div>
+  </section>
+
+  <section class="view" id="view-about" data-view="about">
+    <style>
+      #view-about .ab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+      #view-about .ab-c{background:rgba(255,255,255,.05);border:1px solid rgba(111,165,220,.22);border-radius:18px;padding:18px}
+      #view-about .ab-c .ic{font-size:26px;margin-bottom:8px}
+      #view-about .ab-c h4{font-size:16px;margin:0 0 5px;color:#fff}
+      #view-about .ab-c p{font-size:14px;line-height:1.55;margin:0;color:#a9bfd6}
+      #view-about .ab-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+      #view-about .ab-n{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#f2c94c;color:#1a1a1a;font-weight:800;margin-bottom:10px}
+      #view-about .ab-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+      #view-about .ab-cta a{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:14px;font-weight:800;text-decoration:none;color:#fff}
+      #view-about .ab-code{margin-top:16px;font-size:14px;color:#a9bfd6}
+      #view-about .ab-code b{color:#fff}#view-about .ab-code b.cd{color:#f2c94c;font-size:20px;letter-spacing:.08em}
+      @media(max-width:860px){#view-about .ab-grid{grid-template-columns:1fr 1fr}#view-about .ab-steps{grid-template-columns:1fr 1fr}}
+      @media(max-width:560px){#view-about .ab-grid,#view-about .ab-steps{grid-template-columns:1fr}#view-about .ab-cta a{width:100%}}
+    </style>
+    <h2 class="view-title view-narrow">About us</h2>
+    <p class="view-sub view-narrow">Who we are and what Vision 4K does.</p>
+    <div class="stack">
+      <section class="card info-card">
+        <h3>Who we are</h3>
+        <p>We are a company that offers online services. Vision 4K Pro is our media player, made to keep watching your own content simple on every screen at home.</p>
+      </section>
+
+      <section class="card info-card">
+        <h3>Built for the couch, great on the phone</h3>
+        <p class="sub">Everything you need to browse and watch your own content, and nothing you do not.</p>
+        <div class="ab-grid">
+          <div class="ab-c"><div class="ic">📺</div><h4>Live, Movies &amp; Series</h4><p>Categories with counts, search, recently viewed and favorites in one fast screen.</p></div>
+          <div class="ab-c"><div class="ic">🎮</div><h4>Made for remotes</h4><p>Clear focus, big targets and quick channel switching with the D-pad.</p></div>
+          <div class="ab-c"><div class="ic">🔗</div><h4>M3U &amp; Xtream Codes</h4><p>Add up to 5 playlists and switch between them any time.</p></div>
+          <div class="ab-c"><div class="ic">🌐</div><h4>Manage from any browser</h4><p>Add or edit playlists from your phone or computer with your MAC and device key.</p></div>
+          <div class="ab-c"><div class="ic">⚙️</div><h4>Your way</h4><p>Aspect ratio, stream format, auto play, time format and external players.</p></div>
+          <div class="ab-c"><div class="ic">🔒</div><h4>Parental control</h4><p>Keep selected content away from kids with a PIN.</p></div>
+        </div>
+      </section>
+
+      <section class="card info-card">
+        <h3>Works where you watch</h3>
+        <p class="sub">One app for the screens you already own.</p>
+        <div class="chips"><span class="chip">Android phones</span><span class="chip">Tablets</span><span class="chip">Android TV</span><span class="chip">Google TV</span></div>
+      </section>
+
+      <section class="card info-card">
+        <h3>Start in four steps</h3>
+        <p class="sub">From download to your first channel in a couple of minutes.</p>
+        <div class="ab-steps">
+          <div class="ab-c"><div class="ab-n">1</div><h4>Install</h4><p>Download the app below. On a TV, use the Downloader app with our code.</p></div>
+          <div class="ab-c"><div class="ab-n">2</div><h4>Open the app</h4><p>You get your device MAC and key and a 7-day free trial.</p></div>
+          <div class="ab-c"><div class="ab-n">3</div><h4>Add your playlist</h4><p>Use Manage Playlists here with your MAC and key, then press Reload in the app.</p></div>
+          <div class="ab-c"><div class="ab-n">4</div><h4>Watch</h4><p>Browse, search, add favorites and enjoy.</p></div>
+        </div>
+      </section>
+
+      <section class="card info-card">
+        <h3>Get Vision 4K Pro</h3>
+        <p class="sub">Every new device gets a 7-day free trial. Renew online whenever you like and your device is activated automatically.</p>
+        <div class="ab-cta">
+          <a class="btn-main" href="#downloads" onclick="if(window.goView){goView('downloads');return false;}">Direct download</a>
+          <a class="btn-alt" href="https://apkpure.com/vision-4k-pro/com.vision4k.app" target="_blank" rel="noopener noreferrer">APKPure</a>
+          <a class="btn-alt" href="https://appteka.store/app/6f4r338821" target="_blank" rel="noopener noreferrer">Appteka</a>
+        </div>
+        <div class="ab-code">On Android TV and Google TV open <b>Downloader</b> and enter code <b class="cd">2133515</b></div>
+      </section>
+
+      <section class="card info-card legal">
+        <h3>Media player only</h3>
+        <p>Vision 4K does not provide, sell or host any channels, movies or playlists. Add only content you have the right to watch.</p>
+        <h3>Support</h3>
+        <p>Questions about your device or renewal? Write to us at <b>vision4k.support@gmail.com</b> and we will help.</p>
+      </section>
+    </div>
   </section>
 
   <section class="view" id="view-contact" data-view="contact">
@@ -2861,7 +2936,7 @@ function formatMacInput(el) {
 <script>
 /* Menu + views (hash routing: #home #downloads #playlists #tutorials #support) */
 (function () {
-  var views = ["home", "downloads", "activate", "playlists", "tutorials", "support", "legal", "contact", "reseller"];
+  var views = ["home", "downloads", "activate", "playlists", "tutorials", "support", "legal", "about", "contact", "reseller"];
   function show(name) {
     if (views.indexOf(name) < 0) name = "home";
     views.forEach(function (v) {
