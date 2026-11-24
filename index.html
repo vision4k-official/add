@@ -3450,6 +3450,40 @@ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if
       .catch(function () { send.disabled = false; err.hidden = false; });
   });
 })();
+
+/* Anonymous funnel counter (visit / activate page / plan picked / Pay now). Add ?notrack to the address once to exclude your own device. */
+(function () {
+  var URL_T = "https://albplayr.openibc.fit/api/track.php";
+  try {
+    if (/[?&]notrack\b/.test(location.search)) localStorage.setItem("v4k_notrack", "1");
+    if (localStorage.getItem("v4k_notrack") === "1") return;
+  } catch (e) {}
+  function once(k) {
+    try { if (sessionStorage.getItem("v4k_t_" + k)) return false; sessionStorage.setItem("v4k_t_" + k, "1"); } catch (e) {}
+    return true;
+  }
+  function send(e, p) {
+    try {
+      var body = JSON.stringify({ e: e, p: p || "", l: document.documentElement.lang || "en", z: (Intl.DateTimeFormat().resolvedOptions().timeZone || "") });
+      if (navigator.sendBeacon) { navigator.sendBeacon(URL_T, new Blob([body], { type: "text/plain" })); }
+      else { fetch(URL_T, { method: "POST", body: body, mode: "no-cors", keepalive: true }); }
+    } catch (x) {}
+  }
+  if (once("visit")) send("visit");
+  function route() { if (/^#activate/.test(location.hash) && once("activate")) send("activate"); }
+  route(); window.addEventListener("hashchange", route);
+  var ids = ["3m", "6m", "12m", "life"];
+  document.addEventListener("click", function (ev) {
+    var t = ev.target; if (!t || !t.closest) return;
+    var b = t.closest("#payPlans .pay-plan");
+    if (b) { send("plan", ids[[].indexOf.call(b.parentNode.children, b)] || ""); return; }
+    if (t.closest("#payAutoBtn")) {
+      var sel = document.querySelector("#payPlans .pay-plan[aria-pressed='true']");
+      send("pay", sel ? (ids[[].indexOf.call(sel.parentNode.children, sel)] || "") : ""); return;
+    }
+    if (t.closest("#payWa")) send("paid_btn");
+  }, true);
+})();
 </script>
 </body>
 </html>
