@@ -3452,11 +3452,19 @@ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if
 
 /* Anonymous funnel counter (visit / activate page / plan picked / Pay now). Add ?notrack to the address once to exclude your own device. */
 (function () {
-  var URL_T = "https://albplayr.openibc.fit/api/track.php";
+  var URL_T = "https://albplayr.openibc.fit/api/vn.php";
+  var DBG = /[?&]trackdebug\b/.test(location.search);
   try {
+    if (DBG) localStorage.removeItem("v4k_notrack");
     if (/[?&]notrack\b/.test(location.search)) localStorage.setItem("v4k_notrack", "1");
     if (localStorage.getItem("v4k_notrack") === "1") return;
   } catch (e) {}
+  function dbg(t) {
+    if (!DBG) return;
+    var d = document.getElementById("v4kDbg");
+    if (!d) { d = document.createElement("div"); d.id = "v4kDbg"; d.style.cssText = "position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;background:#000c;color:#fff;font:13px monospace;padding:8px 10px;border-radius:8px;white-space:pre-wrap"; document.body.appendChild(d); }
+    d.textContent += t + "\n";
+  }
   function once(k) {
     try { if (sessionStorage.getItem("v4k_t_" + k)) return false; sessionStorage.setItem("v4k_t_" + k, "1"); } catch (e) {}
     return true;
@@ -3464,7 +3472,11 @@ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if
   function send(e, p) {
     try {
       var body = JSON.stringify({ e: e, p: p || "", l: document.documentElement.lang || "en", z: (Intl.DateTimeFormat().resolvedOptions().timeZone || "") });
-      if (navigator.sendBeacon) { navigator.sendBeacon(URL_T, new Blob([body], { type: "text/plain" })); }
+      if (DBG) {
+        fetch(URL_T, { method: "POST", body: body, headers: { "Content-Type": "text/plain" } })
+          .then(function (r) { dbg(e + " -> HTTP " + r.status); })
+          .catch(function () { dbg(e + " -> BLOCKED or network error"); });
+      } else if (navigator.sendBeacon) { navigator.sendBeacon(URL_T, new Blob([body], { type: "text/plain" })); }
       else { fetch(URL_T, { method: "POST", body: body, mode: "no-cors", keepalive: true }); }
     } catch (x) {}
   }
