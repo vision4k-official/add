@@ -1902,6 +1902,16 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
           <span class="chip">Android Box</span>
         </div>
       </section>
+      <div class="star-card" id="starCard">
+        <div class="star-t" data-i18n="star_t">How do you like Vision 4K?</div>
+        <div class="stars" id="starRow" role="radiogroup" aria-label="Rate Vision 4K"></div>
+        <div class="star-more" id="starMore" hidden>
+          <textarea id="starTxt" maxlength="300" rows="3" placeholder="Tell us more (optional)"></textarea>
+          <button type="button" class="star-send" id="starSend" data-i18n="star_send">Send rating</button>
+          <div class="star-err" id="starErr" hidden data-i18n="star_err">Could not send. Please try again.</div>
+        </div>
+        <div class="star-thanks" id="starThanks" hidden data-i18n="star_thanks">Thank you for your rating!</div>
+      </div>
       <div class="rate-row"><span data-i18n="rate_t">Enjoying Vision 4K?</span><a class="rate-btn" href="https://appteka.store/app/6f4r338821" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">★</span> <span data-i18n="rate_b">Rate us</span></a></div>
     </div>
   </section>
@@ -2949,6 +2959,7 @@ function formatMacInput(el) {
   TR.es.usdt_2 = "Comprá USDT en un exchange como Binance: tocá <b>Comprar Cripto</b> y pagá con tu tarjeta de crédito o débito.";
   TR.es.usdt_3 = "Enviala: <b>Billetera &gt; Retirar &gt; Cripto &gt; USDT</b> y pegá la dirección de la página de pago.";
   TR.es.usdt_4 = "Elegí la red <b>BSC (BEP20)</b>.";
+  (function(){var W={"sq": {"star_t": "Si të duket Vision 4K?", "star_ph": "Na trego më shumë (opsionale)", "star_send": "Dërgo vlerësimin", "star_err": "Nuk u dërgua. Provo përsëri.", "star_thanks": "Faleminderit për vlerësimin!"}, "es": {"star_t": "¿Qué te parece Vision 4K?", "star_ph": "Cuéntanos más (opcional)", "star_send": "Enviar valoración", "star_err": "No se pudo enviar. Inténtalo de nuevo.", "star_thanks": "¡Gracias por tu valoración!"}, "de": {"star_t": "Wie gefällt dir Vision 4K?", "star_ph": "Erzähl uns mehr (optional)", "star_send": "Bewertung senden", "star_err": "Senden fehlgeschlagen. Bitte erneut versuchen.", "star_thanks": "Danke für deine Bewertung!"}, "ar": {"star_t": "ما رأيك في Vision 4K؟", "star_ph": "أخبرنا المزيد (اختياري)", "star_send": "إرسال التقييم", "star_err": "تعذّر الإرسال. حاول مرة أخرى.", "star_thanks": "شكراً على تقييمك!"}, "it": {"star_t": "Cosa ne pensi di Vision 4K?", "star_ph": "Raccontaci di più (facoltativo)", "star_send": "Invia valutazione", "star_err": "Invio non riuscito. Riprova.", "star_thanks": "Grazie per la tua valutazione!"}, "fr": {"star_t": "Que pensez-vous de Vision 4K ?", "star_ph": "Dites-nous en plus (facultatif)", "star_send": "Envoyer la note", "star_err": "Envoi impossible. Veuillez réessayer.", "star_thanks": "Merci pour votre note !"}, "ro": {"star_t": "Ce părere ai despre Vision 4K?", "star_ph": "Spune-ne mai multe (opțional)", "star_send": "Trimite evaluarea", "star_err": "Nu s-a putut trimite. Încearcă din nou.", "star_thanks": "Mulțumim pentru evaluare!"}, "pt": {"star_t": "O que acha do Vision 4K?", "star_ph": "Conte-nos mais (opcional)", "star_send": "Enviar avaliação", "star_err": "Não foi possível enviar. Tente novamente.", "star_thanks": "Obrigado pela sua avaliação!"}};for(var l in W){TR[l]=TR[l]||{};for(var k in W[l])TR[l][k]=W[l][k];}window.refreshStarPh=function(){var p=document.getElementById("starTxt");if(!p)return;var l=document.documentElement.lang||"en";p.placeholder=(l!=="en"&&TR[l]&&TR[l].star_ph)||"Tell us more (optional)";};})();
   TR.es.usdt_5 = "Ingresá el monto exacto indicado. Sumá la pequeña comisión de red para que llegue completo.";
   TR.es.usdt_6 = "Confirmá. Tu dispositivo se activa automáticamente en unos minutos. Abrí la app y tocá <b>Reload</b>.";
   TR.es.usdt_w = "Importante: cualquier red distinta de BSC (BEP20) significa fondos perdidos.";
@@ -2971,6 +2982,7 @@ function formatMacInput(el) {
     try { localStorage.setItem("v4k_lang", lang); } catch (e) {}
     if (window.refreshDays) window.refreshDays();
     if (window.refreshAnnounce) window.refreshAnnounce();
+    if (window.refreshStarPh) window.refreshStarPh();
     if (window.refreshTutVideo) window.refreshTutVideo(lang);
   }
   window.applyLang = apply;
@@ -3250,6 +3262,18 @@ s0.parentNode.insertBefore(s1,s0);
 .pay-plan[aria-pressed="true"]::after{top:50% !important;transform:translateY(-50%);right:auto !important;left:-1px;display:none}
 </style>
 <style id="v4vid-css">
+.star-card{margin-bottom:12px;padding:18px 18px 16px;border-radius:16px;border:1px solid rgba(160,200,255,.25);background:rgba(255,255,255,.05);text-align:center}
+.star-t{font-weight:800;font-size:16px;margin-bottom:10px}
+.stars{display:flex;justify-content:center;gap:6px;direction:ltr}
+.stars button{background:none;border:0;padding:2px 4px;font-size:40px;line-height:1;cursor:pointer;color:rgba(160,200,255,.35);transition:transform .12s,color .12s}
+.stars button.on{color:#ffc83d;text-shadow:0 2px 10px rgba(255,200,61,.45)}
+.stars button:hover{transform:scale(1.12)}
+.star-more{margin-top:14px}
+.star-more textarea{width:100%;border-radius:12px;border:1px solid rgba(160,200,255,.3);background:rgba(8,20,50,.35);color:#fff;padding:10px 12px;font:inherit;font-size:14px;resize:vertical}
+.star-send{margin-top:10px;padding:10px 22px;border:0;border-radius:999px;font-weight:800;font-size:14px;color:#fff;background:linear-gradient(135deg,#1397cf,#3563e9);cursor:pointer}
+.star-send[disabled]{opacity:.6}
+.star-err{margin-top:8px;font-size:13px;color:#ffb4b4}
+.star-thanks{margin-top:10px;font-weight:800;font-size:15px;color:#5be3a0}
 .rate-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 18px;border-radius:16px;border:1px solid rgba(160,200,255,.25);background:rgba(255,255,255,.05)}
 .rate-row span{font-weight:700;font-size:14px}
 .rate-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none;color:#fff !important;background:linear-gradient(135deg,#1397cf,#3563e9);text-shadow:0 1px 2px rgba(0,0,0,.35)}
@@ -3387,6 +3411,43 @@ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if
     v.style.cssText="position:absolute;inset:0;width:100%;height:100%;background:#000";
     box.innerHTML="";box.appendChild(v);
     try{v.play();}catch(e){}
+  });
+})();
+</script>
+<script>
+(function () {
+  var RATE_URL = "https://albplayr.openibc.fit/api/rate.php";
+  var row = document.getElementById("starRow");
+  if (!row) return;
+  var more = document.getElementById("starMore"), err = document.getElementById("starErr"),
+      thanks = document.getElementById("starThanks"), send = document.getElementById("starSend"),
+      txt = document.getElementById("starTxt");
+  var val = 0, btns = [];
+  var done = false;
+  try { done = localStorage.getItem("v4k_rated") === "1"; } catch (e) {}
+  for (var i = 1; i <= 5; i++) (function (n) {
+    var b = document.createElement("button");
+    b.type = "button"; b.textContent = "★"; b.setAttribute("role", "radio");
+    b.setAttribute("aria-label", n + (n === 1 ? " star" : " stars"));
+    b.addEventListener("click", function () { if (done) return; val = n; paint(n); more.hidden = false; });
+    b.addEventListener("mouseenter", function () { if (!done && !val) paint(n); });
+    btns.push(b); row.appendChild(b);
+  })(i);
+  row.addEventListener("mouseleave", function () { if (!done) paint(val); });
+  function paint(n) { btns.forEach(function (b, k) { b.className = k < n ? "on" : ""; }); }
+  if (done) { paint(5); thanks.hidden = false; return; }
+  send.addEventListener("click", function () {
+    if (!val) return;
+    send.disabled = true; err.hidden = true;
+    var body = JSON.stringify({ stars: val, comment: txt.value.slice(0, 300), lang: (document.documentElement.lang || "en") });
+    fetch(RATE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: body })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (j) {
+        if (!j || !j.ok) throw 0;
+        done = true; try { localStorage.setItem("v4k_rated", "1"); } catch (e) {}
+        more.hidden = true; thanks.hidden = false;
+      })
+      .catch(function () { send.disabled = false; err.hidden = false; });
   });
 })();
 </script>
