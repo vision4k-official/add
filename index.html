@@ -2981,7 +2981,7 @@ function formatMacInput(el) {
     $("payAuto").hidden = !ready;
     $("payOr").hidden = !ready;
     if (ready) {
-      $("payAutoBtn").href = "https://albplayr.openibc.fit/api/pay.php?mac=" + encodeURIComponent(mac) + "&plan=" + encodeURIComponent(sel.id);
+      $("payAutoBtn").href = "https://albplayr.openibc.fit/api/pay.php?mac=" + encodeURIComponent(mac) + "&plan=" + encodeURIComponent(sel.id) + "&lang=" + encodeURIComponent(document.documentElement.lang || "en");
       $("payAutoTxt").textContent = "Pay $" + sel.price.toFixed(2) + " – " + sel.title;
     }
     $("payHint").hidden = !(mac && !sel);
