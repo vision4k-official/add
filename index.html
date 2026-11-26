@@ -2806,6 +2806,7 @@ function formatMacInput(el) {
   if (!saved) { saved = "en"; }   /* English by default; the visitor can change it from the language menu */
   document.getElementById("lang").addEventListener("change", function () { apply(this.value); });
   apply(saved);
+
 })();
 
 /* Tutorial video: English version for all languages */
@@ -2981,7 +2982,7 @@ function formatMacInput(el) {
     $("payAuto").hidden = !ready;
     $("payOr").hidden = !ready;
     if (ready) {
-      $("payAutoBtn").href = "https://albplayr.openibc.fit/api/pay.php?mac=" + encodeURIComponent(mac) + "&plan=" + encodeURIComponent(sel.id) + "&lang=" + encodeURIComponent(document.documentElement.lang || "en");
+      $("payAutoBtn").href = "https://albplayr.openibc.fit/api/pay.php?mac=" + encodeURIComponent(mac) + "&plan=" + encodeURIComponent(sel.id);
       $("payAutoTxt").textContent = "Pay $" + sel.price.toFixed(2) + " – " + sel.title;
     }
     $("payHint").hidden = !(mac && !sel);
