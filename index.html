@@ -835,6 +835,7 @@ html[dir="rtl"] .steps-tut .faq-item summary::before { margin-right: 0; margin-l
 .pay-tag { margin-left: auto; padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #9fd0ff; background: rgba(30, 99, 170, .25); border: 1px solid rgba(90, 170, 240, .3); }
 
 /* Period cards */
+.pay-binance-note{margin:10px 8px 4px;font-size:.82rem;line-height:1.4;opacity:.75;text-align:center}
 .pay-plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .pay-plan {
   position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
@@ -1747,6 +1748,7 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
       <div class="pay-block">
         <div class="pay-title"><span class="pay-num">1</span>Choose period</div>
         <div class="pay-plans" id="payPlans" role="group" aria-label="Select access period"></div>
+        <p class="pay-binance-note">Paying from Binance? Binance requires a minimum withdrawal of 5 USDT, so every plan here works. Any other wallet works too.</p>
       </div>
 
       <div class="pay-block">
@@ -2931,7 +2933,6 @@ function formatMacInput(el) {
   var BINANCE_ID = "1095100117";   // your Binance Pay ID
   var WHATSAPP   = "447727188441"; // digits only, with country code
   var PLANS = [
-    {id: "3m",   label: "3 months",  title: "3 Months",  price: 3.59,  per: ""},
     {id: "6m",   label: "6 months",  title: "6 Months",  price: 5.59,  per: ""},
     {id: "12m",  label: "12 months", title: "12 Months", price: 8.69,  per: ""},
     {id: "life", label: "lifetime",  title: "Lifetime",  price: 14.69, per: ""}
@@ -3297,7 +3298,7 @@ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if
   if (once("visit")) send("visit");
   function route() { if (/^#activate/.test(location.hash) && once("activate")) send("activate"); }
   route(); window.addEventListener("hashchange", route);
-  var ids = ["3m", "6m", "12m", "life"];
+  var ids = ["6m", "12m", "life"];
   document.addEventListener("click", function (ev) {
     var t = ev.target; if (!t || !t.closest) return;
     var b = t.closest("#payPlans .pay-plan");
