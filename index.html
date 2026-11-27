@@ -3319,6 +3319,26 @@ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if
 /* Ferestrat (Add/Rename/Edit Playlist): sfond i padukshëm që përmbajtja e faqes mos të dalë përmes tyre */
 .modal{background:rgba(2,6,16,.92) !important}
 .modal .modal-box{background:linear-gradient(180deg,#102943,#071729) !important;border:1px solid rgba(98,184,255,.30) !important;box-shadow:0 30px 100px rgba(0,0,0,.7) !important;color:#f3f7ff !important}
+@media (min-width:900px) and (max-width:1400px){.topbar-in{width:calc(100% - 28px) !important;gap:6px !important}.topbar a.logo{font-size:17px !important}.menu,body.menu-open .menu{gap:0 !important}.menu a{padding:10px 8px !important;font-size:11px !important;letter-spacing:.4px !important}.lang{margin-inline-start:4px !important}}
+@media (min-width:900px) and (max-width:1100px){.menu a{padding:10px 5px !important;font-size:10px !important;letter-spacing:.2px !important}.topbar a.logo span{display:none}}
+body.v4modal [id^="tawk"],body.v4modal .tawk-min-container,body.v4modal iframe[title*="chat" i]{display:none !important}
 </style>
+<script id="v4k-modalchat">
+/* Fsheh butonin e bisedës (Tawk.to) kur është e hapur një dritare (Add/Rename/Edit Playlist) dhe e kthen kur mbyllet. */
+(function(){
+  function sync(){
+    var open=!!document.querySelector(".modal.show");
+    document.body.classList.toggle("v4modal",open);
+    try{ if(window.Tawk_API){ if(open&&Tawk_API.hideWidget){Tawk_API.hideWidget();} else if(!open&&Tawk_API.showWidget){Tawk_API.showWidget();} } }catch(e){}
+  }
+  function init(){
+    var mo=new MutationObserver(sync);
+    document.querySelectorAll(".modal").forEach(function(m){mo.observe(m,{attributes:true,attributeFilter:["class"]});});
+    sync();
+  }
+  if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init);}else{init();}
+})();
+</script>
+<style id="v4k-modalchat-end"></style>
 </body>
 </html>
