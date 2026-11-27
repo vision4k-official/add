@@ -1529,7 +1529,9 @@ label{color:#000!important}
 .why-it b{display:block;font-size:14px;margin-bottom:2px}
 .why-it p{margin:0;font-size:12.5px;line-height:1.4;opacity:.85}
 @media(max-width:640px){.why-grid{grid-template-columns:1fr}}
-</style></head>
+</style><style id="v4noother-css">#payOther,#payOr,#payBox{display:none !important}</style>
+<style id="v4contact-css">.pay-other-contact{margin:14px 10px 4px;text-align:center;font-size:.9rem;line-height:1.5;opacity:.85}.pay-other-contact a{color:#7fd6ff;font-weight:700;text-decoration:none;word-break:break-all}.pay-other-contact a:hover{text-decoration:underline}</style>
+</head>
 <body>
 
 <header class="topbar">
@@ -1763,7 +1765,7 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
       <p class="pay-hint" id="payHint" hidden>Select a period above to see the payment details.</p>
 
       <div id="payAuto" class="pay-auto" hidden>
-        <div class="pay-title"><span class="pay-num">3</span>Pay automatically<span class="pay-tag">USDT · BTC</span></div>
+        <div class="pay-title"><span class="pay-num">3</span>Pay automatically<span class="pay-tag">USDT</span></div>
         <a class="pay-auto-btn" id="payAutoBtn" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
           <span id="payAutoTxt">Pay now</span>
@@ -1793,6 +1795,7 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
       <p class="access-note" id="payReq" hidden role="status" aria-live="polite"></p>
       <p class="access-note">After payment, our team confirms it and updates your expiry date.</p>
       </details>
+      <p class="pay-other-contact">Need another way to pay? Please contact us at <a href="mailto:vision4k.support@gmail.com">vision4k.support@gmail.com</a></p>
     </section>
     </div>
   </section>
@@ -1942,7 +1945,7 @@ dt.forEach(function(d,i){d.addEventListener("click",function(){go(i);run()})});r
         </details>
         <details class="faq-item">
           <summary>How do I extend my access?</summary>
-          <p>Pair your device, open Activate Device, choose your period, pay with Binance and tap “I paid – notify admin”. Our team confirms and updates your expiry date.</p>
+          <p>Pair your device, open Activate Device, choose your period, pay with USDT (BEP20) on the payment page. Your device is activated automatically after payment, usually within a few minutes.</p>
         </details>
         <details class="faq-item">
           <summary>Does Vision 4K provide channels or playlists?</summary>
@@ -2931,7 +2934,7 @@ function formatMacInput(el) {
 (function () {
   "use strict";
   // ===== EDIT THESE =====
-  var BINANCE_ID = "1095100117";   // your Binance Pay ID
+  var BINANCE_ID = "";   // manual Binance payment removed from the public page
   var WHATSAPP   = "447727188441"; // digits only, with country code
   var PLANS = [
     {id: "6m",   label: "6 months",  title: "6 Months",  price: 5.59,  per: ""},
